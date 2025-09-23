@@ -25,6 +25,10 @@ Route::get('/bikes', function () {
     return view('bikes.index', ['bikes' => $bikes]);
 });
 
+Route::get('/bikes/create', function () {
+    return view('bikes.create');
+});
+
 Route::get('/bikes/{id}', function ($id) {
     return view('bikes.show', ['id' => $id]);
 });

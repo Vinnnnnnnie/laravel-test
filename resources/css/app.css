@@ -9,3 +9,37 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+body {
+    @apply bg-gray-200 text-gray-700;
+}
+h1 {
+    @apply text-2xl font-bold mb-4;
+}
+h2 {
+    @apply text-xl font-semibold mb-3;
+}
+h3 {
+    @apply text-lg font-semibold mb-2;
+}
+nav {
+    @apply mb-6;
+}
+nav a {
+    @apply bg-blue-500 rounded-2xl text-white px-4 py-2 mr-2 hover:bg-blue-600 hover:decoration-0;
+}
+a {
+    @apply text-blue-600 hover:underline;
+}
+ul {
+    @apply list-disc list-inside mb-4;
+}
+ol {
+    @apply list-decimal list-inside mb-4;
+}
+li {
+    @apply mb-1;
+}
+p {
+    @apply mb-4;
+}

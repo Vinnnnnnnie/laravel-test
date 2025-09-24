@@ -1,19 +1,21 @@
 <x-layout>
     <h2>List of all Recipes</h2>
-    {{-- <ul>
-        @foreach($bikes as $bike)
+    {{  $recipes->links() }}
+    <ul>
+        @foreach($recipes as $recipe)
             <li>
-                <x-card href="">
+                <x-card href="{{ route('recipes.show', $recipe->id) }}">
                         <div style='display:flex;flex-direction:column;gap:0.5rem;'>
-                        <h3>{{ $bike->year }} {{ $bike->make }} {{ ucfirst($bike->model) }}</h3>
-                        <p><strong>Engine Size: {{ $bike->engine_size }}</strong></p>
-                        <p><strong>Color: {{ ucfirst($bike->color) }}</strong></p>
+                        <h3>{{ $recipe->title }}</h3>
+                        <p><strong>Engine Size: </strong></p>
+                        <p><strong>Color: </strong></p>
                     </div>
                     
                 </x-card>
             </li>
         @endforeach
     </ul>
-    <a href="{{ route('bikes.create') }}">Create a New Bike</a> --}}
+    {{  $recipes->links() }}
+    {{-- <a href="{{ route('recipe.create') }}">Create a New Bike</a> --}}
 </x-layout>
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Bike;
+
 class BikeSeeder extends Seeder
 {
     /**
@@ -32,6 +33,6 @@ class BikeSeeder extends Seeder
             'taxed' => false,
             'insured' => false,
         ]);
-        Bike::factory(20)->create();
+        Bike::factory()->count(20)->create();
     }
 }

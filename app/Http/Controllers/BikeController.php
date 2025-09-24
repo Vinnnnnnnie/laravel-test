@@ -7,7 +7,7 @@ use App\Models\Bike;
 class BikeController extends Controller
 {
     public function index() {
-        $bikes = Bike::orderBy('created_at', 'desc')->get();
+        $bikes = Bike::orderBy('created_at', 'desc')->paginate(10);
         return view('bikes.index', ['bikes' => $bikes]);
     }
 

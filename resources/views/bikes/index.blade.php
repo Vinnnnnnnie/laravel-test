@@ -1,5 +1,6 @@
 <x-layout>
     <h2>List of all Bikes</h2>
+    <a href="{{ route('bikes.create') }}">Create a New Bike</a>
     <ul>
         @foreach($bikes as $bike)
             <li>
@@ -14,6 +15,6 @@
             </li>
         @endforeach
     </ul>
-    <a href="{{ route('bikes.create') }}">Create a New Bike</a>
+    {{  $bikes->links() }}
 </x-layout>
 

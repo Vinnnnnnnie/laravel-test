@@ -1,34 +1,15 @@
 <?php
 
+use App\Models\Bike;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BikeController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/recipes', function () {
+    return view('recipes.index');
+})->name('recipes.index');
 
-Route::get('/bikes', function () {
-    $bikes =
-        [
-            [
-                'id' => 1,
-                'make' => 'Kawasaki',
-                'model' => 'ER-5 C3',
-                'year' => '2003'
-            ],
-            [
-                'id' => 2,
-                'make' => 'BMW',
-                'model' => 'K1100',
-                'year' => '1994'
-            ]
-        ];
-    return view('bikes.index', ['bikes' => $bikes]);
-});
-
-Route::get('/bikes/create', function () {
-    return view('bikes.create');
-});
-
-Route::get('/bikes/{id}', function ($id) {
-    return view('bikes.show', ['id' => $id]);
-});
+Route::get('/bikes', [BikeController::class, 'index'])->name('bikes.index');
+Route::get('/bikes/create', [BikeController::class, 'create'])->name('bikes.create');
+Route::get('/bikes/{id}', [BikeController::class, 'show'])->name('bikes.show');

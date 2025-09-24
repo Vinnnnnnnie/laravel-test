@@ -8,10 +8,10 @@
 </head>
 <body>
     <header>
+        <h1><a href='/'>Laravel Test Home Lab</a></h1>
         <nav>
-            <h1>Laravel Test</h1>
-            <a class='btn btn-primary' href='/bikes'>Bikes</a>
-            <a class='btn btn-primary' href='/recipes'>Recipes</a>
+            <a class='btn btn-primary' href='{{ route('bikes.index') }}'>Bikes</a>
+            <a class='btn btn-primary' href='{{ route('recipes.index')}}'>Recipes</a>
         </nav>
     </header>
     <main class='container'>

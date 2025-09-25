@@ -12,9 +12,10 @@
 
 body {
     @apply bg-gray-200 text-gray-700;
+    @apply dark:bg-gray-600 dark:text-gray-200;
 }
 h1 {
-    @apply text-4xl font-bold mb-4 ;
+    @apply text-4xl font-bold mb-4 px-2 py-2;
 }
 h1 a {
     text-decoration: none;
@@ -30,45 +31,24 @@ h3 {
     @apply text-lg font-semibold mb-2;
 }
 header {
-    @apply bg-white p-4 shadow mb-6;
-}
-nav {
-    @apply mb-6 pb-4 flex items-center;    
-}
-nav a {
-    @apply bg-blue-500 rounded-2xl text-white px-4 py-2 mr-2 hover:bg-blue-600 hover:decoration-0;
-}
-a {
-    @apply text-blue-600 hover:underline;
-}
-ul {
-    @apply list-disc list-inside mb-4;
-}
-ol {
-    @apply list-decimal list-inside mb-4;
-}
-li {
-    @apply mb-1;
-    text-decoration: none;
-    list-style-type: none;
-
-}
-li::marker {
-    display:none;
-
+    @apply bg-white shadow mb-6;
+    @apply dark:bg-gray-800 shadow mb-6;
 }
 p {
     @apply mb-4;
 }
 
 .card {
-    @apply bg-white p-4 rounded-lg shadow mb-4 flex justify-between items-center;
+    @apply bg-white p-4 shadow mb-4 flex justify-between items-center;
+    @apply dark:bg-gray-800;
 }
 .highlight {
     @apply border-l-4 border-red-500;
 }
 .btn {
-    @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600;
+    @apply items-center px-4 py-2 hover:cursor-pointer;
+    @apply bg-gray-200 hover:bg-gray-300;
+    @apply dark:bg-gray-600 dark:hover:bg-gray-700;
 }
 .btn-primary {
     @apply bg-blue-600 hover:bg-blue-700;

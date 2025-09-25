@@ -8,23 +8,28 @@
 </head>
 <body>
     <header>
-        <h1><a href='/'>Laravel Test Home Lab</a></h1>
-        <nav>
-            <a class='btn btn-primary' href='{{ route('bikes.index') }}'>Bikes</a>
-            <a class='btn btn-primary' href='{{ route('recipes.index')}}'>Recipes</a>
-            {{-- @if()
-            @endif --}}
+        <div class="flex justify-between text-center align-middle">
+        <h1>Laravel Test Home Lab</h1>
             @auth
-                <span>Hello, {{ Auth::user()->name }}</span>
-                <form action='{{ route('logout') }}' method='POST'>
-                    @csrf
-                    <button class='btn btn-primary' type='submit'>Logout</button>
-                </form>
+                <div class="flex p-2">
+                    <span class="font-bold text-lg mr-2 content-center">Hello, {{ Auth::user()->name }}</span>
+                    <form action='{{ route('logout') }}' method='POST'>
+                        @csrf
+                        <button class='btn' type='submit'>Logout</button>
+                    </form>
+                </div>
             @endauth
             @guest
-                <a class='btn btn-primary' href='{{ route('show.login') }}'>Login</a>
-                <a class='btn btn-primary' href='{{ route('show.register')}}'>Register</a>
+                <div class="flex p-2">
+                    <a class='btn' href='{{ route('show.login') }}'>Login</a>
+                    <a class='btn' href='{{ route('show.register')}}'>Register</a>
+                </div>
             @endguest
+        </div>
+        <nav class="flex">
+            <a class='btn' href='/'>Home</a>
+            <a class='btn' href='{{ route('bikes.index') }}'>Bikes</a>
+            <a class='btn' href='{{ route('recipes.index')}}'>Recipes</a>
         </nav>
     </header>
     <main class='container'>

@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GarageSeeder::class);
         $this->call(BikeSeeder::class);
         $this->call(RecipeSeeder::class);
+        $this->call(CommentSeeder::class);
     }
 }

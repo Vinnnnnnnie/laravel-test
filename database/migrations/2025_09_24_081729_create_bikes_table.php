@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('make');
             $table->string('model');
             $table->string('year');
-            $table->string('color')->nullable();
+            $table->string('colour')->nullable();
             $table->string('engine_size')->nullable();
             $table->boolean('MOT')->default(false);
             $table->boolean('taxed')->default(false);
             $table->boolean('insured')->default(false);
+            $table->foreignId('garage_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 

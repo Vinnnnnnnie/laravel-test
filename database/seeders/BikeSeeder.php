@@ -17,21 +17,24 @@ class BikeSeeder extends Seeder
             'make' => 'Kawasaki',
             'model' => 'ER-5',
             'year' => '2003',
-            'color' => 'Blue',
+            'colour' => 'Blue',
             'engine_size' => '498cc',
             'MOT' => true,
             'taxed' => true,
             'insured' => true,
+            'garage_id' => 1,
         ]);
         Bike::create([
             'make' => 'BMW',
             'model' => 'K1100LT',
             'year' => '1994',
-            'color' => 'Maroon',
+            'colour' => 'Maroon',
             'engine_size' => '1100cc',
             'MOT' => false,
             'taxed' => false,
             'insured' => false,
+            'garage_id' => 1,
+
         ]);
         Bike::factory()->count(20)->create();
     }

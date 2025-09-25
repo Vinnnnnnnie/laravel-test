@@ -12,6 +12,19 @@
         <nav>
             <a class='btn btn-primary' href='{{ route('bikes.index') }}'>Bikes</a>
             <a class='btn btn-primary' href='{{ route('recipes.index')}}'>Recipes</a>
+            {{-- @if()
+            @endif --}}
+            @auth
+                <span>Hello, {{ Auth::user()->name }}</span>
+                <form action='{{ route('logout') }}' method='POST'>
+                    @csrf
+                    <button class='btn btn-primary' type='submit'>Logout</button>
+                </form>
+            @endauth
+            @guest
+                <a class='btn btn-primary' href='{{ route('show.login') }}'>Login</a>
+                <a class='btn btn-primary' href='{{ route('show.register')}}'>Register</a>
+            @endguest
         </nav>
     </header>
     <main class='container'>

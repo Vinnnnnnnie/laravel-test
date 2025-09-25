@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bike extends Model
 {
-    protected $fillable = ['make', 'model', 'year', 'color', 'engine_size', 'MOT', 'taxed', 'insured'];
+    protected $fillable = ['make', 'model', 'year', 'colour', 'engine_size', 'MOT', 'taxed', 'insured', 'garage_id'];
 
     /** @use HasFactory<\Database\Factories\BikeFactory> */
     use HasFactory;
+
+    public function garage() {
+        return $this->belongsTo(Garage::class);
+    }
+
+    // $bike->garage->name
 }
 

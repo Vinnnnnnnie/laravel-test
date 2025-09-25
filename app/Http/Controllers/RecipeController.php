@@ -8,15 +8,14 @@ class RecipeController extends Controller
 {
     //
     public function index() {
-        $recipes = Recipe::orderBy('created_at', 'desc')->simplePaginate(10);
+        $recipes = Recipe::orderBy('created_at', 'desc')->paginate(10);
         return view('recipes.index', ['recipes' => $recipes]);
     }
-    public function show($id) {
-        $recipe = Recipe::findOrFail($id);
+    public function show(Recipe $recipe) {
         return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create() {
-        // return view('recipes.create');
+        return view('recipes.create');
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -30,6 +29,10 @@ class RecipeController extends Controller
         ]);
         Recipe::create($validated);
         return redirect('/recipes')->with('success', 'Recipe added successfully!');
+    }
+    public function destroy(Recipe $recipe) {
+        $recipe->delete();
+        return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
     }
     public function edit($id) {
         $recipe = Recipe::findOrFail($id);

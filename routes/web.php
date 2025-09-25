@@ -4,12 +4,40 @@ use App\Models\Bike;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BikeController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
-Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 
-Route::get('/bikes', [BikeController::class, 'index'])->name('bikes.index');
-Route::get('/bikes/create', [BikeController::class, 'create'])->name('bikes.create');
-Route::get('/bikes/{id}', [BikeController::class, 'show'])->name('bikes.show');
+Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('guest')->controller(AuthController::class)->group(function () {
+    Route::get('/register',  'showRegister')->name('show.register');
+    Route::get('/login',  'showLogin')->name('show.login');
+
+    Route::post('/register',  'register')->name('register');
+    Route::post('/login',  'login')->name('login');
+});
+
+
+
+
+// Recipe Routes
+Route::middleware('auth')->controller(RecipeController::class)->group(function () {
+    Route::get('/recipes', 'index')->name('recipes.index');
+    Route::get('/recipes/create', 'create')->name('recipes.create');
+    Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
+    Route::post('/recipes', 'store')->name('recipes.store');
+    Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
+});
+
+// Bike Routes
+Route::middleware('auth')->controller(BikeController::class)->group(function () {
+    Route::get('/bikes', 'index')->name('bikes.index');
+    Route::get('/bikes/create', 'create')->name('bikes.create');
+    Route::get('/bikes/{bike}', 'show')->name('bikes.show');
+    Route::post('/bikes', 'store')->name('bikes.store');
+    Route::delete('/bikes/{bike}', 'destroy')->name('bikes.destroy');
+});
+
+

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Garage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bike>
@@ -21,11 +22,12 @@ class BikeFactory extends Factory
             'make' => $bikeMakes[array_rand($bikeMakes)],
             'model' => $this->faker->word(),
             'year' => $this->faker->year(),
-            'color' => $this->faker->safeColorName(),
+            'colour' => $this->faker->safeColorName(),
             'engine_size' => $this->faker->numberBetween(50, 1500) . 'cc',
             'MOT' => $this->faker->boolean(),
             'taxed' => $this->faker->boolean(),
             'insured' => $this->faker->boolean(),
+            'garage_id' => Garage::inRandomOrder()->first()->id ?? null,
         ];
     }
 }

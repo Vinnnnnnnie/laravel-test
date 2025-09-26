@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Comment;
 class RecipeController extends Controller
 {
     //
     public function index() {
-        $recipes = Recipe::orderBy('created_at', 'desc')->paginate(10);
+        
+        $recipes = Recipe::with('comment')->orderBy('created_at', 'desc')->paginate(10);
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {

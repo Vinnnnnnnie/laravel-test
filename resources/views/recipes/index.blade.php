@@ -21,6 +21,7 @@
             {{  $recipes->links() }}
             <ul>
                 @foreach($recipes as $recipe)
+                
                     <li>
                         <x-card href="{{ route('recipes.show', $recipe) }}">
                             <div style='display:flex;flex-direction:column;gap:0.5rem;'>
@@ -30,9 +31,14 @@
                                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
                             </div>
                         </x-card>
-                        <x-comments>
+                        @if($recipe->comment)
+                        @foreach($recipe->comment as $comment)
+                            <x-comment class='bg-gray-50'>
+                                {{ $comment->comment }}
+                            </x-comment>
+                        @endforeach
+                        @endif
 
-                        </x-comments>
                     </li>
                 @endforeach
             </ul>

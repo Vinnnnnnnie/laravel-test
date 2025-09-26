@@ -45,6 +45,9 @@ p {
 .highlight {
     @apply border-l-4 border-red-500;
 }
+.comment {
+    @apply bg-gray-50 w-100 items-center px-2 py-1 flex flex-col;
+}
 .btn {
     @apply items-center px-4 py-2 hover:cursor-pointer;
     @apply bg-gray-200 hover:bg-gray-300;

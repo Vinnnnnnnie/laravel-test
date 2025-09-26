@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
     protected $fillable = ['title', 'ingredients', 'instructions', 'preparation_time', 'cooking_time', 'servings', 'difficulty'];
     /** @use HasFactory<\Database\Factories\RecipeFactory> */
     use HasFactory;
+
+    public function comment() {
+        return $this->hasMany(Comment::class);
+    }
 }

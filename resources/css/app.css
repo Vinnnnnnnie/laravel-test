@@ -35,18 +35,19 @@ header {
     @apply dark:bg-gray-800 shadow mb-6;
 }
 p {
-    @apply mb-4;
+    
 }
 
 .card {
-    @apply bg-white p-4 shadow mb-4 flex justify-between items-center;
+    @apply bg-white p-4 shadow mt-4 flex justify-between items-center;
     @apply dark:bg-gray-800;
 }
 .highlight {
     @apply border-l-4 border-red-500;
 }
 .comment {
-    @apply bg-gray-50 w-100 items-center px-2 py-1 flex flex-col;
+    @apply bg-gray-50 items-center px-2 py-1 flex flex-col ml-12 mt-4;
+    @apply dark:bg-gray-700 dark:text-gray-200
 }
 .btn {
     @apply items-center px-4 py-2 hover:cursor-pointer;

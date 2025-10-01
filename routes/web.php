@@ -19,7 +19,14 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('/login',  'login')->name('login');
 });
 
+Route::get('/public/images/{filename}', function ($filename) {
+    $path = public_path('images/' . $filename);
 
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+})->name('image');
 
 
 // Recipe Routes

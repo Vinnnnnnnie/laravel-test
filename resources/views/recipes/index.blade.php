@@ -6,23 +6,21 @@
             </div>
         @endif
     </ul>
-    <div class='flex justify-between items-center mb-4'>
-        {{-- <div class='friends list'>
-            <ul>
-                @foreach($friends as $friend)
-                    <li>{{ $friend->name }}</li>
-                @endforeach
-            </ul>
-        </div> --}}
+    <div class='flex justify-between mb-4'>
         {{-- Recipe List --}}
-        <div>
-            <a href="{{ route('recipes.create') }}">Create a New Recipe</a>
-            <h2>List of all Recipes</h2>
-            {{  $recipes->links() }}
+        <div class='w-full ml-4'>
+            <div class='flex justify-between items-center mb-4'>
+                <h2>List of all Recipes</h2><a class='btn bg-green-900' href="{{ route('recipes.create') }}">Create a New Recipe</a>
+            </div>
             <ul>
                 @foreach($recipes as $recipe)
-                
                     <li>
+                        {{-- If recipe has a lot of likes, could have a fire border, 
+                        if it is new, it could have a blue new border, 
+                        if it is disliked a lot, give it a controversial border --}}
+
+                        {{-- Border or tag I suppose --}}
+                    
                         <x-card href="{{ route('recipes.show', $recipe) }}">
                             <div style='display:flex;flex-direction:column;gap:0.5rem;'>
                                 <h3>{{ $recipe->title }}</h3>
@@ -32,18 +30,48 @@
                             </div>
                         </x-card>
                         @if($recipe->comment)
-                        @foreach($recipe->comment as $comment)
-                            <x-comment class='bg-gray-50'>
-                                {{ $comment->comment }}
-                            </x-comment>
-                        @endforeach
+                            @foreach($recipe->comment as $comment)
+                                <x-comment>
+                                    <img src='public/images/{{ $comment->user->image_path }}' class='w-20 max-w-20'><strong>{{ $comment->user->name }}:</strong>
+                                    {{ $comment->comment }}
+                                </x-comment>
+                            @endforeach
                         @endif
 
                     </li>
                 @endforeach
             </ul>
+            {{  $recipes->links() }}
+        </div>
+        <div class='friends-list w-50 ml-4 p-4 bg-gray-800'>
+            {{-- Friends List --}}
+            {{-- This is a placeholder. Replace with dynamic content as needed. --}}
+            <ul>
+                <li><h2>Your Friends</h2></li>
+                <li>
+                    <div>
+                        <span><strong>Ellen Maxwell</strong></span>
+                        <p>7 Recipes</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span><strong>Tom Bozier</strong></span>
+                        <p>3 Recipes</p>
+                    </div>
+                </li>                
+                <li>
+                    <div>
+                        <span><strong>Vera Stepanyan</strong></span>
+                        <p>12 Recipes</p>
+                    </div>
+                </li>
+                {{-- @foreach($friends as $friend)
+                    <li>{{ $friend->name }}</li>
+                @endforeach --}}
+            </ul>
         </div>
     </div>
-    {{  $recipes->links() }}
+    
 </x-layout>
 

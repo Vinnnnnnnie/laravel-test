@@ -21,6 +21,8 @@ class RecipeSeeder extends Seeder
             'cooking_time' => 30,
             'servings' => 4,
             'difficulty' => 'Easy',
+            'image_path' => '01.jpg',
+            'user_id' => 1,
         ]);
         Recipe::create([
             'title' => 'Chicken Curry',
@@ -30,6 +32,8 @@ class RecipeSeeder extends Seeder
             'cooking_time' => 35,
             'servings' => 4,
             'difficulty' => 'Medium',
+            'image_path' => '02.jpg',
+            'user_id' => 2,
         ]);
         Recipe::factory()->count(20)->create();
     }

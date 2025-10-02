@@ -11,7 +11,7 @@
         <div class="flex justify-between text-center align-middle">
         <h1>Laravel Test Home Lab</h1>
             @auth
-                <div class="flex p-2">
+                <div class="flex p-2 items-center">
                     <span class="font-bold text-lg mr-2 content-center">Hello, {{ Auth::user()->name }}</span>
                     <form action='{{ route('logout') }}' method='POST'>
                         @csrf
@@ -20,7 +20,7 @@
                 </div>
             @endauth
             @guest
-                <div class="flex p-2">
+                <div class="flex p-2 items-center gap-2">
                     <a class='btn' href='{{ route('show.login') }}'>Login</a>
                     <a class='btn' href='{{ route('show.register')}}'>Register</a>
                 </div>
@@ -32,7 +32,7 @@
             <a class='btn' href='{{ route('recipes.index')}}'>Recipes</a>
         </nav>
     </header>
-    <main class='container items-center mx-auto'>
+    <main class='container items-center mx-auto w-300'>
         {{ $slot }}
     </main>
 </body>

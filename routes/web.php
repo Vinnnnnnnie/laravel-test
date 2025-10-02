@@ -19,15 +19,23 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('/login',  'login')->name('login');
 });
 
-Route::get('/public/images/{filename}', function ($filename) {
-    $path = public_path('images/' . $filename);
+Route::get('/public/images/users/{filename}', function ($filename) {
+    $path = public_path('images/users/' . $filename);
 
     if (!file_exists($path)) {
         abort(404);
     }
     return response()->file($path);
-})->name('image');
+})->name('image.users');
 
+Route::get('/public/images/recipes/{filename}', function ($filename) {
+    $path = public_path('images/recipes/' . $filename);
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+})->name('image.recipes');
 
 // Recipe Routes
 Route::middleware('auth')->controller(RecipeController::class)->group(function () {

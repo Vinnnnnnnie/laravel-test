@@ -6,11 +6,22 @@
             </div>
         @endif
     </ul>
-    <div class='flex justify-between mb-4'>
+    <div class='flex justify-between mb-4 gap-8'>
+        {{-- User info --}}
+        <div class='w-80'>
+            <div class='bg-gray-800 flex items-center gap-4 p-4'>
+                <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
+                <div>
+                    <h2 class='text-xl font-bold'>{{ auth()->user()->name }}</h2>
+                    <p>{{ auth()->user()->email }}</p>
+                    <p>{{ count(auth()->user()->recipe) }} @if (count(auth()->user()->recipe) > 1)Recipes @else Recipe @endif</p>
+                </div>
+            </div>
+        </div>
         {{-- Recipe List --}}
-        <div class='w-full ml-4'>
+        <div class='w-full'>
             <div class='flex justify-between items-center mb-4'>
-                <h2>List of all Recipes</h2><a class='btn bg-green-900' href="{{ route('recipes.create') }}">Create a New Recipe</a>
+                <h2>Recent Recipes</h2><a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
             </div>
             <ul>
                 @foreach($recipes as $recipe)
@@ -23,16 +34,25 @@
                     
                         <x-card href="{{ route('recipes.show', $recipe) }}">
                             <div style='display:flex;flex-direction:column;gap:0.5rem;'>
+                                <div class='flex flex-row gap-2' style='flex-direction:row'>
+                                    <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
+                                    <div>
+                                        <strong>{{ $recipe->user->name }}</strong>
+                                        <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>
+                                    </div>
+                                </div>
+
                                 <h3>{{ $recipe->title }}</h3>
-                                <p><strong>Prep Time: </strong>{{ $recipe->preparation_time}}</p>
-                                <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}}</p>
+                                <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-100 max-w-100'>
+                                <p><strong>Prep Time: </strong>{{ $recipe->preparation_time}} Minutes</p>
+                                <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}} Minutes</p>
                                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
                             </div>
                         </x-card>
                         @if($recipe->comment)
                             @foreach($recipe->comment as $comment)
                                 <x-comment>
-                                    <img src='public/images/{{ $comment->user->image_path }}' class='w-20 max-w-20'><strong>{{ $comment->user->name }}:</strong>
+                                    <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'><strong>{{ $comment->user->name }}:</strong>
                                     {{ $comment->comment }}
                                 </x-comment>
                             @endforeach
@@ -43,7 +63,7 @@
             </ul>
             {{  $recipes->links() }}
         </div>
-        <div class='friends-list w-50 ml-4 p-4 bg-gray-800'>
+        <div class='friends-list w-80 p-4 bg-gray-800'>
             {{-- Friends List --}}
             {{-- This is a placeholder. Replace with dynamic content as needed. --}}
             <ul>

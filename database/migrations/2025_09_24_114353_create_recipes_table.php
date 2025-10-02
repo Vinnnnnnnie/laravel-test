@@ -20,7 +20,9 @@ return new class extends Migration
             $table->integer('preparation_time'); // in minutes
             $table->integer('cooking_time'); // in minutes
             $table->integer('servings');
-            $table->string('difficulty'); // e.g., Easy, Medium, Hard
+            $table->enum('difficulty', ['Easy', 'Medium', 'Hard']); // e.g., Easy, Medium, Hard
+            $table->string('image_path')->nullable();
+            $table->foreignId('user_id')->constained()->onDelete('cascade');
         });
     }
 

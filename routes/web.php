@@ -44,6 +44,7 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
+    Route::post('/recipes', 'store')->name('comments.store');
 });
 
 // Bike Routes

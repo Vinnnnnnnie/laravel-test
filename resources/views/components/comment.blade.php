@@ -1,6 +1,7 @@
-<div class='comment'>
+@props(['highlight'=> false])
+<div @class(['highlight' => $highlight, 'comment'])>
     {{-- User image and content --}}
-    <div class='flex items-center gap-2'>
+    <div class='flex w-full items-center justify-between gap-2'>
     {{ $slot }}
     </div>
     {{-- Comment buttons --}}

@@ -51,9 +51,14 @@
                         </x-card>
                         @if($recipe->comment)
                             @foreach($recipe->comment as $comment)
-                                <x-comment>
-                                    <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'><strong>{{ $comment->user->name }}:</strong>
+                                <x-comment :highlight='$comment->user_id === $recipe->user_id'>
+                                    <div>
+                                        <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
+                                        <strong>{{ $comment->user->name }}:</strong>
+                                    </div>
+                                    <div>
                                     {{ $comment->comment }}
+                                    </div>
                                 </x-comment>
                             @endforeach
                         @endif

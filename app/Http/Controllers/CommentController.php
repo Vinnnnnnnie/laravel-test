@@ -16,7 +16,7 @@ class CommentController extends Controller
 
         Comment::create([
             'recipe_id' => $request->input('recipe_id'),
-            'user_id' => auth()->id,
+            'user_id' => auth()->user()->id,
             'comment' => $request->input('comment'),
         ]);
 

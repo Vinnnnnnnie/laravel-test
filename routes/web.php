@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BikeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -44,8 +45,9 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
-    Route::post('/recipes', 'store')->name('comments.store');
 });
+Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
+
 
 // Bike Routes
 Route::middleware('auth')->controller(BikeController::class)->group(function () {

@@ -91,12 +91,11 @@
                         <p>12 Recipes</p>
                     </div>
                 </li>
-                {{-- @foreach($friends as $friend)
-                    <li>{{ $friend->name }}</li>
-                @endforeach --}}
+
             </ul>
         </div>
     </div>
     
 </x-layout>
 
+                <li>{{ view('friends.index')}}</li>

@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Comment;
+use App\Models\UserFriend;
+
 class RecipeController extends Controller
 {
     //
     public function index() {
         
         $recipes = Recipe::with(['comment', 'user'])->orderBy('created_at', 'desc')->paginate(10);
-        return view('recipes.index', ['recipes' => $recipes]);
+        $friends = UserFriend::findMany([12], 'user_id');
+        return view('recipes.index', ['recipes' => $recipes, 'friends' => $friends]);
     }
     public function show(Recipe $recipe) {
         return view('recipes.show', ['recipe' => $recipe]);

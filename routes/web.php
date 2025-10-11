@@ -6,6 +6,8 @@ use App\Http\Controllers\BikeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserFriendController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -47,7 +49,7 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
 });
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
-
+Route::post('/recipes', [UserFriendController::class, 'index'])->name('friends.index');
 
 // Bike Routes
 Route::middleware('auth')->controller(BikeController::class)->group(function () {

@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function recipe() {
         return $this->hasMany(Recipe::class);
     }
+
+    public function friend() {
+        return $this->hasMany(UserFriend::class);
+    }
 }

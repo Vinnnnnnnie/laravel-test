@@ -32,7 +32,7 @@
             <a class='btn' href='{{ route('recipes.index')}}'>Recipes</a>
         </nav>
     </header>
-    <main class='container items-center mx-auto w-300'>
+    <main class='container items-center mx-auto w-450'>
         {{ $slot }}
     </main>
 </body>

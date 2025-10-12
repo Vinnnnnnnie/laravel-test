@@ -14,6 +14,6 @@ class UserFriend extends Model
     }
 
     public function friend() {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

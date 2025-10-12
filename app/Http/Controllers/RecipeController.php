@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Comment;
 use App\Models\UserFriend;
-
+use App\Models\User;
 class RecipeController extends Controller
 {
     //
     public function index() {
         
         $recipes = Recipe::with(['comment', 'user'])->orderBy('created_at', 'desc')->paginate(10);
-        $friends = UserFriend::findMany([12], 'user_id');
+        $friends = UserFriend::query()
+            ->join('users', 'users.id', '=', 'user_friends.friend_user_id')
+            ->where('user_friends.user_id', '=',  auth()->user()->id)
+            ->select(['user_friends.*', 'users.name', 'users.email', 'users.image_path'])
+            ->get();
         return view('recipes.index', ['recipes' => $recipes, 'friends' => $friends]);
     }
     public function show(Recipe $recipe) {

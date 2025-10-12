@@ -26,12 +26,12 @@
             <ul>
                 @foreach($recipes as $recipe)
                     <li>
-                        {{-- If recipe has a lot of likes, could have a fire border, 
-                        if it is new, it could have a blue new border, 
+                        {{-- If recipe has a lot of likes, could have a fire border,
+                        if it is new, it could have a blue new border,
                         if it is disliked a lot, give it a controversial border --}}
 
                         {{-- Border or tag I suppose --}}
-                    
+
                         <x-card href="{{ route('recipes.show', $recipe) }}">
                             <div style='display:flex;flex-direction:column;gap:0.5rem;'>
                                 <div class='flex flex-row gap-2' style='flex-direction:row'>
@@ -68,34 +68,21 @@
             </ul>
             {{  $recipes->links() }}
         </div>
-        <div class='friends-list w-80 p-4 bg-gray-800'>
-            {{-- Friends List --}}
-            {{-- This is a placeholder. Replace with dynamic content as needed. --}}
+        {{-- Friends List --}}
+        <div class='friends-list w-100 p-4 bg-gray-800'>
             <ul>
                 <li><h2>Your Friends</h2></li>
+                @foreach($friends as $friend)
                 <li>
-                    <div>
-                        <span><strong>Ellen Maxwell</strong></span>
-                        <p>7 Recipes</p>
-                    </div>
+                    <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
+                        <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
+                        <strong>{{ $friend->name }}</strong>
+                    </a>
                 </li>
-                <li>
-                    <div>
-                        <span><strong>Tom Bozier</strong></span>
-                        <p>3 Recipes</p>
-                    </div>
-                </li>                
-                <li>
-                    <div>
-                        <span><strong>Vera Stepanyan</strong></span>
-                        <p>12 Recipes</p>
-                    </div>
-                </li>
+                @endforeach
 
             </ul>
         </div>
     </div>
-    
-</x-layout>
 
-                <li>{{ view('friends.index')}}</li>
+</x-layout>

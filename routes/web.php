@@ -7,7 +7,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserFriendController;
-
+use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -50,7 +50,7 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
 });
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
 Route::post('/recipes', [UserFriendController::class, 'index'])->name('friends.index');
-
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 // Bike Routes
 Route::middleware('auth')->controller(BikeController::class)->group(function () {
     Route::get('/bikes', 'index')->name('bikes.index');

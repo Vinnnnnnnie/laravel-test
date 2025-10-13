@@ -31,17 +31,10 @@
                         if it is disliked a lot, give it a controversial border --}}
 
                         {{-- Border or tag I suppose --}}
-<<<<<<< HEAD
-
-                        <x-card href="{{ route('recipes.show', $recipe) }}">
-                            <div style='display:flex;flex-direction:column;gap:0.5rem;'>
-                                <div class='flex flex-row gap-2' style='flex-direction:row'>
-=======
                     
                         <x-card href="{{ route('recipes.show', $recipe) }}" :user='$recipe->user_id === auth()->user()->id'>
                             <div class='flex flex-col gap-0.5 w-100 justify-start'>
                                 <div class='flex flex-row gap-2'>
->>>>>>> cb5687474fc3ad250fa5f07662b26760754c0479
                                     <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
                                     <div>
                                         <strong>{{ $recipe->user->name }}</strong>

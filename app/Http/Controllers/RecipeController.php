@@ -13,8 +13,8 @@ class RecipeController extends Controller
     public function index() {
         
         $recipes = Recipe::with(['comment', 'user'])->orderBy('created_at', 'desc')->paginate(10);
-        $friends = UserFriend::findMany([12], 'user_id');
-        return view('recipes.index', ['recipes' => $recipes, 'friends' => $friends]);
+        // $friends = UserFriend::findMany([12], 'user_id');
+        return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {
         return view('recipes.show', ['recipe' => $recipe]);

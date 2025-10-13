@@ -1,5 +1,5 @@
-@props(['highlight'=> false])
-<div @class(['highlight' => $highlight, 'comment'])>
+@props(['highlight'=> false, 'owner' => false, 'user' => false])
+<div @class(['highlight' => $highlight,'user'=>$user, 'owner'=>$owner,  'comment'])>
     {{-- User image and content --}}
     <div class='flex w-full items-center justify-between gap-2'>
     {{ $slot }}

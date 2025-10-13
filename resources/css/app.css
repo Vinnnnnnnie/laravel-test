@@ -39,11 +39,21 @@ p {
 }
 
 .card {
-    @apply bg-white p-4 shadow mt-4 flex justify-between items-center;
+    @apply bg-gray-50 p-4 shadow mt-4 flex justify-between items-center;
     @apply dark:bg-gray-800;
+}
+a.card {
+    @apply hover:bg-gray-100;
+    @apply dark:hover:bg-gray-600;
 }
 .highlight {
     @apply border-l-4 border-red-500;
+}
+.owner {
+    @apply border-l-4 border-green-500;
+}
+.user {
+    @apply border-l-4 border-blue-500;
 }
 .comment {
     @apply bg-gray-50 items-center p-3 flex flex-col ml-12 mt-4;
@@ -63,5 +73,15 @@ p {
     @apply invalid:border-red-500
 }
 .form {
-    @apply flex bg-gray-800 p-4 flex-col w-70 items-center justify-self-center my-20 rounded;
+    @apply flex bg-gray-50 p-4 flex-col w-70 items-center justify-self-center my-20 rounded;
+    @apply dark:bg-gray-800;
+}
+.profile {
+    @apply bg-gray-50 flex items-center gap-4 p-4;
+    @apply dark:bg-gray-800;
+}
+
+.friends-list {
+    @apply w-80 p-4 bg-gray-50;
+    @apply dark:bg-gray-800;
 }

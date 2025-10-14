@@ -35,6 +35,7 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
+            'user_id' => 'required|integer|exists:users'
         ]);
         Recipe::create($validated);
         return redirect('/recipes')->with('success', 'Recipe added successfully!');

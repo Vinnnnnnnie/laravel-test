@@ -12,7 +12,7 @@
             <div class='profile'>
                 <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
                 <div>
-                    <h2 class='text-xl font-bold'><a href={{ ''/*route('user.show')*/ }}>{{ auth()->user()->name }}</a></h2>
+                    <h2 class='text-xl font-bold'><a href={{ route('users.show', auth()->user()->id) }}>{{ auth()->user()->name }}</a></h2>
                     <p>{{ auth()->user()->email }}</p>
                     <p>{{ count(auth()->user()->recipe) }} @if (count(auth()->user()->recipe) > 1)Recipes @else Recipe @endif</p>
                 </div>

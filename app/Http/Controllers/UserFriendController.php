@@ -13,4 +13,14 @@ class UserFriendController extends Controller
         return view('friends.index', ['friends' => $friends]);
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+                'user_id', 'required|integer|exists:users',
+                'friend_user_id', 'required|integer|exists:users'
+            ]);
+        UserFriend::create($validated);
+        // return redirect()->back()->with('success', 'Friend added successfully!');
+        return redirect()->route('users.show', $request->user_id)->with('success', 'Friend added successfully!');
+    }
 }

@@ -21,7 +21,7 @@ class RecipeSeeder extends Seeder
             'cooking_time' => 30,
             'servings' => 4,
             'difficulty' => 'Easy',
-            'image_path' => '01.jpg',
+            'image_path' => 'Bowl_of_Spicy_Veggie_Chili.png.jpg',
             'user_id' => 1,
         ]);
         Recipe::create([
@@ -32,9 +32,9 @@ class RecipeSeeder extends Seeder
             'cooking_time' => 35,
             'servings' => 4,
             'difficulty' => 'Medium',
-            'image_path' => '02.jpg',
+            'image_path' => 'Bowl_of_Curry_Pumpkin_Soup.png.jpg',
             'user_id' => 2,
         ]);
-        Recipe::factory()->count(20)->create();
+        Recipe::factory()->count(40)->create();
     }
 }

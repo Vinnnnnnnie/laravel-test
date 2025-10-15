@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('user_friends', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('friend_user_id')->constrained('users')->onDelete('cascade');
-            $table->unique('user_id', 'friend_user_id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->unique(false);
+            $table->foreignId('friend_user_id')->constrained('users')->onDelete('cascade')->unique(false);
+            $table->unique(['user_id', 'friend_user_id']);
         });
     }
 

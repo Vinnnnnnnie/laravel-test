@@ -16,9 +16,10 @@ class UserFriendController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-                'user_id', 'required|integer|exists:users',
-                'friend_user_id', 'required|integer|exists:users'
+                'user_id' => 'required|integer|exists:users,id',
+                'friend_user_id' => 'required|integer|exists:users,id'
             ]);
+
         UserFriend::create($validated);
         // return redirect()->back()->with('success', 'Friend added successfully!');
         return redirect()->route('users.show', $request->user_id)->with('success', 'Friend added successfully!');

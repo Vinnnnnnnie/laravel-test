@@ -16,6 +16,14 @@ class UserFriendFactory extends Factory
      */
     public function definition(): array
     {
+        $user_id = User::inRandomOrder()->first()->id;
+        $friend_id = User::inRandomOrder()->first()->id;
+
+        if ($user_id === $friend_id)
+        {
+            return [];
+        }
+
         return [
             'user_id' => User::inRandomOrder()->first()->id,
             'friend_user_id' => User::inRandomOrder()->first()->id

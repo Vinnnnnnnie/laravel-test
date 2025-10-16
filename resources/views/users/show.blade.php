@@ -30,13 +30,15 @@
                 I love food. Ever since I tasted my first piece of kale, I haven't been able to stay away from delicious food.
                 I love food. Ever since I tasted my first piece of kale, I haven't been able to stay away from delicious food.
             </p>
-        </div>
+        </div
+        {{-- @if(UserFriend::select()->where('user_id', auth()->user()->id)->where('friend_user_id', $user->id)->exists()) --}}
         <form action='{{ route('friends.store') }}' method='post'>
             @csrf
             <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
             <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
             <input type='submit' class="btn bg-green-500" value='Add Friend'>
         </form>
+        {{-- @else --}}
         <form action='{{ route('friends.destroy') }}' method='post'>
             @csrf
             @method('DELETE')
@@ -44,6 +46,7 @@
             <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
             <input type='submit' class="btn bg-red-500" value='Remove Friend'>
         </form>
+        {{-- @endif --}}
     </div>
     
     {{-- Recipe List --}}

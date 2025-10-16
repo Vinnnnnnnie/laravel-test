@@ -18,7 +18,7 @@
     @endif
     {{-- User information --}}
     <div class='card flex flex-row gap-4'>
-        <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-50 max-w-50'>
+        <img src='{{ route('image.users', $user->image_path)}}' class='w-50 max-w-50'>
         <div class='flex flex-col gap-4'>
             <div class='flex justify-start w-full'><h2>{{ $user->name}}</h2></div>
             <p><strong>{{ $user->email }}</strong></p>
@@ -35,7 +35,14 @@
             @csrf
             <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
             <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
-            <input type='submit' class="btn" value='Add Friend'>
+            <input type='submit' class="btn bg-green-500" value='Add Friend'>
+        </form>
+        <form action='{{ route('friends.destroy') }}' method='post'>
+            @csrf
+            @method('DELETE')
+            <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
+            <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
+            <input type='submit' class="btn bg-red-500" value='Remove Friend'>
         </form>
     </div>
     

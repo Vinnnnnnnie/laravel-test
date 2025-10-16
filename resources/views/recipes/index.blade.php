@@ -20,6 +20,16 @@
         </div>
         {{-- Recipe List --}}
         <div class='w-full'>
+            {{-- Recipe Search --}}
+            <div class='w-full'>
+                <h2>Find Recipes</h2>
+                <form action={{-- route('recipes.search') --}} method='get' class='flex gap-2 card'>
+                    @csrf
+                    <input type='text' placeholder='Search Recipes...' class='w-full'>
+                    <input type='submit' class='btn' value='Go'>
+                </form>
+                
+            </div>
             <div class='flex justify-between items-center mb-4'>
                 <h2>Recent Recipes</h2><a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
             </div>

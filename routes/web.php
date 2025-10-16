@@ -48,10 +48,13 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
 });
+Route::middleware('auth')->controller(UserFriendController::class)->group(function () {
+    Route::post('/friends','store')->name('friends.store');
+    Route::post('/recipes', 'index')->name('friends.index');
+    Route::delete('/friends', 'destroy')->name('friends.destroy');
+});
 
-Route::post('/friends', [UserFriendController::class,'store'])->name('friends.store');
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
-Route::post('/recipes', [UserFriendController::class, 'index'])->name('friends.index');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 // Bike Routes
 Route::middleware('auth')->controller(BikeController::class)->group(function () {

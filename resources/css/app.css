@@ -44,7 +44,7 @@ p {
 }
 a.card {
     @apply hover:bg-gray-100;
-    @apply dark:hover:bg-gray-600;
+    @apply dark:hover:bg-gray-700;
 }
 .highlight {
     @apply border-l-4 border-red-500;

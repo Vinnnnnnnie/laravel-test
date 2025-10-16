@@ -12,7 +12,12 @@ class RecipeController extends Controller
     //
     public function index() {
         
-        $recipes = Recipe::with(['comment', 'user'])->orderBy('created_at', 'desc')->paginate(10);
+        $recipes = Recipe::with(['comment' => function ($query) {
+            $query->orderBy('created_at', 'desc')
+                ->limit(3);
+        }, 'user'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         $friends = UserFriend::query()
             ->join('users', 'users.id', '=', 'user_friends.friend_user_id')
             ->where('user_friends.user_id', '=',  auth()->user()->id)

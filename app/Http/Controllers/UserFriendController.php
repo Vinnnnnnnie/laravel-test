@@ -24,4 +24,15 @@ class UserFriendController extends Controller
         // return redirect()->back()->with('success', 'Friend added successfully!');
         return redirect()->route('users.show', $request->user_id)->with('success', 'Friend added successfully!');
     }
+
+    public function destroy(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|integer|exists:users,id',
+            'friend_user_id' => 'required|integer|exists:users,id'
+        ]);
+
+        UserFriend::where('user_id', $request->user_id)->where('friend_user_id', $request->friend_user_id)->delete();
+        return redirect()->route('users.show', $request->user_id)->with('success', 'Friend deleted successfully!');
+    }
 }

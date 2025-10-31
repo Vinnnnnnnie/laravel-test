@@ -44,6 +44,7 @@ Route::get('/public/images/recipes/{filename}', function ($filename) {
 Route::middleware('auth')->controller(RecipeController::class)->group(function () {
     Route::get('/recipes', 'index')->name('recipes.index');
     Route::get('/recipes/create', 'create')->name('recipes.create');
+    Route::get('/recipes/search', 'search')->name('recipes.search');
     Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');

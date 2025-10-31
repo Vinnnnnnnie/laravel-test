@@ -6,6 +6,15 @@
             </div>
         @endif
     </ul>
+     @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
+                    @foreach ($errors->all() as $error)
+                        <li class='text-red-500'>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     <div class='flex justify-between mb-4 gap-8'>
         {{-- User info --}}
         <div class='w-80'>
@@ -23,9 +32,9 @@
             {{-- Recipe Search --}}
             <div class='w-full'>
                 <h2>Find Recipes</h2>
-                <form action={{-- route('recipes.search') --}} method='get' class='flex gap-2 card'>
+                <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 card'>
                     @csrf
-                    <input type='text' placeholder='Search Recipes...' class='w-full'>
+                    <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full'>
                     <input type='submit' class='btn' value='Go'>
                 </form>
                 

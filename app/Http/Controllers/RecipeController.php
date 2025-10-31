@@ -53,4 +53,17 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         // return view('recipes.edit', ['recipe' => $recipe]);
     }
+    public function search(Request $request) {
+        $validated = $request->validate([
+            'term' => 'required|string|max:64'
+        ]);
+        $recipes = Recipe::query()
+            ->select('users.image_path as user_image', 'recipes.image_path as recipe_image', 'recipes.*', 'users.name')
+            ->join('users', 'users.id', '=', 'recipes.user_id')
+            ->where('recipes.title', 'LIKE', '%'.$request->input('term').'%')
+            ->orWhere('users.name', 'LIKE', '%'.$request->input('term').'%')
+            ->orderBy('recipes.created_at', 'DESC')
+            ->paginate(5);
+        return view('recipes.search', ['recipes' => $recipes]);
+    }
 }

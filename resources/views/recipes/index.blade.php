@@ -7,17 +7,17 @@
         @endif
     </ul>
      @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
-                    @foreach ($errors->all() as $error)
-                        <li class='text-red-500'>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <div class="alert alert-danger">
+            <ul class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
+                @foreach ($errors->all() as $error)
+                    <li class='text-red-500'>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class='flex justify-between mb-4 gap-8'>
         {{-- User info --}}
-        <div class='w-80'>
+        {{-- <div class='w-80'>
             <div class='profile'>
                 <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
                 <div>
@@ -26,7 +26,7 @@
                     <p>{{ count(auth()->user()->recipe) }} @if (count(auth()->user()->recipe) > 1)Recipes @else Recipe @endif</p>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- Recipe List --}}
         <div class='w-full'>
             {{-- Recipe Search --}}
@@ -89,10 +89,10 @@
             {{  $recipes->links() }}
         </div>
         {{-- Friends List --}}
-        <div class='friends-list'>
+        {{-- <div class='friends-list'>
             <ul>
                 <li><h2>Your Friends</h2></li>
-                @foreach($friends as $friend)
+                @foreach($friendslist as $friend)
                 <li>
                     <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
                         <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
@@ -102,7 +102,7 @@
                 @endforeach
 
             </ul>
-        </div>
+        </div> --}}
     </div>
 
 </x-layout>

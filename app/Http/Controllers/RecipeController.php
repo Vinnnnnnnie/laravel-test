@@ -23,6 +23,7 @@ class RecipeController extends Controller
             ->where('user_friends.user_id', '=',  auth()->user()->id)
             ->select(['user_friends.*', 'users.name', 'users.email', 'users.image_path'])
             ->get();
+        session(['friendslist' => $friends]);
         return view('recipes.index', ['recipes' => $recipes, 'friends' => $friends]);
     }
     public function show(Recipe $recipe) {

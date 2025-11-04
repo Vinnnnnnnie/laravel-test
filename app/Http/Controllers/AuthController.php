@@ -44,6 +44,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->route('recipes.index');
         }
+    
         throw ValidationException::withMessages([
             'credentials' => 'Sorry, those credentials did not match our records.',
         ]);

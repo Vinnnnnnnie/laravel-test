@@ -34,6 +34,10 @@ header {
     @apply bg-white shadow mb-6;
     @apply dark:bg-gray-800 shadow mb-6;
 }
+footer {
+    @apply bg-white shadow mt-6;
+    @apply dark:bg-gray-800;
+}
 p {
     
 }

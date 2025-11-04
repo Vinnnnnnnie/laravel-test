@@ -36,7 +36,7 @@
         <div class='flex justify-between mb-4 gap-8'>
             {{-- User info --}}
             @auth
-                <div class='w-80'>
+                <div class='w-100 sticky top-4 h-fit'>
                     <div class='profile border-l-4 border-blue-500'>
                         
                         <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
@@ -52,7 +52,7 @@
                 {{ $slot }}
             </div>
             {{-- Friends List --}}
-            <div class='friends-list border-l-4 border-yellow-500'>
+            <div class='w-100 sticky top-4 friends-list border-l-4 border-yellow-500 h-fit'>
                 <ul>
                     <li><h2>Your Friends</h2></li>
                     @session('friendslist')
@@ -69,5 +69,37 @@
             </div>
         </div>
     </main>
+    <footer>
+        <div class="flex justify-center gap-12 p-12 text-center align-middle text-gray-400">
+            <div>
+                <h3><strong>More By Vincent</strong></h3>
+                <ul>
+                    <li>
+                        <a href='http://vinnie.fyi'>Portfolio Website</a>
+                    </li>
+                    <li>
+                        <a href='https://www.github.com/Vinnnnnnnie'>GitHub</a>
+                    </li>
+                    <li>
+                        <a href='https://ldjam.com/users/vinnnie/'>Ludum Dare</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3><strong>Friends</strong></h3>
+                <ul>
+                    <li>Mohammed Abdul</li>
+                    <li>Jotaro Joestar</li>
+                </ul>
+            </div>
+            <div>
+                <h3><strong>Other Links</strong></h3>
+                <ul>
+                    <li>Worldstar</li>
+                    <li>Laravel Docs</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

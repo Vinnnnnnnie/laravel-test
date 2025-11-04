@@ -21,6 +21,7 @@
                     <div>
                         <strong>{{ $recipe->user->name }}</strong>
                         <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>
+                        <p>{{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
                 <h3>{{ $recipe->title }}</h3>
@@ -46,7 +47,7 @@
     </div>
     @if($recipe->comment)
         @foreach($recipe->comment as $comment)
-            <x-comment :highlight='$recipe->user_id === $comment->user_id' :user='$comment->user_id === auth()->user()->id'>
+            <x-comment :highlight='$recipe->user_id === $comment->user_id' :user='$comment->user_id === auth()->user()->id' :friend='session("friendslist")->pluck("friend_user_id")->contains($comment->user_id)'>
                 <div class="">
                     <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
                 </div>

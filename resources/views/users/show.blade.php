@@ -80,8 +80,9 @@
                                 <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}} Minutes</p>
                                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
                             </div>
+                            
                         </x-card>
-                        @if($recipe->comment)
+                        {{-- @if($recipe->comment)
                             @foreach($recipe->comment as $comment)
                                 <x-comment :owner='$comment->user_id === $recipe->user_id' :user='$comment->user_id === auth()->user()->id'>
                                     <div>
@@ -93,7 +94,7 @@
                                     </div>
                                 </x-comment>
                             @endforeach
-                        @endif
+                        @endif --}}
 
                     </li>
                 @endforeach

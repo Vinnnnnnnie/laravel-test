@@ -8,6 +8,7 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --animate-border-pulse: borderPulse 2s ease-in-out infinite; 
 }
 
 body {
@@ -42,6 +43,14 @@ p {
     
 }
 
+@keyframes fire-border{
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 .card {
     @apply bg-gray-50 p-4 shadow mt-4 flex justify-between items-center;
     @apply dark:bg-gray-800;
@@ -62,6 +71,30 @@ a.card {
 .friend {
     @apply border-l-4 border-yellow-500;
 }
+.fire {
+    
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card::before {
+    content:"";
+    position:relative;
+    height:800px;
+    width:800px;
+    background: linear-gradient(90deg,
+        red,
+        green
+    )
+}
+
 .comment {
     @apply bg-gray-50 items-center p-3 flex flex-col ml-12 mt-4;
     @apply dark:bg-gray-700 dark:text-gray-200

@@ -16,7 +16,7 @@
         </div>
     @endif
     <div class='flex justify-between mb-4 gap-8'>
-        {{-- Recipe List --}}
+        {{-- Recipe Body --}}
         <div class='w-full'>
             {{-- Recipe Search --}}
             <div class='w-full'>
@@ -26,12 +26,16 @@
                     <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full'>
                     <input type='submit' class='btn' value='Go'>
                 </form>
-                
             </div>
             <div class='flex justify-between items-center mb-4'>
                 <h2>Recent Recipes</h2><a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
             </div>
+            {{-- Recipe List --}}
             <ul>
+                <li>
+                    
+                </li>
+                
                 @foreach($recipes as $recipe)
                     <li>
                         {{-- If recipe has a lot of likes, could have a fire border,
@@ -58,41 +62,10 @@
                                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
                             </div>
                         </x-card>
-                        {{-- Display comments or not --}}
-                        {{-- @if($recipe->comment)
-                            @foreach($recipe->comment as $comment)
-                                <x-comment :owner='$comment->user_id === $recipe->user_id' :user='$comment->user_id === auth()->user()->id'>
-                                    <div>
-                                        <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
-                                        <strong>{{ $comment->user->name }}:</strong>
-                                    </div>
-                                    <div>
-                                    {{ $comment->comment }}
-                                    </div>
-                                </x-comment>
-                            @endforeach
-                        @endif --}}
-
                     </li>
                 @endforeach
             </ul>
             {{  $recipes->links() }}
         </div>
-        {{-- Friends List --}}
-        {{-- <div class='friends-list'>
-            <ul>
-                <li><h2>Your Friends</h2></li>
-                @foreach($friendslist as $friend)
-                <li>
-                    <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
-                        <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
-                        <strong>{{ $friend->name }}</strong>
-                    </a>
-                </li>
-                @endforeach
-
-            </ul>
-        </div> --}}
     </div>
-
 </x-layout>

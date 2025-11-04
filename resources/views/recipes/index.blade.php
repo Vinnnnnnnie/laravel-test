@@ -16,17 +16,6 @@
         </div>
     @endif
     <div class='flex justify-between mb-4 gap-8'>
-        {{-- User info --}}
-        {{-- <div class='w-80'>
-            <div class='profile'>
-                <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
-                <div>
-                    <h2 class='text-xl font-bold'><a href={{ route('users.show', auth()->user()->id) }}>{{ auth()->user()->name }}</a></h2>
-                    <p>{{ auth()->user()->email }}</p>
-                    <p>{{ count(auth()->user()->recipe) }} @if (count(auth()->user()->recipe) > 1)Recipes @else Recipe @endif</p>
-                </div>
-            </div>
-        </div> --}}
         {{-- Recipe List --}}
         <div class='w-full'>
             {{-- Recipe Search --}}
@@ -51,12 +40,12 @@
 
                         {{-- Border or tag I suppose --}}
                     
-                        <x-card href="{{ route('recipes.show', $recipe) }}" :user='$recipe->user_id === auth()->user()->id'>
+                        <x-card href="{{ route('recipes.show', $recipe) }}" :user='$recipe->user_id === auth()->user()->id' :friend='session("friendslist")->pluck("friend_user_id")->contains($recipe->user_id)'>
                             <div class='flex flex-col gap-0.5 w-100 justify-start'>
                                 <div class='flex flex-row gap-2'>
                                     <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
                                     <div>
-                                        <strong>{{ $recipe->user->name }}</strong>
+                                        <strong>{{ $recipe->user->id . ' ' . $recipe->user->name }}</strong>
                                         <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>
                                         <p>{{ $recipe->created_at->diffForHumans() }}</p>
                                     </div>
@@ -69,7 +58,8 @@
                                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
                             </div>
                         </x-card>
-                        @if($recipe->comment)
+                        {{-- Display comments or not --}}
+                        {{-- @if($recipe->comment)
                             @foreach($recipe->comment as $comment)
                                 <x-comment :owner='$comment->user_id === $recipe->user_id' :user='$comment->user_id === auth()->user()->id'>
                                     <div>
@@ -81,7 +71,7 @@
                                     </div>
                                 </x-comment>
                             @endforeach
-                        @endif
+                        @endif --}}
 
                     </li>
                 @endforeach

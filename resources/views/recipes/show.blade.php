@@ -46,7 +46,7 @@
     </div>
     @if($recipe->comment)
         @foreach($recipe->comment as $comment)
-            <x-comment :highlight='$recipe->user_id === $comment->user_id'>
+            <x-comment :highlight='$recipe->user_id === $comment->user_id' :user='$comment->user_id === auth()->user()->id'>
                 <div class="">
                     <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
                 </div>

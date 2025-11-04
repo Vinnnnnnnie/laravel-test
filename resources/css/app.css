@@ -55,6 +55,9 @@ a.card {
 .user {
     @apply border-l-4 border-blue-500;
 }
+.friend {
+    @apply border-l-4 border-yellow-500;
+}
 .comment {
     @apply bg-gray-50 items-center p-3 flex flex-col ml-12 mt-4;
     @apply dark:bg-gray-700 dark:text-gray-200

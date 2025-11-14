@@ -56,7 +56,9 @@
                                 </div>
 
                                 <h3>{{ $recipe->title }}</h3>
+                                @if($recipe->image_path)
                                 <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-full max-w-full  self-center'>
+                                @endif
                                 <p><strong>Prep Time: </strong>{{ $recipe->preparation_time}} Minutes</p>
                                 <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}} Minutes</p>
                                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>

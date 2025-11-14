@@ -33,14 +33,14 @@
                 <p><strong>Instructions: </strong>{{ $recipe->instructions }}</p>
                 <div class='flex gap-2'>
                     @if (Auth::id() === $recipe->user->id)
-                    {{-- <a class='btn' href="{{ route('recipes.edit') }}">Edit Recipe</a> --}}
+                    <a class='btn' href="{{ route('recipes.edit', $recipe) }}">Edit Recipe</a>
                     <form method="POST" action="{{ route('recipes.destroy', $recipe->id) }}">
                         @csrf
                         @method('DELETE')
                         <button class=btn type="submit">Delete Recipe</button>
                     </form>
-                    <a class='btn' href="{{ route('recipes.index') }}">Back to all Recipes</a>
                     @endif
+                    <a class='btn' href="{{ route('recipes.index') }}">Back to all Recipes</a>
                 </div>
             </div>
         </div>

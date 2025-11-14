@@ -16,7 +16,6 @@ class RecipeFactory extends Factory
      */
     public function definition(): array
     {
-        $randomImages = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg'];
         $title = $this->faker->randomElement(['Asian', 'Chinese', 'Thai', 'Spanish', 'Welsh', 'Scottish', 'English', 'African', '']) . ' ' 
             . $this->faker->randomElement(['BBQ', 'Spicy', 'Hearty', '']) . ' '
             . $this->faker->randomElement(['Pork', 'Chicken Wings', 'Soup', 'Fried Chicken', 'Stew', 'Casserole']) . ' '

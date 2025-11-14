@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('cooking_time'); // in minutes
             $table->integer('servings');
             $table->enum('difficulty', ['Easy', 'Medium', 'Hard']); // e.g., Easy, Medium, Hard
-            $table->string('image_path')->nullable();
+            $table->string('image_path')->nullable()->default('no_image.png');
             $table->foreignId('user_id')->constained()->onDelete('cascade');
         });
     }

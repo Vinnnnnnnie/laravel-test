@@ -1,4 +1,4 @@
 <x-layout>
-    <h2>Welcome to the Laravel Test</h2>
-    <p>Working hard or hardly working</p>
+    <h2>Laravel RecipeBook</h2>
+    <p>Developing a working website for friends and family to use and share recipes with no long intros.</p>
 </x-layout>

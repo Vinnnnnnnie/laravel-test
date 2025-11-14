@@ -52,21 +52,23 @@
                 {{ $slot }}
             </div>
             {{-- Friends List --}}
-            <div class='w-100 sticky top-4 friends-list border-l-4 border-yellow-500 h-fit'>
-                <ul>
-                    <li><h2>Your Friends</h2></li>
-                    @session('friendslist')
-                        @foreach($value as $friend)
-                        <li>
-                            <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
-                                <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
-                                <strong>{{ $friend->name }}</strong>
-                            </a>
-                        </li>
-                        @endforeach
-                    @endsession
-                </ul>
-            </div>
+            @auth
+                <div class='w-100 sticky top-4 friends-list border-l-4 border-yellow-500 h-fit'>
+                    <ul>
+                        <li><h2>Your Friends</h2></li>
+                        @session('friendslist')
+                            @foreach($value as $friend)
+                            <li>
+                                <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
+                                    <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
+                                    <strong>{{ $friend->name }}</strong>
+                                </a>
+                            </li>
+                            @endforeach
+                        @endsession
+                    </ul>
+                </div>
+            @endauth
         </div>
     </main>
     <footer>

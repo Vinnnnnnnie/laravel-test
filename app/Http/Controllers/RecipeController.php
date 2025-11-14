@@ -7,6 +7,11 @@ use App\Models\Recipe;
 use App\Models\Comment;
 use App\Models\UserFriend;
 use App\Models\User;
+use Illuminate\Validation\Rules\File;
+use App\Http\Controllers\RecipeImageController;
+use Illuminate\Support\Facades\Storage;
+
+
 class RecipeController extends Controller
 {
     //
@@ -34,6 +39,9 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
     public function store(Request $request) {
+        $image_path = $request->image->store("recipes", 'public');
+        
+        $request->merge(['image_path' => $image_path]);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'ingredients' => 'required|string',
@@ -42,8 +50,10 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
-            'user_id' => 'required|integer|exists:users'
+            'user_id' => 'required|integer|exists:users,id',
+            'image_path' => 'string'
         ]);
+
         Recipe::create($validated);
         return redirect('/recipes')->with('success', 'Recipe added successfully!');
     }
@@ -51,10 +61,12 @@ class RecipeController extends Controller
         $recipe->delete();
         return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
     }
+
     public function edit($id) {
         $recipe = Recipe::findOrFail($id);
-        // return view('recipes.edit', ['recipe' => $recipe]);
+        return view('recipes.edit', ['recipe' => $recipe]);
     }
+
     public function search(Request $request) {
         $validated = $request->validate([
             'term' => 'required|string|max:64'
@@ -67,5 +79,26 @@ class RecipeController extends Controller
             ->orderBy('recipes.created_at', 'DESC')
             ->paginate(5);
         return view('recipes.search', ['recipes' => $recipes]);
+    }
+
+    public function update(Request $request) {
+        $validated = $request->validate([
+            'id' => 'required|integer|exists:recipes',
+            'title' => 'required|string|max:255',
+            'ingredients' => 'required|string',
+            'instructions' => 'required|string',
+            'preparation_time' => 'required|integer|min:1',
+            'cooking_time' => 'required|integer|min:1',
+            'servings' => 'required|integer|min:1',
+            'difficulty' => 'required|string|in:Easy,Medium,Hard',
+        ]);
+        Recipe::where('recipes.id', '=' ,$request->input('id'))
+            ->update($validated);
+        $recipe = Recipe::with(['user'])
+        ->where('recipes.id', '=' ,$request->input('id'))
+        ->get();
+        // return redirect()->route('recipes.show', $recipe)->with('success', 'Recipe updated successfully!');
+        return redirect()->route('users.show', auth()->user())->with('success', 'Recipe updated successfully!');
+        // return view('recipes.show', ['recipe' => $recipe])->with('success', 'Recipe updated successfully!');
     }
 }

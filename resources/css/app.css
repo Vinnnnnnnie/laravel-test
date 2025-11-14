@@ -43,6 +43,10 @@ p {
     
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 @keyframes fire-border{
     from {
         transform: rotate(0);
@@ -83,7 +87,7 @@ a.card {
     transform: rotate(360deg);
   }
 }
-
+/* 
 .card::before {
     content:"";
     position:relative;
@@ -93,7 +97,7 @@ a.card {
         red,
         green
     )
-}
+} */
 
 .comment {
     @apply bg-gray-50 items-center p-3 flex flex-col ml-12 mt-4;

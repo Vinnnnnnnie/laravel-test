@@ -15,24 +15,27 @@ class UserSeeder extends Seeder
     {
         //
         User::factory()->count(10)->create();
+        $directory = public_path('storage/users');
+        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+
         User::create([
             'name' => 'Vincent Owens',
             'email' => 'vincent@gmail.com',
             'password' => '$2y$12$UZHK2NQa78Qc9YMhDH107uMrb4zG6SjtnrGSqavFkOC11aVQLOeEm', // Ensure to hash the password
-            'image_path' => '01.jpg'
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
         ]);
         User::create([
             'name' => 'Tom Bozier',
             'email' => 'tom@gmail.com',
             'password' => password_hash('password', PASSWORD_BCRYPT), // Ensure to hash the password
-            'image_path' => '02.jpg'
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
 
         ]);
         User::create([
             'name' => 'Ellen Maxwell',
             'email' => 'ellen@gmail.com',
             'password' => password_hash('password', PASSWORD_BCRYPT), // Ensure to hash the password
-            'image_path' => '03.jpg'
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
 
         ]);
         User::create(
@@ -40,7 +43,7 @@ class UserSeeder extends Seeder
             'name' => 'Vera Stepanyan',
             'email' => 'vera@gmail.com',
             'password' => password_hash('password', PASSWORD_BCRYPT), // Ensure to hash the password
-            'image_path' => '04.jpg'
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
 
         ]
         );
@@ -49,7 +52,7 @@ class UserSeeder extends Seeder
             'name' => 'Spike Owens',
             'email' => 'spike@gmail.com',
             'password' => password_hash('password', PASSWORD_BCRYPT), // Ensure to hash the password
-            'image_path' => '05.jpg'
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
         ]
         );
     }

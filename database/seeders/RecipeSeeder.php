@@ -13,6 +13,9 @@ class RecipeSeeder extends Seeder
      */
     public function run(): void
     {
+        $directory = public_path('storage/recipes');
+        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+
         Recipe::create([
             'title' => 'Spaghetti Bolognese',
             'ingredients' => 'Spaghetti, minced beef, tomato sauce, onions, garlic, olive oil, salt, pepper',
@@ -21,7 +24,7 @@ class RecipeSeeder extends Seeder
             'cooking_time' => 30,
             'servings' => 4,
             'difficulty' => 'Easy',
-            'image_path' => 'Bowl_of_Spicy_Veggie_Chili.png.jpg',
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
             'user_id' => 1,
         ]);
         Recipe::create([
@@ -32,7 +35,7 @@ class RecipeSeeder extends Seeder
             'cooking_time' => 35,
             'servings' => 4,
             'difficulty' => 'Medium',
-            'image_path' => 'Bowl_of_Curry_Pumpkin_Soup.png.jpg',
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
             'user_id' => 2,
         ]);
         Recipe::factory()->count(40)->create();

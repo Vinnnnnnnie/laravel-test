@@ -20,7 +20,7 @@ class RecipeFactory extends Factory
             . $this->faker->randomElement(['BBQ', 'Spicy', 'Hearty', '']) . ' '
             . $this->faker->randomElement(['Pork', 'Chicken Wings', 'Soup', 'Fried Chicken', 'Stew', 'Casserole']) . ' '
             . $this->faker->randomElement(['with Rice', 'with Pasta', 'with Bread', '']);
-        $directory = public_path('images/recipes');
+        $directory = public_path('storage/recipes');
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
         return [
             'title' => $title,

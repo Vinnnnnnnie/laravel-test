@@ -23,9 +23,8 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $profilePics = [
-            '01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg'
-        ];
+        $directory = public_path('storage/users');
+        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -33,7 +32,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'image_path' => $profilePics[array_rand($profilePics)] ?? 'default.jpg',
+            'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
         ];
     }
 

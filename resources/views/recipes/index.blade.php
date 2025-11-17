@@ -1,41 +1,12 @@
 <x-layout>
-    <ul>
-        @if(session('success'))
-            <div class='bg-green-200 text-green-800 p-2 rounded mb-4 bold'>
-                {{ session('success') }}
-            </div>
-        @endif
-    </ul>
-     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
-                @foreach ($errors->all() as $error)
-                    <li class='text-red-500'>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class='flex justify-between mb-4 gap-8'>
         {{-- Recipe Body --}}
         <div class='w-full'>
-            {{-- Recipe Search --}}
-            <div class='w-full'>
-                <h2>Find Recipes</h2>
-                <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 card'>
-                    @csrf
-                    <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full'>
-                    <input type='submit' class='btn' value='Go'>
-                </form>
-            </div>
             <div class='flex justify-between items-center mb-4'>
                 <h2>Recent Recipes</h2><a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
             </div>
             {{-- Recipe List --}}
             <ul>
-                <li>
-                    
-                </li>
-                
                 @foreach($recipes as $recipe)
                     <li>
                         {{-- If recipe has a lot of likes, could have a fire border,

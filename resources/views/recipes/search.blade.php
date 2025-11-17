@@ -1,19 +1,25 @@
 <x-layout>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+    <div>
+        @if(isset($users) && count($users) > 0)
+        <h2>Users</h2>
+            <ul class='gap-1'>
+                @foreach($users as $user)
+                    <li>
+                        <div class='w-100 sticky top-4 h-fit'>
+                            <div class='profile'>
+                                
+                                <img src='{{ route('image.users', $user->image_path)}}' class='w-20 max-w-20'>
+                                <div>
+                                    <h2 class='text-xl font-bold'><a href={{ route('users.show', $user->id) }}>{{ $user->name }}</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 @endforeach
             </ul>
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    <div>
+            {{  $users->withQueryString()->links() }}
+        @endif
+        <h2>Recipes</h2>
         <ul>
             @if(isset($recipes))
                 @foreach($recipes as $recipe)
@@ -40,6 +46,6 @@
                 @endforeach
             @endif
         </ul>
-        {{  $recipes->links() }}
+        {{  $recipes->withQueryString()->links() }}
     </div>
 </x-layout>

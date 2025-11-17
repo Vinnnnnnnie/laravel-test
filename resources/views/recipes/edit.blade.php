@@ -10,7 +10,7 @@
     @endif
     <div class="card">
         <h2>Edit Recipe</h2>
-        <form action='{{ route('recipes.update', $recipe->id) }}' method='POST'>
+        <form action='{{ route('recipes.update', $recipe->id) }}' method='POST' enctype="multipart/form-data">
             @csrf
             <div hidden>
                 <label for="id">Recipe id:</label>
@@ -48,6 +48,10 @@
                     <option value="Medium" {{ $recipe->difficulty == 'Medium' ? 'selected' : '' }}>Medium</option>
                     <option value="Hard" {{ $recipe->difficulty == 'Hard' ? 'selected' : '' }}>Hard</option>
                 </select>
+            </div>
+            <div>
+                <label for="image" class='form-label'>Image</label>
+                <input type="file" id="image" class='form-control w-full' name="image">
             </div>
             <button type='submit'>Save Recipe</button>
         </form>

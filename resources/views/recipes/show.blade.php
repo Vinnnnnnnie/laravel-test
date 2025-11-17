@@ -48,7 +48,7 @@
     @if($recipe->comment)
         @foreach($recipe->comment as $comment)
             <x-comment :highlight='$recipe->user_id === $comment->user_id' :user='$comment->user_id === auth()->user()->id' :friend='session("friendslist")->pluck("friend_user_id")->contains($comment->user_id)'>
-                <div class="">
+                <div>
                     <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
                 </div>
                 <div class="w-full">
@@ -58,13 +58,18 @@
             </x-comment>
         @endforeach
     @endif
-    <div>
-        <img src='{{ route('image.users', auth()->user()->image_path) }}' class='w-20 max-w-20'><strong>{{ auth()->user()->name }}:</strong>
-        <form action='{{ route('comments.store', $recipe) }}' method='POST'>
-            @csrf
-            <input type='hidden' name='recipe_id' value='{{ $recipe->id }}'>
-            <textarea name='comment' class='w-full' placeholder='Add your comment here...' required></textarea>
-            <button class='btn' type='submit'>Submit Comment</button>
-        </form>
+    <div class='bg-gray-50 items-center p-3 flex ml-12 mt-4 dark:bg-gray-700 dark:text-gray-200 gap-2'>
+        <div>
+            <img src='{{ route('image.users', auth()->user()->image_path) }}' class='w-20 max-w-20'>
+        </div>
+        <div class='w-full'>
+            <strong>{{ auth()->user()->name }}</strong>
+            <form action='{{ route('comments.store', $recipe) }}' method='POST'>
+                @csrf
+                <input type='hidden' name='recipe_id' value='{{ $recipe->id }}'>
+                <textarea name='comment' class='w-full' placeholder='Add your comment here...' required></textarea>
+                <button class='btn' type='submit'>Submit Comment</button>
+            </form>
+        </div>
     </div>
 </x-layout>

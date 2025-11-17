@@ -40,7 +40,7 @@ class RecipeController extends Controller
     }
     public function store(Request $request) {
         $image_path = $request->image->store("recipes", 'public');
-        
+        $image_path = str_replace('recipes/', '', $image_path); 
         $request->merge(['image_path' => $image_path]);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -82,6 +82,9 @@ class RecipeController extends Controller
     }
 
     public function update(Request $request) {
+        $image_path = $request->image->store("recipes", 'public');
+        $image_path = str_replace('recipes/', '', $image_path); 
+        $request->merge(['image_path' => $image_path]);
         $validated = $request->validate([
             'id' => 'required|integer|exists:recipes',
             'title' => 'required|string|max:255',
@@ -91,6 +94,7 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
+            'image_path' => 'string'
         ]);
         Recipe::where('recipes.id', '=' ,$request->input('id'))
             ->update($validated);

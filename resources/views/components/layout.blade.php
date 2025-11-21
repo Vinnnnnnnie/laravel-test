@@ -32,7 +32,7 @@
             <a class='btn' href='{{ route('recipes.index')}}'>Recipes</a>
         </nav>
     </header>
-    <main class='container items-center mx-auto w-450'>
+    <main class='items-center mx-auto w-300'>
         <div class='flex justify-between mb-4 gap-8'>
             {{-- User info --}}
             @auth

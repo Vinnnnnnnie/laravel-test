@@ -17,7 +17,6 @@ class UserFriendController extends Controller
             ]);
 
         UserFriend::create($validated);
-        // return redirect()->back()->with('success', 'Friend added successfully!');
         return redirect()->route('users.show', $request->user_id)->with('success', 'Friend added successfully!');
     }
 

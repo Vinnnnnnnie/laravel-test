@@ -43,7 +43,7 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::get('/recipes', 'index')->name('recipes.index');
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::get('/recipes/create', 'create')->name('recipes.create');
-    Route::get('/recipes/search', [RecipeController::class, 'search'])->name('recipes.search');
+    Route::get('/recipes/search', 'search')->name('recipes.search');
     Route::get('/recipes/edit/{recipe}', 'edit')->name('recipes.edit');
     Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
     Route::post('/recipes/update/{id}', 'update')->name('recipes.update');
@@ -53,7 +53,6 @@ Route::middleware('auth')->controller(UserFriendController::class)->group(functi
     Route::post('/friends','store')->name('friends.store');
     Route::delete('/friends', 'destroy')->name('friends.destroy');
 });
-Route::get('/recipes/search', [RecipeController::class, 'search'])->name('recipes.search');
 
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');

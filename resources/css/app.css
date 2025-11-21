@@ -26,10 +26,10 @@ h1 a:hover {
     text-decoration: none;
 }
 h2 {
-    @apply text-xl font-semibold mb-3;
+    @apply text-3xl font-semibold mb-3;
 }
 h3 {
-    @apply text-lg font-semibold mb-2;
+    @apply text-2xl font-semibold mb-2;
 }
 header {
     @apply bg-white shadow mb-6;

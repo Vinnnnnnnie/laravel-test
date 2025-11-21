@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
 
-                                <h3>{{ $recipe->title }}</h3>
+                                <h2 class='fs-6'>{{ $recipe->title }}</h2>
                                 @if($recipe->image_path)
                                 <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-full max-w-full  self-center'>
                                 @endif

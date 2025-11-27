@@ -17,7 +17,18 @@ class UserFriendController extends Controller
             ]);
 
         UserFriend::create($validated);
-        return redirect()->route('users.show', $request->user_id)->with('success', 'Friend added successfully!');
+        $this->updateFriendsList();
+        return redirect()->route('users.show', $request->friend_user_id)->with('success', 'Friend added successfully!');
+    }
+
+    public function updateFriendsList():void
+    {
+        $friends = UserFriend::query()
+            ->join('users', 'users.id', '=', 'user_friends.friend_user_id')
+            ->where('user_friends.user_id', '=',  auth()->user()->id)
+            ->select(['user_friends.*', 'users.name', 'users.email', 'users.image_path'])
+            ->get();
+        session(['friendslist' => $friends]);
     }
 
     public function destroy(Request $request)
@@ -28,6 +39,8 @@ class UserFriendController extends Controller
         ]);
 
         UserFriend::where('user_id', $request->user_id)->where('friend_user_id', $request->friend_user_id)->delete();
-        return redirect()->route('users.show', $request->user_id)->with('success', 'Friend deleted successfully!');
+
+        $this->updateFriendsList();
+        return redirect()->route('users.show', $request->friend_user_id)->with('success', 'Friend deleted successfully!');
     }
 }

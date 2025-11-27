@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use App\Models\Comment;
 use App\Models\UserFriend;
 use App\Models\User;
+use App\Http\Controllers\UserFriendController;
 use Illuminate\Validation\Rules\File;
 use App\Http\Controllers\RecipeImageController;
 use Illuminate\Support\Facades\Storage;
@@ -23,14 +24,10 @@ class RecipeController extends Controller
         }, 'user'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $friends = UserFriend::query()
-            ->join('users', 'users.id', '=', 'user_friends.friend_user_id')
-            ->where('user_friends.user_id', '=',  auth()->user()->id)
-            ->select(['user_friends.*', 'users.name', 'users.email', 'users.image_path'])
-            ->get();
-        session(['friendslist' => $friends]);
-        
-        return view('recipes.index', ['recipes' => $recipes, 'friends' => $friends]);
+        $userFriends = new UserFriendController();
+        $userFriends->updateFriendsList();
+
+        return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {
         return view('recipes.show', ['recipe' => $recipe]);

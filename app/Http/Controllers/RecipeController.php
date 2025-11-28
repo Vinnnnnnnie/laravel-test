@@ -73,11 +73,15 @@ class RecipeController extends Controller
             ->where('recipes.title', 'LIKE', '%'.$term.'%')
             ->orWhere('users.name', 'LIKE', '%'.$term.'%')
             ->orderBy('recipes.created_at', 'DESC')
-            ->paginate(5);
+            ->paginate(
+                $perPage = 15, $columns = ['*'], $pageName = 'recipes'
+            );
         $users = User::query()
             ->select('image_path', 'name', 'id')
             ->where('name', 'LIKE', '%'.$term.'%')
-            ->paginate(3);
+            ->paginate(
+                $perPage = 5, $columns = ['*'], $pageName = 'users'
+            );
         return view('recipes.search', ['recipes' => $recipes, 'users' => $users]);
     }
 

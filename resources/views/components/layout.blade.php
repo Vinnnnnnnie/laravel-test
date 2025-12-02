@@ -38,8 +38,9 @@
             @auth
                 <div class='w-100 sticky top-4 h-fit'>
                     <div class='profile border-l-4 border-blue-500'>
-                        
+                        @if(auth()->user()->image_path)
                         <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
+                        @endif
                         <div>
                             <h2 class='text-xl font-bold'><a href={{ route('users.show', auth()->user()->id) }}>{{ auth()->user()->name }}</a></h2>
                             <p>{{ auth()->user()->email }}</p>

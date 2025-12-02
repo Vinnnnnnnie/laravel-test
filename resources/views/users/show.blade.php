@@ -1,7 +1,9 @@
 <x-layout>
     {{-- User information --}}
     <div class='card flex flex-row gap-4'>
+        @if($user->image_path)
         <img src='{{ route('image.users', $user->image_path)}}' class='w-50 max-w-50' alt='{{$user->name}} Profile Picture'>
+        @endif
         <div class='flex flex-col gap-4'>
             <div class='flex justify-start w-full'><h2>{{ $user->name}}</h2></div>
             <p><strong>{{ $user->email }}</strong></p>

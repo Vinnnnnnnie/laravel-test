@@ -51,7 +51,9 @@
                         <x-card href="{{ route('recipes.show', $recipe) }}" :user='$recipe->user_id === auth()->user()->id'>
                             <div class='flex flex-col gap-0.5 w-100 justify-start'>
                                 <div class='flex flex-row gap-2'>
+                                    @if($recipe->user->image_path)
                                     <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20' alt='{{$recipe->user->name}} Profile Picture'>
+                                    @endif
                                     <div>
                                         <strong>{{ $recipe->user->name }}</strong>
                                         <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>

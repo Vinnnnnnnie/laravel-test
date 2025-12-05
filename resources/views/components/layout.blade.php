@@ -125,8 +125,7 @@
             <div>
                 <h3><strong>Other Links</strong></h3>
                 <ul>
-                    <li>Worldstar</li>
-                    <li>Laravel Docs</li>
+                    <a href='https://www.github.com/Vinnnnnnnie'>Laravel Docs</a>
                 </ul>
             </div>
         </div>

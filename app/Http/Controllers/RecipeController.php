@@ -36,9 +36,13 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
     public function store(Request $request) {
-        $image_path = $request->image->store("recipes", 'public');
-        $image_path = str_replace('recipes/', '', $image_path); 
-        $request->merge(['image_path' => $image_path]);
+        if(isset($request->image))
+        {
+            $image_path = $request->image->store("recipes", 'public');
+            $image_path = str_replace('recipes/', '', $image_path); 
+            $request->merge(['image_path' => $image_path]);
+        }
+        
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'ingredients' => 'required|string',

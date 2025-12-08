@@ -95,6 +95,14 @@
                             @endforeach
                         @endsession
                     </ul>
+                    <div class='w-full'>
+                        <h4>Find Friends</h2>
+                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 card'>
+                            @csrf
+                            <input type='text' id='term' name='term' placeholder='Search Friends...' class='w-full' value={{ old('term') }}>
+                            <input type='submit' name='submit' class='btn' value='Go'>
+                        </form>
+                    </div>
                 </div>
             @endauth
         </div>
@@ -102,16 +110,19 @@
     <footer>
         <div class="flex justify-center gap-12 p-12 text-center align-middle text-gray-400">
             <div>
-                <h3><strong>More By Vincent</strong></h3>
+                <h3><strong>Projects</strong></h3>
                 <ul>
                     <li>
-                        <a href='http://vinnie.fyi'>Portfolio Website</a>
+                        > <a href='https://vinnie.fyi' class='fs-bold'>Portfolio Website</a> <
                     </li>
                     <li>
                         <a href='https://www.github.com/Vinnnnnnnie'>GitHub</a>
                     </li>
                     <li>
                         <a href='https://ldjam.com/users/vinnnie/'>Ludum Dare</a>
+                    </li>
+                    <li>
+                        <a href='https://www.linkedin.com/in/vincent-owens-653685264/'>LinkedIn</a>
                     </li>
                 </ul>
             </div>
@@ -125,7 +136,7 @@
             <div>
                 <h3><strong>Other Links</strong></h3>
                 <ul>
-                    <a href='https://www.github.com/Vinnnnnnnie'>Laravel Docs</a>
+                    <a href='https://laravel.com/docs/12.x/installation'>Laravel Docs</a>
                 </ul>
             </div>
         </div>

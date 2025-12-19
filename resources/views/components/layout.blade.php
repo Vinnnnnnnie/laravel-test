@@ -113,7 +113,7 @@
                 <h3><strong>Projects</strong></h3>
                 <ul>
                     <li>
-                        > <a href='https://vinnie.fyi' class='fs-bold'>Portfolio Website</a> <
+                        <a href='https://vinnie.fyi' class='fs-bold'>Portfolio Website</a>
                     </li>
                     <li>
                         <a href='https://www.github.com/Vinnnnnnnie'>GitHub</a>

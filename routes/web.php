@@ -38,6 +38,14 @@ Route::get('/public/images/recipes/{filename}', function ($filename) {
     return response()->file($path);
 })->name('image.recipes');
 
+Route::get('/public/images/website/{filename}', function ($filename) {
+    $path = public_path('storage/website/' . $filename);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+})->name('image.website');
+
 // Recipe Routes
 Route::middleware('auth')->controller(RecipeController::class)->group(function () {
     Route::get('/recipes', 'index')->name('recipes.index');

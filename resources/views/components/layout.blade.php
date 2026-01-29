@@ -6,10 +6,15 @@
     <title>RecipeBook</title>
     @vite('resources/css/app.css')
 </head>
-<body>
-    <header>
-        <div class="flex justify-between text-center align-middle">
-        <h1>RecipeBook</h1>
+<body class='bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono'>
+    <header class='bg-gray-100 dark:bg-gray-900 shadow mb-6 border-b-1 border-gray-900 dark:border-gray-100'>
+        <div class="flex flex-row justify-between text-center align-middle">
+            <h1>vinnie.fyi</h1>
+            <nav class="flex gap-12 items-center">
+                <a class='font-semibold text-xl hover:no-underline' href='/'>Home</a>
+                {{-- <a class='btn' href='{{ route('bikes.index') }}'>Bikes</a> --}}
+                <a class='font-semibold text-xl hover:no-underline' href='{{ route('recipes.index')}}'>RecipeBook</a>
+            </nav>
             @auth
                 <div class="flex p-2 items-center">
                     <span class="font-bold text-lg mr-2 content-center">Hello, {{ Auth::user()->name }}</span>
@@ -26,11 +31,6 @@
                 </div>
             @endguest
         </div>
-        <nav class="flex">
-            <a class='btn' href='/'>Home</a>
-            {{-- <a class='btn' href='{{ route('bikes.index') }}'>Bikes</a> --}}
-            <a class='btn' href='{{ route('recipes.index')}}'>Recipes</a>
-        </nav>
     </header>
     <main class='items-center mx-auto w-300'>
         <div class='flex justify-between mb-4 gap-8'>

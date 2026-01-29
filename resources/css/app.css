@@ -12,8 +12,7 @@
 }
 
 body {
-    @apply bg-gray-200 text-gray-700;
-    @apply dark:bg-gray-600 dark:text-gray-200;
+    
 }
 h1 {
     @apply text-4xl font-bold mb-4 px-2 py-2;
@@ -32,8 +31,6 @@ h3 {
     @apply text-2xl font-semibold mb-2;
 }
 header {
-    @apply bg-white shadow mb-6;
-    @apply dark:bg-gray-800 shadow mb-6;
 }
 footer {
     @apply bg-white shadow mt-6;

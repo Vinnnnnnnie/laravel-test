@@ -116,48 +116,20 @@
         </section>
         <h3>Projects</h3>
         <section>
-            <div class="grid grid-cols-2 gap-10">
-                <div class='group relative bg-gray-900 border-1 border-gray-100  p-4 my-4'>
-                    
-                    <div class='flex flex-row'>
-                        <div>
-                            <h2 class='text-orange-500 font-bold mt-2'>Ludum Dare 58</h2>
-                            <a href="https://ldjam.com/events/ludum-dare/58/the-garbage-man-of-new-trash-city" target="_blank">
-                                <h3 class='text-white-50'>The Garbage Man of New Trash City</h3>
-                            </a>
-                            <p class='text-gray-200 mb-2'>
-                        Inspired by early flash games and crazy taxi, we developed a game in 3 days where collecting rubbish from 
-                        the streets and depositing it adds extra time to play. 
-                    </p>
-                    <p class='text-gray-200 mb-2'>
-                        This is coupled with having to take calls from your boss with Helldivers inspired keyboard combinations.
-                        The game is hectic and provides a fun gameplay loop.
-                    </p>
-                        </div>
-                        <img class='rounded-md shadow-xl self-center' src="{{ route('image.website', 'The Garbage Man of New Trash City Title.jpeg') }}"/>
-                    </div>
-                    
-                    <ul class='list-disc ml-5 text-gray-300'>
-                        <li>
-                            <strong class='font-semibold text-white'>Developed as a team</strong> of 2 programmers and 5 artists/sound designers using Godot 4 for development and Git for version control with a strict time limit of 72 hours.
-                        </li>
-                        <li>
-                            <strong class='font-semibold text-white'>Communicated</strong> across the whole team to follow the group vision whilst efficiently managing time for the required features.
-                        </li>
-                        <li>
-                            <strong class='font-semibold text-white'>Published</strong> both games with original gameplay loop, voxel/pixel art and sound effects.
-                        </li>
-                    </ul>
-                </div>
-                <div class='group relative bg-gray-900 border-1 border-gray-100 p-8 my-4'>
-                    <a href="/recipes" target="_blank">
-                        <h3 class='text-white'>Laravel Website</h4>
-                        <img src="{{ route('image.website', 'The Garbage Man of New Trash City Title.jpeg') }}"/>
+            {{-- <div class="grid grid-cols-2 grid-rows-2 gap-4 my-4"> --}}
+            <div class="flex gap-4 my-4">
+
+                <!-- Personal Website -->
+                <div class='bg-gray-900 border-1 border-gray-100 p-4'>
+                    <h2 class='text-red-500 mt-2 font-bold'>Personal Website</h2>
+                    <a href="" target="_blank">
+                        <h3 class='text-white-50'>Vinnie.fyi</h4>
                     </a>
-                    <h5>Recipe Social Media Site</h5>
                     <p>
+                        This is my own little sandbox to try new things. This website is entirely hand crafted with Laravel, 
+                        Tailwind and Javascript. You can track its development over on <a class='font-semibold text-sky-500' href='https://github.com/Vinnnnnnnie/laravel-test'>its GitHub page</a>. 
                     </p>
-                    <ul class='list-disc'>
+                    <ul class='list-disc ml-5 text-gray-300'>
                         <li>
                             Solo project of a recipe social media site using Laravel.
                         </li>
@@ -168,6 +140,45 @@
                             Utilised testing features like factories to debug eloquent models.
                         </li>
                     </ul>
+                </div>
+                <!-- Recipe Website -->
+                <div class=' bg-gray-900 border-1 border-gray-100 p-4 row-start-2'>
+                    <h2 class='text-blue-500 mt-2 font-bold'>RecipeShare</h2>
+                    <a href="/recipes" target="_blank">
+                        <h3 class='text-white-50'>Recipes.fyi</h4>
+                    </a>
+                    <p>
+                        A passion project that allows you to collate recipes online that are easily shared 
+                        to close family and friends.
+                    </p>
+                    <p class='text-gray-300'>
+                        It is a light social media website, currently running on a subdirectory of my personal 
+                        website. It is currently under the same <a class='font-semibold text-sky-500' href='https://github.com/Vinnnnnnnie/laravel-test'>GitHub project</a>
+                        but this will be branched off when they become their own entities.
+                    </p>
+                </div>
+                <!-- Ludum Dare -->
+                <div class='bg-gray-900 border-1 border-gray-100 p-4 row-span-2 col-start-2'>   
+                    <h2 class='text-orange-500 font-bold mt-2'>Ludum Dare 58</h2>
+                    <div class='flex flex-col'>
+                        <div>
+                            <p class='font-semibold'>
+                                Ludum Dare is a Game Jam where you have 3 days to create a game based on a theme revealed at the 
+                                start of the competition.
+                            </p>
+                            <a href="https://ldjam.com/events/ludum-dare/58/the-garbage-man-of-new-trash-city" target="_blank">
+                                <h3 class='text-white-50'>The Garbage Man of New Trash City</h3>
+                            </a>
+                            <p class='text-gray-200 mb-2'>
+                                Inspired by early flash games and Crazy Taxi, we developed a game in where collecting rubbish from 
+                                the streets and depositing it adds extra time to play, whilst also having to take calls from your boss.
+                            </p>
+                            <p class='text-gray-200 mb-2'>
+                                Placed overall in the <strong class='text-orange-500'>top 30%</strong> of games, and top 10% for humour.
+                            </p>
+                        </div>
+                        {{-- <img class='rounded-md p-4 self-start' src="{{ route('image.website', 'The Garbage Man of New Trash City Title.jpeg') }}"/> --}}
+                    </div>
                 </div>
             </div>            
         </section>

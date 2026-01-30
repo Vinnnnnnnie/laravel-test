@@ -11,16 +11,15 @@
     --animate-border-pulse: borderPulse 2s ease-in-out infinite; 
 }
 
-body {
-    
-}
 h1 {
     @apply text-4xl font-bold mb-4 px-2 py-2;
 }
+
 h1 a {
     text-decoration: none;
     @apply text-black
 }
+
 h1 a:hover {
     text-decoration: none;
 }
@@ -29,15 +28,6 @@ h2 {
 }
 h3 {
     @apply text-2xl font-semibold mb-2;
-}
-header {
-}
-footer {
-    @apply bg-white shadow mt-6;
-    @apply dark:bg-gray-800;
-}
-p {
-    
 }
 
 a:hover {

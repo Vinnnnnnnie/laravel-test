@@ -3,17 +3,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RecipeBook</title>
+    <title>vinnie.fyi</title>
     @vite('resources/css/app.css')
 </head>
-<body class='bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono'>
+<body class='bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
     <header class='bg-gray-100 dark:bg-gray-900 shadow mb-6 border-b-1 border-gray-900 dark:border-gray-100'>
         <div class="flex flex-row justify-between text-center align-middle">
-            <h1>vinnie.fyi</h1>
+            <h1 class='font-mono'>vinnie.fyi</h1>
             <nav class="flex gap-12 items-center">
-                <a class='font-semibold text-xl hover:no-underline' href='/'>Home</a>
+                <a class='font-semibold text-xl' href='/'>Home</a>
                 {{-- <a class='btn' href='{{ route('bikes.index') }}'>Bikes</a> --}}
-                <a class='font-semibold text-xl hover:no-underline' href='{{ route('recipes.index')}}'>RecipeBook</a>
+                <a class='font-semibold text-xl' href='{{ route('recipes.index')}}'>RecipeBook</a>
+                <a class='font-semibold text-xl' href=''>Steam Activity</a>
             </nav>
             @auth
                 <div class="flex p-2 items-center">
@@ -107,7 +108,7 @@
             @endauth
         </div>
     </main>
-    <footer>
+    <footer class='bg-gray-100 border-gray-900 dark:bg-gray-900 border-t-1 dark:border-gray-100'>
         <div class="flex justify-center gap-12 p-12 text-center align-middle text-gray-400">
             <div>
                 <h3><strong>Projects</strong></h3>

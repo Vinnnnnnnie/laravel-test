@@ -14,7 +14,7 @@
                         if it is disliked a lot, give it a controversial border --}}
 
                         {{-- Border or tag I suppose --}}
-                    
+                        {{-- Need to reduce the stuff in this by putting it all into the component --}}
                         <x-card href="{{ route('recipes.show', $recipe) }}" :user='$recipe->user_id === auth()->user()->id' :friend='session("friendslist")->pluck("friend_user_id")->contains($recipe->user_id)'>
                             <div class='flex flex-col gap-0.5 w-100 justify-start'>
                                 <div class='flex flex-row gap-2'>
@@ -25,7 +25,6 @@
                                         <p>{{ $recipe->created_at->diffForHumans() }}</p>
                                     </div>
                                 </div>
-
                                 <h2 class='fs-6'>{{ $recipe->title }}</h2>
                                 @if($recipe->image_path)
                                 <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-full max-w-full  self-center'>

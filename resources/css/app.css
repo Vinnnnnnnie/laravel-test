@@ -43,12 +43,12 @@ a:hover {
     }
 }
 .card {
-    @apply bg-gray-50 p-4 shadow mt-4 flex justify-between items-center;
-    @apply dark:bg-gray-800;
+    @apply bg-gray-100 p-4 flex justify-between items-center;
+    @apply dark:bg-gray-900;
 }
 a.card {
-    @apply hover:bg-gray-100;
-    @apply dark:hover:bg-gray-700;
+    @apply hover:bg-gray-200;
+    @apply dark:hover:bg-gray-800;
 }
 .highlight {
     @apply border-l-4 border-red-500;
@@ -108,11 +108,6 @@ a.card {
     @apply dark:bg-gray-800;
 }
 .profile {
-    @apply bg-gray-50 flex items-center gap-4 p-4;
-    @apply dark:bg-gray-800;
-}
-
-.friends-list {
-    @apply w-80 p-4 bg-gray-50;
-    @apply dark:bg-gray-800;
+    @apply bg-gray-100 flex items-center gap-4 p-4;
+    @apply dark:bg-gray-900;
 }

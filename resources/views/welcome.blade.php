@@ -162,13 +162,13 @@
                     <h2 class='text-orange-500 font-bold mt-2'>Ludum Dare 58</h2>
                     <div class='flex flex-col'>
                         <div>
+                            <a href="https://ldjam.com/events/ludum-dare/58/the-garbage-man-of-new-trash-city" target="_blank">
+                                <h3 class='text-white-50'>The Garbage Man of New Trash City</h3>
+                            </a>
                             <p class='font-semibold'>
                                 Ludum Dare is a Game Jam where you have 3 days to create a game based on a theme revealed at the 
                                 start of the competition.
                             </p>
-                            <a href="https://ldjam.com/events/ludum-dare/58/the-garbage-man-of-new-trash-city" target="_blank">
-                                <h3 class='text-white-50'>The Garbage Man of New Trash City</h3>
-                            </a>
                             <p class='text-gray-200 mb-2'>
                                 Inspired by early flash games and Crazy Taxi, we developed a game in where collecting rubbish from 
                                 the streets and depositing it adds extra time to play, whilst also having to take calls from your boss.

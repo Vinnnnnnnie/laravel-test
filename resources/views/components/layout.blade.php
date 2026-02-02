@@ -33,12 +33,12 @@
             @endguest
         </div>
     </header>
-    <main class='items-center mx-auto w-300'>
+    <main class='items-center mx-40'>
         <div class='flex justify-between mb-4 gap-8'>
             {{-- User info --}}
             @auth
-                <div class='w-100 sticky top-4 h-fit'>
-                    <div class='profile border-l-4 border-blue-500'>
+                <div class='flex-grow-1 sticky top-4 h-fit flex flex-col gap-4'>
+                    <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4 border-l-4 border-blue-500'>
                         @if(auth()->user()->image_path)
                         <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
                         @endif
@@ -48,9 +48,18 @@
                             <p>{{ count(auth()->user()->recipe) }} @if (count(auth()->user()->recipe) > 1)Recipes @else Recipe @endif</p>
                         </div>
                     </div>
+                    <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4'>
+                        <div class='flex flex-col'>
+                            <h2 class='text-xl font-bold'>Settings</h2>
+                            <a href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-gear-fill') }} General</a>
+                            <a href=''  class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-lock-fill') }} Security and Login</a>
+                            <a  href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-globe') }} Language and Region</a>
+                            <a href=''  class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'><x-bi-shield-fill></x-bi-shield-fill> Blocking</a>
+                        </div>
+                    </div>
                 </div>
             @endauth
-            <div class='w-full'>
+            <div class=' flex-grow-2'>
                 <ul>
                     @if(session('success'))
                         <div class='bg-green-200 text-green-800 p-2 rounded mb-4 bold'>
@@ -69,7 +78,7 @@
                 @endif
                 @auth
                     {{-- Recipe Search --}}
-                    <div class='w-full'>
+                    <div class='w-full mb-2'>
                         <h2>Find Recipes</h2>
                         <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 card'>
                             @csrf
@@ -82,28 +91,26 @@
             </div>
             {{-- Friends List --}}
             @auth
-                <div class='w-100 sticky top-4 friends-list border-l-4 border-yellow-500 h-fit'>
+                <div class=' flex-grow-1 sticky top-4 border-l-4 border-yellow-500 h-fit p-4 bg-gray-100 dark:bg-gray-900'>
                     <ul>
-                        <li><h2>Your Friends</h2></li>
+                        <li><h2>Followed</h2></li>
                         @session('friendslist')
-                            @foreach($value as $friend)
-                            <li>
-                                <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
-                                    <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
-                                    <strong>{{ $friend->name }}</strong>
-                                </a>
-                            </li>
-                            @endforeach
+                            @if(count($value) > 0)
+                                @foreach($value as $friend)
+                                <li>
+                                    <a class="btn flex gap-2 items-center m-2" href="{{ route('users.show', $friend->friend_user_id) }}">
+                                        <img src='{{ route('image.users', $friend->image_path) }}' class='w-10 max-w-10'>
+                                        <strong>{{ $friend->name }}</strong>
+                                    </a>
+                                </li>
+                                @endforeach
+                            @else
+                                <li>
+                                    You're not following anyone yet
+                                </li>
+                            @endif
                         @endsession
                     </ul>
-                    <div class='w-full'>
-                        <h4>Find Friends</h2>
-                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 card'>
-                            @csrf
-                            <input type='text' id='term' name='term' placeholder='Search Friends...' class='w-full' value={{ old('term') }}>
-                            <input type='submit' name='submit' class='btn' value='Go'>
-                        </form>
-                    </div>
                 </div>
             @endauth
         </div>

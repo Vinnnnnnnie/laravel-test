@@ -157,6 +157,7 @@
                         but this will be branched off when they become their own entities.
                     </p>
                 </div>
+                
                 <!-- Ludum Dare -->
                 <div class='bg-gray-900 border-1 border-gray-100 p-4 row-span-2 col-start-2'>   
                     <h2 class='text-orange-500 font-bold mt-2'>Ludum Dare 58</h2>

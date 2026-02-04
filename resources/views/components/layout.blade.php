@@ -1,6 +1,6 @@
 @php
     $page = request()->segment(1);
-    if ($page === '')
+    if ($page === NULL)
     {
         $page = 'home';
     }
@@ -18,10 +18,10 @@
         <div class="flex flex-row justify-between text-center align-middle">
             <h1 class='font-mono'>vinnie.fyi</h1>
             <nav class="flex gap-12 items-center">
-                <a @class(['font-semibold', 'text-xl', 'font-bold' => ($page === 'home')]) href='/'>Home</a>
+                <a @class(['', 'text-xl', 'font-bold' => ($page === 'home')]) href='/'>Home</a>
                 {{-- <a class='btn' href='{{ route('bikes.index') }}'>Bikes</a> --}}
-                <a @class(['font-semibold', 'text-xl', 'font-bold' => ($page === 'recipes')]) href='{{ route('recipes.index')}}'>RecipeBook</a>
-                <a @class(['font-semibold', 'text-xl', 'font-bold' => ($page === 'games')]) href='{{ route('games.index') }}' disabled>Steam Activity</a>
+                <a @class(['', 'text-xl', 'font-bold' => ($page === 'recipes')]) href='{{ route('recipes.index')}}'>RecipeBook</a>
+                <a @class(['', 'text-xl', 'font-bold' => ($page === 'games')]) href='{{ route('games.index') }}' disabled>Steam Activity</a>
             </nav>
             @if($page === 'recipes')
                 @auth

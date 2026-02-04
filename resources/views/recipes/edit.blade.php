@@ -22,11 +22,11 @@
             </div>
             <div>
                 <label for="ingredients">Ingredients:</label>
-                <input type="text" id="ingredients" name="ingredients" value='{{ $recipe->ingredients }}' required>
+                <textarea type="text" id="ingredients" name="ingredients" required>{{ $recipe->ingredients }}</textarea>
             </div>
             <div>
                 <label for="Instructions">Instructions:</label>
-                <input type="text" id="instructions" name="instructions" value='{{ $recipe->instructions }}' required>
+                <textarea type="text" id="instructions" name="instructions" required>{{ $recipe->instructions }}</textarea>
             </div>
             <div>
                 <label for="preparation_time">Preparation Time (minutes):</label>

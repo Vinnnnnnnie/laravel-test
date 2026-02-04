@@ -73,3 +73,13 @@ Route::middleware('auth')->controller(BikeController::class)->group(function () 
     Route::post('/bikes', 'store')->name('bikes.store');
     Route::delete('/bikes/{bike}', 'destroy')->name('bikes.destroy');
 });
+
+Route::get('/games', function() 
+{
+    return view('coming-soon');
+})->name('games.index');
+
+Route::get('/games/*', function() 
+{
+    return view('coming-soon');
+});

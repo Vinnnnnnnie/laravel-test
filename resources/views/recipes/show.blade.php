@@ -33,15 +33,12 @@
     </div>
     @if($recipe->comment)
         @foreach($recipe->comment as $comment)
-            <x-comment :highlight='$recipe->user_id === $comment->user_id' :user='$comment->user_id === auth()->user()->id' :friend='session("friendslist")->pluck("friend_user_id")->contains($comment->user_id)'>
-                <div>
-                    <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
-                </div>
-                <div class="w-full">
-                    <h5><strong>{{ $comment->user->name }}</strong></h5>
-                    {{ $comment->comment }}
-                </div>
-            </x-comment>
+            <x-comment 
+                :highlight='$recipe->user_id === $comment->user_id' 
+                :user='$comment->user_id === auth()->user()->id' 
+                :friend='session("friendslist")->pluck("friend_user_id")->contains($comment->user_id)'
+                :comment='$comment'
+                />
         @endforeach
     @endif
     <div class='bg-gray-50 items-center p-3 flex ml-12 mt-4 dark:bg-gray-700 dark:text-gray-200 gap-2'>

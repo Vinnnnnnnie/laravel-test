@@ -60,7 +60,7 @@
                     Developer of internal web tools to interact with and monitor Database, built in the LAMP stack. 
                     Maintained and added features for 3 public facing websites.
                 </p>
-                <ul class='list-disc text-gray-300'>
+                <ul class='list-disc ml-6 text-gray-300'>
                     <li>
                         Inspected items for quality and logged merchandise defects.
                     </li>

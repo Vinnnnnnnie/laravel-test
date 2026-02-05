@@ -13,7 +13,7 @@
     <title>vinnie.fyi</title>
     @vite('resources/css/app.css')
 </head>
-<body class='bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
+<body class='bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
     <header class='bg-gray-100 dark:bg-gray-900 shadow mb-6 border-b-1 border-gray-900 dark:border-gray-100'>
         <div class="flex flex-row justify-between text-center align-middle">
             <h1 class='font-mono'>vinnie.fyi</h1>

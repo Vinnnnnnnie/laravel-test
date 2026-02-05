@@ -1,8 +1,8 @@
 <x-layout>
     <div >
-        <h2>Vincent Owens - Software Developer</h2>
-        <h3>Profile</h3>
-        <section class='bg-gray-900 border-1 border-gray-100 p-8 my-4'>
+        <h2 class='mb-0'>Vincent Owens - Software Developer</h2>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8'>Profile</h3>
+        <section class='dark:bg-gray-900 bg-gray-100 border-1 border-gray-900 dark:border-gray-100 p-8 my-4'>
             <p>
                 Experienced software engineer with a background in public facing applications 
                 looking for opportunities in website and app development. 
@@ -11,23 +11,23 @@
                 of programming and technology.
             </p>
         </section>
-        <h3>Professional Experience</h3>
-        <section class='bg-gray-900 border-1 border-gray-100 p-8 my-4'>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Professional Experience</h3>
+        <section class='dark:bg-gray-900 bg-gray-100 border-gray-900 border-1 dark:border-gray-100 p-8 my-4'>
             <div>
                 <div class='flex flex-row justify-between items-center mb-2'>
                     <h3>Software Engineer</h3>
                     <div class='flex flex-col items-end'>
-                        <h4 class='text-gray-100 font-semibold'>C-Tec Research and Development</h4>
-                        <h4 class='text-gray-300'>September 2022 - Present</h4>
+                        <h4 class='dark:text-gray-100 text-gray-900 font-semibold'>C-Tec Research and Development</h4>
+                        <h4 class='dark:text-gray-300 text-gray-700'>September 2022 - Present</h4>
                     </div>
                 </div>
-                <p class='text-gray-200'>
+                <p class='dark:text-gray-200 text-gray-800'>
                     Built a live dashboard measuring current database statistics to monitor product uptake and database 
                     performance.
                     Developer of internal web tools to interact with and monitor Database, built in the LAMP stack. 
                     Maintained and added features for 3 public facing websites.
                 </p>
-                <ul class='list-disc ml-6 text-gray-300'>
+                <ul class='list-disc ml-6 dark:text-gray-300 text-gray-700'>
                     <li>
                         Designed, developed and maintained a secure database web portal for easier modification of database by select authorised users.
                     </li>
@@ -50,17 +50,14 @@
                 <div class='flex flex-row justify-between items-center mb-2'>
                     <h3>Data Entry</h3>
                     <div class='flex flex-col items-end'>
-                        <h4 class='text-gray-100 font-semibold'>Preworn LTD</h4>
-                        <h4 class='text-gray-300'>December 2021 - June 2022</h4>
+                        <h4 class='dark:text-gray-100 text-gray-900 font-semibold'>Preworn LTD</h4>
+                        <h4 class='dark:text-gray-300 text-gray-700'>December 2021 - June 2022</h4>
                     </div>
                 </div>
-                <p class='text-gray-200'>
-                    Built a live dashboard measuring current database statistics to monitor product uptake and database 
-                    performance.
-                    Developer of internal web tools to interact with and monitor Database, built in the LAMP stack. 
-                    Maintained and added features for 3 public facing websites.
+                <p class='dark:text-gray-200 text-gray-800'>
+                    
                 </p>
-                <ul class='list-disc ml-6 text-gray-300'>
+                <ul class='list-disc ml-6 dark:text-gray-300 text-gray-700'>
                     <li>
                         Inspected items for quality and logged merchandise defects.
                     </li>
@@ -73,9 +70,9 @@
                 </ul>
             </div>
         </section>
-        <h3>Skills</h3>
-        <section class='bg-gray-900 border-1 border-gray-100 p-8 my-4 flex flex-col'>
-            <h3 class="self-center text-white">Languages</h4>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Skills</h3>
+        <section class='dark:bg-gray-900 bg-gray-100 border-gray-900 border-1 dark:border-gray-100 p-8 my-4 flex flex-col'>
+            <h3 class="self-center">Languages</h4>
             <div class="flex flex-row items-center justify-between gap-4">
                 <div class="rounded rounded-l">
                     <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'MySQL.png') }}"\>
@@ -94,8 +91,8 @@
                 </div>
             </div>
         </section>
-        <section class='bg-gray-900 border-1 border-gray-100 p-8 my-4 flex flex-col'>
-            <h3 class="self-center text-white">Frameworks and Others</h4>
+        <section class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-8 my-4 flex flex-col'>
+            <h3 class="self-center">Frameworks and Others</h4>
             <div class="flex flex-row items-center justify-between gap-4">
                 <div>
                     <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Laravel.png') }}"\>
@@ -114,22 +111,22 @@
                 </div>
             </div>
         </section>
-        <h3>Projects</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Projects</h3>
         <section>
             {{-- <div class="grid grid-cols-2 grid-rows-2 gap-4 my-4"> --}}
             <div class="flex gap-4 my-4">
 
                 <!-- Personal Website -->
-                <div class='bg-gray-900 border-1 border-gray-100 p-4'>
+                <div class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-4'>
                     <h2 class='text-red-500 mt-2 font-bold'>Personal Website</h2>
                     <a href="" target="_blank">
-                        <h3 class='text-white-50'>Vinnie.fyi</h4>
+                        <h3>Vinnie.fyi</h4>
                     </a>
                     <p>
                         This is my own little sandbox to try new things. This website is entirely hand crafted with Laravel, 
                         Tailwind and Javascript. You can track its development over on <a class='font-semibold text-sky-500' href='https://github.com/Vinnnnnnnie/laravel-test'>its GitHub page</a>. 
                     </p>
-                    <ul class='list-disc ml-5 text-gray-300'>
+                    <ul class='list-disc ml-5 dark:text-gray-300 text-gray-700'>
                         <li>
                             Solo project of a recipe social media site using Laravel.
                         </li>
@@ -142,16 +139,16 @@
                     </ul>
                 </div>
                 <!-- Recipe Website -->
-                <div class=' bg-gray-900 border-1 border-gray-100 p-4 row-start-2'>
+                <div class=' dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-4 row-start-2'>
                     <h2 class='text-blue-500 mt-2 font-bold'>RecipeShare</h2>
                     <a href="/recipes" target="_blank">
-                        <h3 class='text-white-50'>Recipes.fyi</h4>
+                        <h3>Recipes.fyi</h4>
                     </a>
                     <p>
                         A passion project that allows you to collate recipes online that are easily shared 
                         to close family and friends.
                     </p>
-                    <p class='text-gray-300'>
+                    <p class='dark:text-gray-300 text-gray-700'>
                         It is a light social media website, currently running on a subdirectory of my personal 
                         website. It is currently under the same <a class='font-semibold text-sky-500' href='https://github.com/Vinnnnnnnie/laravel-test'>GitHub project</a>
                         but this will be branched off when they become their own entities.
@@ -159,23 +156,23 @@
                 </div>
                 
                 <!-- Ludum Dare -->
-                <div class='bg-gray-900 border-1 border-gray-100 p-4 row-span-2 col-start-2'>   
+                <div class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-4 row-span-2 col-start-2'>   
                     <h2 class='text-orange-500 font-bold mt-2'>Ludum Dare 58</h2>
                     <div class='flex flex-col'>
                         <div>
                             <a href="https://ldjam.com/events/ludum-dare/58/the-garbage-man-of-new-trash-city" target="_blank">
-                                <h3 class='text-white-50'>The Garbage Man of New Trash City</h3>
+                                <h3>The Garbage Man of New Trash City</h3>
                             </a>
                             <p class='font-semibold'>
                                 Ludum Dare is a Game Jam where you have 3 days to create a game based on a theme revealed at the 
                                 start of the competition.
                             </p>
                             
-                            <p class='text-gray-200 mb-2'>
+                            <p class='dark:text-gray-200 text-gray-800 mb-2'>
                                 Inspired by early flash games and Crazy Taxi, we developed a game in where collecting rubbish from 
                                 the streets and depositing it adds extra time to play, whilst also having to take calls from your boss.
                             </p>
-                            <p class='text-gray-200 mb-2'>
+                            <p class='dark:text-gray-200 text-gray-800 mb-2'>
                                 Placed overall in the <strong class='text-orange-500'>top 30%</strong> of games, and top 10% for humour.
                             </p>
                         </div>
@@ -184,12 +181,20 @@
                 </div>
             </div>            
         </section>
-        <h3>Education</h3>
-        <section class='bg-gray-900 border-1 border-gray-100 p-8 my-4'>
-            <p><strong>Diploma of Higher Education (Mathematics):</strong> Lancaster University	2018 - 2021</p>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Education</h3>
+        <section class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-8 my-4'>
+            <div class='flex flex-row justify-between'>
+                <div>
+                    <strong>Lancaster University	2018 - 2021</strong>
+                    <p>Diploma of Higher Education (Mathematics)</p>
+                </div>
+                <div>
+                    <img src='{{ route('image.website', 'Lancaster Dark.png') }}'>
+                </div>
+            </div>
         </section>
-        <h3>Interests</h3>
-        <section class='bg-gray-900 border-1 border-gray-100 p-8 my-4'>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Interests</h3>
+        <section class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-8 my-4'>
             <p>Avid motorcyclist and amateur mechanic. Currently fixing up a non-running 1994 BMW motorcycle.</p>
             <p>Hobbyist mead brewer, cooking enthusiast and novice handyman.</p>
         </section>

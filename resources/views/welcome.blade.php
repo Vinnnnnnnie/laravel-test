@@ -84,10 +84,12 @@
                     <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'JavaScript.png') }}"\>
                 </div>
                 <div class="rounded-l">
-                    <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Bash Dark.png') }}"\>
+                    <img class='dark:block hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Bash Dark.png') }}"\>
+                    <img class='block dark:hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Bash Light.png') }}"\>
                 </div>
                 <div class="rounded-l">
-                    <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Godot Dark.png') }}"\>
+                    <img class='dark:block hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Godot Dark.png') }}"\>
+                    <img class='block dark:hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Godot Light.png') }}"\>
                 </div>
             </div>
         </section>
@@ -98,7 +100,8 @@
                     <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Laravel.png') }}"\>
                 </div>
                 <div>
-                    <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Git Dark.png') }}"\>
+                    <img class='dark:block hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Git Dark.png') }}"\>
+                    <img class='block dark:hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Git Light.png') }}"\>
                 </div>
                 <div>
                     <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Docker.png') }}"\>
@@ -189,7 +192,8 @@
                     <p>Diploma of Higher Education (Mathematics)</p>
                 </div>
                 <div>
-                    <img src='{{ route('image.website', 'Lancaster Dark.png') }}'>
+                    <img class='dark:block hidden' src='{{ route('image.website', 'Lancaster Dark.png') }}'>
+                    <img class='dark:hidden block' src='{{ route('image.website', 'Lancaster Light.png') }}'>
                 </div>
             </div>
         </section>

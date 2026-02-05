@@ -133,12 +133,12 @@
         </div>
     </main>
     <footer class='bg-gray-100 border-gray-900 dark:bg-gray-900 border-t-1 dark:border-gray-100'>
-        <div class="flex justify-center gap-12 p-12 text-center align-middle text-gray-400">
+        <div class="flex justify-center gap-12 p-12 text-center align-middle dark:text-gray-300 text-gray-700">
             <div>
                 <h3><strong>Projects</strong></h3>
                 <ul>
                     <li>
-                        <a href='https://vinnie.fyi' class='fs-bold'>Portfolio Website</a>
+                        <a href='https://vinnie.fyi' class='font-bold'>Portfolio Website</a>
                     </li>
                     <li>
                         <a href='https://www.github.com/Vinnnnnnnie'>GitHub</a>

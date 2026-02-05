@@ -42,6 +42,30 @@ a:hover {
         transform: rotate(360deg);
     }
 }
+
+.dark-striped-background {
+    background-image: repeating-linear-gradient(
+        135deg,
+        var(--color-gray-700) 0,
+        var(--color-gray-700) 5px,
+        transparent 0,
+        transparent 50%
+    );
+    background-size: 30px 30px;
+    background-attachment:fixed;
+}
+.striped-background {
+    background-image: repeating-linear-gradient(
+        135deg,
+        var(--color-gray-300) 0,
+        var(--color-gray-300) 5px,
+        transparent 0,
+        transparent 50%
+    );
+    background-size: 30px 30px;
+    background-attachment:fixed;
+}
+
 .card {
     @apply bg-gray-100 p-4 flex justify-between items-center;
     @apply dark:bg-gray-900;

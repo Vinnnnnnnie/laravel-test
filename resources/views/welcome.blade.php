@@ -1,7 +1,7 @@
 <x-layout>
-    <div >
+    <div class="grid">
         <h2 class='mb-0'>Vincent Owens - Software Developer</h2>
-        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8'>Profile</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10'>Profile</h3>
         <section class='dark:bg-gray-900 bg-gray-100 border-1 border-gray-900 dark:border-gray-100 p-8 my-4'>
             <p>
                 Experienced software engineer with a background in public facing applications 
@@ -11,7 +11,7 @@
                 of programming and technology.
             </p>
         </section>
-        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Professional Experience</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10' >Professional Experience</h3>
         <section class='dark:bg-gray-900 bg-gray-100 border-gray-900 border-1 dark:border-gray-100 p-8 my-4'>
             <div>
                 <div class='flex flex-row justify-between items-center mb-2'>
@@ -70,7 +70,7 @@
                 </ul>
             </div>
         </section>
-        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Skills</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10' >Skills</h3>
         <section class='dark:bg-gray-900 bg-gray-100 border-gray-900 border-1 dark:border-gray-100 p-8 my-4 flex flex-col'>
             <h3 class="self-center">Languages</h4>
             <div class="flex flex-row items-center justify-between gap-4">
@@ -114,7 +114,7 @@
                 </div>
             </div>
         </section>
-        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Projects</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10' >Projects</h3>
         <section>
             {{-- <div class="grid grid-cols-2 grid-rows-2 gap-4 my-4"> --}}
             <div class="flex gap-4 my-4">
@@ -184,7 +184,7 @@
                 </div>
             </div>            
         </section>
-        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Education</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10' >Education</h3>
         <section class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-8 my-4'>
             <div class='flex flex-row justify-between'>
                 <div>
@@ -197,7 +197,7 @@
                 </div>
             </div>
         </section>
-        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-8' >Interests</h3>
+        <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10' >Interests</h3>
         <section class='dark:bg-gray-900 bg-gray-100 border-1 dark:border-gray-100 border-gray-900 p-8 my-4'>
             <p>Avid motorcyclist and amateur mechanic. Currently fixing up a non-running 1994 BMW motorcycle.</p>
             <p>Hobbyist mead brewer, cooking enthusiast and novice handyman.</p>

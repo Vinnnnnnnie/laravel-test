@@ -14,7 +14,7 @@
     @vite('resources/css/app.css')
 </head>
 <body class='bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
-    <header class='bg-gray-100 dark:bg-gray-900 shadow mb-6 border-b-1 border-gray-900 dark:border-gray-100'>
+    <header class='bg-gray-100 dark:bg-gray-900 shadow border-b-1 border-gray-900 dark:border-gray-100'>
         <div class="flex flex-row justify-between text-center align-middle">
             <h1 class='font-mono'>vinnie.fyi</h1>
             <nav class="flex gap-12 items-center">
@@ -42,8 +42,8 @@
             @endif;
         </div>
     </header>
-    <main class='items-center mx-40'>
-        <div class='flex justify-between mb-4 gap-8'>
+    <main class='items-center'>
+        <div class='grid grid grid-cols-12  justify-between gap-8'>
             {{-- User info --}}
             @if($page === 'recipes')
                 @auth
@@ -71,8 +71,10 @@
                         </div>
                     </div>
                 @endauth
+            @else
+            <div class="col-start-1 col-span-2 striped-background"></div>
             @endif
-            <div class=' flex-2 gap-4'>
+            <div class='col-start-3 col-span-8 flex-2 gap-4'>
                 <ul>
                     @if(session('success'))
                         <div class='bg-green-200 text-green-800 p-2 rounded mb-4 bold'>
@@ -107,7 +109,7 @@
             {{-- Friends List --}}
             @if($page === 'recipes')
                 @auth
-                    <div class=' flex-1 sticky top-4 border-l-4 border-yellow-500 h-fit p-4 bg-gray-100 dark:bg-gray-900'>
+                    <div class='col-start-11 col-span-2 flex-1 sticky top-4 border-l-4 border-yellow-500 h-fit p-4 bg-gray-100 dark:bg-gray-900'>
                         <ul>
                             <li><h2>Followed</h2></li>
                             @session('friendslist')
@@ -129,6 +131,8 @@
                         </ul>
                     </div>
                 @endauth
+            @else
+                <div class="col-start-11 col-span-2 dark:dark-striped-background striped-background"></div>
             @endif
         </div>
     </main>
@@ -138,6 +142,7 @@
                 <h3><strong>Projects</strong></h3>
                 <ul>
                     <li>
+                        
                         <a href='https://vinnie.fyi' class='font-bold'>Portfolio Website</a>
                     </li>
                     <li>

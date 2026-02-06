@@ -42,8 +42,8 @@
             @endif;
         </div>
     </header>
-    <main class='items-center'>
-        <div class='grid grid grid-cols-12  justify-between gap-8'>
+    <main class='items-center striped-background'>
+        <div class='grid grid-cols-12 divide-solid divide-x divide-gray-100 justify-between gap-8 '>
             {{-- User info --}}
             @if($page === 'recipes')
                 @auth
@@ -72,9 +72,9 @@
                     </div>
                 @endauth
             @else
-            <div class="col-start-1 col-span-2 striped-background"></div>
+            <div class="col-start-1 col-span-2 bg-gray-800"></div>
             @endif
-            <div class='col-start-3 col-span-8 flex-2 gap-4'>
+            <div class='col-start-3 col-span-8 flex-2 gap-4 bg-gray-800'>
                 <ul>
                     @if(session('success'))
                         <div class='bg-green-200 text-green-800 p-2 rounded mb-4 bold'>
@@ -132,7 +132,7 @@
                     </div>
                 @endauth
             @else
-                <div class="col-start-11 col-span-2 dark:dark-striped-background striped-background"></div>
+                <div class="col-start-11 col-span-2 bg-gray-800"></div>
             @endif
         </div>
     </main>

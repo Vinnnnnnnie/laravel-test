@@ -1,4 +1,4 @@
-<x-layout>
+<x-home-layout>
     <h2>Create a New Bike</h2>
     <div>
     @if ($errors->any())
@@ -58,4 +58,4 @@
         </div>
         <button type="submit">Create Bike</button>
     </form>
-</x-layout>
+</x-home-layout>

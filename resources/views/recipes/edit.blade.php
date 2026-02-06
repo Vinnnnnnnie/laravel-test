@@ -1,4 +1,4 @@
-<x-layout>
+<x-recipe-layout>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -56,4 +56,4 @@
             <button type='submit'>Save Recipe</button>
         </form>
     </div>
-</x-layout>
+</x-recipe-layout>

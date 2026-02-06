@@ -1,4 +1,4 @@
-<x-layout>
+<x-recipe-layout>
     <div class="card">
         <div href="{{ route('recipes.show', $recipe) }}">
             <div style='display:flex;flex-direction:column;gap:0.5rem;'>
@@ -55,4 +55,4 @@
             </form>
         </div>
     </div>
-</x-layout>
+</x-recipe-layout>

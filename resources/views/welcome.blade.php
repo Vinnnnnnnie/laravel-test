@@ -1,4 +1,4 @@
-<x-layout>
+<x-home-layout>
     <div class="grid">
         <h2 class='mb-0'>Vincent Owens - Software Developer</h2>
         <h3 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-10'>Profile</h3>
@@ -203,4 +203,4 @@
             <p>Hobbyist mead brewer, cooking enthusiast and novice handyman.</p>
         </section>
     </div>
-</x-layout>
+</x-home-layout>

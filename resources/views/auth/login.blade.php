@@ -1,4 +1,4 @@
-<x-layout>
+<x-home-layout>
     <div class='flex bg-gray-100 p-4 flex-col items-center dark:bg-gray-900 justify-self-center my-20'>
         <h2>Login</h2>
         <form method="POST" action="{{ route('login') }}" class='flex flex-col gap-4'>
@@ -14,4 +14,4 @@
             <button type="submit" class='btn'>Login</button>
         </form>
     </div>
-</x-layout>
+</x-home-layout>

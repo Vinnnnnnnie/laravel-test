@@ -1,4 +1,4 @@
-<x-layout>
+<x-recipe-layout>
     <h2>Create a New Recipe</h2>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -66,7 +66,7 @@
     </div>
 
     
-</x-layout>
+</x-recipe-layout>
 <script>
     function readURL(input) {
         if (input.target.files[0]) {

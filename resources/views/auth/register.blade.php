@@ -1,4 +1,4 @@
-<x-layout>
+<x-home-layout>
     <div class='form'>
         <h2>Register</h2>
         <form class='flex flex-col gap-4' method="POST" action="{{ route('register') }}">
@@ -22,4 +22,4 @@
             <button class='btn' type="submit">Register</button>
         </form>
     </div>
-</x-layout>
+</x-home-layout>

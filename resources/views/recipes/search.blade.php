@@ -1,4 +1,4 @@
-<x-layout>
+<x-recipe-layout>
     <div>
         @if(isset($users) && count($users) > 0)
         <h2>Users</h2>
@@ -35,4 +35,4 @@
         </ul>
         {{  $recipes->withQueryString()->links() }}
     </div>
-</x-layout>
+</x-recipe-layout>

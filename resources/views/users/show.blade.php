@@ -1,4 +1,4 @@
-<x-layout>
+<x-recipe-layout>
     {{-- User information --}}
     <div class='card flex flex-row gap-4'>
         @if($user->image_path)
@@ -88,6 +88,7 @@
             </ul>
             {{  $recipes->links() }}
         </div>
+    </div>
     {{-- Friend information ? --}}
     {{-- Buttons --}}
-</x-layout>
+</x-recipe-layout>

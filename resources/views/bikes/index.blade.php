@@ -5,7 +5,7 @@
             </div>
         @endif
     </div>
-<x-layout>
+<x-home-layout>
     <h2>List of all Bikes</h2>
     
     <a href="{{ route('bikes.create') }}">Create a New Bike</a>
@@ -25,5 +25,5 @@
         @endforeach
     </ul>
     {{  $bikes->links() }}
-</x-layout>
+</x-home-layout>
 

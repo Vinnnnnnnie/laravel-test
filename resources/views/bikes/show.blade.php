@@ -1,4 +1,4 @@
-<x-layout>
+<x-home-layout>
     {{-- Bike information --}}
     <h2>{{ $bike->year . ' ' . $bike->make . ' ' . ucfirst($bike->model)}}</h2>
     <p><strong>Engine Size: </strong>{{ $bike->engine_size }}</p>
@@ -22,4 +22,4 @@
         </form>
         <a class='btn' href="/bikes">Back to all Bikes</a>
     </div>
-</x-layout>
+</x-home-layout>

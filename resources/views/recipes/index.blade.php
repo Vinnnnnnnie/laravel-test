@@ -1,4 +1,4 @@
-<x-layout>
+<x-recipe-layout>
     <div class='flex justify-between mb-4 gap-8'>
         {{-- Recipe Body --}}
         <div class='w-full'>
@@ -24,4 +24,4 @@
             {{  $recipes->links() }}
         </div>
     </div>
-</x-layout>
+</x-recipe-layout>

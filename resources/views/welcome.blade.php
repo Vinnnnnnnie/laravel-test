@@ -81,7 +81,7 @@
                     <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Php.png') }}"\>
                 </div>
                 <div class="rounded-l">
-                    <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'JavaScript.png') }}"\>
+                    <img class='transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Javascript.png') }}"\>
                 </div>
                 <div class="rounded-l">
                     <img class='dark:block hidden transition ease-in-out hover:scale-110' width="150px" height="100%" src="{{ route('image.website', 'Bash Dark.png') }}"\>

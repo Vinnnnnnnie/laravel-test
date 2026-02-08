@@ -12,6 +12,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/cv', function() {
+    return view('cv');
+})->name('cv');
+
 Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->controller(AuthController::class)->group(function () {

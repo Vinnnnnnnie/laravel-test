@@ -43,22 +43,11 @@ a:hover {
     }
 }
 
-.dark-striped-background {
-    background-image: repeating-linear-gradient(
-        135deg,
-        var(--color-gray-700) 0,
-        var(--color-gray-700) 1px,
-        transparent 0,
-        transparent 50%
-    );
-    background-size: 10px 10px;
-    background-attachment:fixed;
-}
 .striped-background {
     background-image: repeating-linear-gradient(
         135deg,
-        var(--color-gray-300) 0,
-        var(--color-gray-300) 1px,
+        var(--color-gray-500) 0,
+        var(--color-gray-500) 1px,
         transparent 0,
         transparent 50%
     );

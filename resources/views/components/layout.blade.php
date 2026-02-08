@@ -14,7 +14,7 @@
     @vite('resources/css/app.css')
 </head>
 <body class='bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
-    <header class='bg-gray-100 dark:bg-gray-900 shadow border-b-1 border-gray-900 dark:border-gray-100'>
+    <header class='bg-gray-100 dark:bg-gray-900 shadow border-b-1 border-gray-500 dark:border-gray-500'>
         <div class="flex flex-row justify-between text-center align-middle">
             <h1 class='font-mono'>vinnie.fyi</h1>
             <nav class="flex gap-12 items-center">
@@ -136,7 +136,7 @@
             @endif
         </div>
     </main>
-    <footer class='bg-gray-100 border-gray-900 dark:bg-gray-900 border-t-1 dark:border-gray-100'>
+    <footer class='bg-gray-100 border-gray-500 dark:bg-gray-900 border-t-1 dark:border-gray-500'>
         <div class="flex justify-center gap-12 p-12 text-center align-middle dark:text-gray-300 text-gray-700">
             <div>
                 <h3><strong>Projects</strong></h3>

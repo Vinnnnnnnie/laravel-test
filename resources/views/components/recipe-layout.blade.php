@@ -1,10 +1,3 @@
-@php
-    $page = request()->segment(1);
-    if ($page === NULL)
-    {
-        $page = 'home';
-    }
-@endphp
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,32 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 <body class='bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
-    <header class='bg-gray-100 dark:bg-gray-900 shadow border-b-1 border-gray-900 dark:border-gray-100'>
-        <div class="flex flex-row justify-between text-center align-middle">
-            <h1 class='font-mono'>vinnie.fyi</h1>
-            <nav class="flex gap-12 items-center">
-                <a @class(['', 'text-xl', 'font-bold' => ($page === 'home')]) href='/'>Home</a>
-                {{-- <a class='btn' href='{{ route('bikes.index') }}'>Bikes</a> --}}
-                <a @class(['', 'text-xl', 'font-bold' => ($page === 'recipes')]) href='{{ route('recipes.index')}}'>RecipeBook</a>
-                <a @class(['', 'text-xl', 'font-bold' => ($page === 'games')]) href='{{ route('games.index') }}' disabled>Steam Activity</a>
-            </nav>
-            @auth
-                <div class="flex p-2 items-center">
-                    <span class="font-bold text-lg mr-2 content-center">Hello, {{ Auth::user()->name }}</span>
-                    <form action='{{ route('logout') }}' method='POST'>
-                        @csrf
-                        <button class='btn' type='submit'>Logout</button>
-                    </form>
-                </div>
-            @endauth
-            @guest
-                <div class="flex p-2 items-center gap-2">
-                    <a class='btn' href='{{ route('show.login') }}'>Login</a>
-                    <a class='btn' href='{{ route('show.register')}}'>Register</a>
-                </div>
-            @endguest
-        </div>
-    </header>
+    <x-header/>
     <main class='items-center'>
         <div class='flex justify-between gap-8'>
             {{-- User info --}}
@@ -68,7 +36,7 @@
                     </div>
                 </div>
             @endauth
-            <div class='flex-2 gap-4 bg-gray-800'>
+            <div class='flex-2 gap-4 bg-gray-200 dark:bg-gray-800'>
                 <ul>
                     @if(session('success'))
                         <div class='bg-green-200 text-green-800 p-2 rounded mb-4 bold'>
@@ -89,7 +57,7 @@
                 @auth
                     <div class='w-full mb-2'>
                         <h2>Find Recipes</h2>
-                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 card'>
+                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 bg-gray-100 p-4'>
                             @csrf
                             <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full' value={{ old('term') }}>
                             <input type='submit' name='submit' class='btn' value='Go'>
@@ -124,40 +92,6 @@
             @endauth
         </div>
     </main>
-    <footer class='bg-gray-100 border-gray-900 dark:bg-gray-900 border-t-1 dark:border-gray-100'>
-        <div class="flex justify-center gap-12 p-12 text-center align-middle dark:text-gray-300 text-gray-700">
-            <div>
-                <h3><strong>Projects</strong></h3>
-                <ul>
-                    <li>
-                        
-                        <a href='https://vinnie.fyi' class='font-bold'>Portfolio Website</a>
-                    </li>
-                    <li>
-                        <a href='https://www.github.com/Vinnnnnnnie'>GitHub</a>
-                    </li>
-                    <li>
-                        <a href='https://ldjam.com/users/vinnnie/'>Ludum Dare</a>
-                    </li>
-                    <li>
-                        <a href='https://www.linkedin.com/in/vincent-owens-653685264/'>LinkedIn</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h3><strong>Friends</strong></h3>
-                <ul>
-                    <li>Mohammed Abdul</li>
-                    <li>Jotaro Joestar</li>
-                </ul>
-            </div>
-            <div>
-                <h3><strong>Other Links</strong></h3>
-                <ul>
-                    <a href='https://laravel.com/docs/12.x/installation'>Laravel Docs</a>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <x-footer/>
 </body>
 </html>

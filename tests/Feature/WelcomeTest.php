@@ -11,7 +11,7 @@ class WelcomeTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function testing_homepage_success(): void
+    public function test_homepage_success(): void
     {
         $response = $this->get('/');
 
@@ -19,7 +19,7 @@ class WelcomeTest extends TestCase
         $response->assertSee('Vincent Owens - Software Developer');
     }
 
-    public function other_test(): void
+    public function test_this(): void
     {
         $response = $this->get('/');
 

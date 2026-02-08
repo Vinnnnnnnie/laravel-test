@@ -109,8 +109,6 @@ class RecipeController extends Controller
         $recipe = Recipe::with(['user'])
         ->where('recipes.id', '=' ,$request->input('id'))
         ->get();
-        // return redirect()->route('recipes.show', $recipe)->with('success', 'Recipe updated successfully!');
         return redirect()->route('users.show', auth()->user())->with('success', 'Recipe updated successfully!');
-        // return view('recipes.show', ['recipe' => $recipe])->with('success', 'Recipe updated successfully!');
     }
 }

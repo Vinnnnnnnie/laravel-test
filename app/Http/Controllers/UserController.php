@@ -13,6 +13,4 @@ class UserController extends Controller
         $recipes = Recipe::where('user_id','=',$user->id)->orderBy('created_at', 'desc')->paginate(10);
         return view('users.show', ['user' => $user, 'recipes' => $recipes]);
     }
-
-
 }

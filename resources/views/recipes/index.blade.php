@@ -17,7 +17,7 @@
                             :user='$recipe->user_id === auth()->user()->id' 
                             :friend='session("friendslist")->pluck("friend_user_id")->contains($recipe->user_id)'
                             :recipe='$recipe'
-                            />
+                        />
                     </li>
                 @endforeach
             </ul>

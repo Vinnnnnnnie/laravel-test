@@ -8,52 +8,52 @@
             </ul>
         </div>
     @endif
-    <div class="card">
+    <div class="card flex flex-col">
         <h2>Edit Recipe</h2>
-        <form action='{{ route('recipes.update', $recipe->id) }}' method='POST' enctype="multipart/form-data">
+        <form class='flex flex-col gap-4' action='{{ route('recipes.update', $recipe->id) }}' method='POST' enctype="multipart/form-data">
             @csrf
             <div hidden>
-                <label for="id">Recipe id:</label>
-                <input type="text" id="id" name="id" value='{{ $recipe->id }}' required>
+                <label class='text-xl font-semibold' for="id">Recipe id</label>
+                <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="id" name="id" value='{{ $recipe->id }}' required>
             </div>
-            <div>
-                <label for="title">Recipe Title:</label>
-                <input type="text" id="title" name="title" value='{{ $recipe->title }}' required>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="image" class='form-label'>Image</label>
+                <input type="file" id="image" class='form-control w-full' name="image">
             </div>
-            <div>
-                <label for="ingredients">Ingredients:</label>
-                <textarea type="text" id="ingredients" name="ingredients" required>{{ $recipe->ingredients }}</textarea>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="title">Recipe Title</label>
+                <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="title" name="title" value='{{ $recipe->title }}' required>
             </div>
-            <div>
-                <label for="Instructions">Instructions:</label>
-                <textarea type="text" id="instructions" name="instructions" required>{{ $recipe->instructions }}</textarea>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="ingredients">Ingredients</label>
+                <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="ingredients" name="ingredients" required>{{ $recipe->ingredients }}</textarea>
             </div>
-            <div>
-                <label for="preparation_time">Preparation Time (minutes):</label>
-                <input type="number" id="preparation_time" name="preparation_time" value='{{ $recipe->preparation_time }}' required>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="Instructions">Instructions</label>
+                <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="instructions" name="instructions" required>{{ $recipe->instructions }}</textarea>
             </div>
-            <div>
-                <label for="cooking_time">Cooking Time (minutes):</label>
-                <input type="number" id="cooking_time" name="cooking_time" value='{{ $recipe->preparation_time }}' required>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="preparation_time">Preparation Time (minutes)</label>
+                <input class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="preparation_time" name="preparation_time" value='{{ $recipe->preparation_time }}' required>
             </div>
-            <div>
-                <label for="servings">Servings:</label>
-                <input type="number" id="servings" name="servings" value='{{ $recipe->servings }}' required>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="cooking_time">Cooking Time (minutes)</label>
+                <input class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="cooking_time" name="cooking_time" value='{{ $recipe->preparation_time }}' required>
             </div>
-            <div>
-                <label for="difficulty">Difficulty:</label>
-                <select id="difficulty" name="difficulty" required>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="servings">Servings</label>
+                <input class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="servings" name="servings" value='{{ $recipe->servings }}' required>
+            </div>
+            <div class='flex flex-col'>
+                <label class='text-xl font-semibold' for="difficulty">Difficulty</label>
+                <select class='bg-gray-200 dark:bg-gray-800 p-2' id="difficulty" name="difficulty" required>
                     <option value="">Select Difficulty</option>
                     <option value="Easy" {{ $recipe->difficulty == 'Easy' ? 'selected' : '' }}>Easy</option>
                     <option value="Medium" {{ $recipe->difficulty == 'Medium' ? 'selected' : '' }}>Medium</option>
                     <option value="Hard" {{ $recipe->difficulty == 'Hard' ? 'selected' : '' }}>Hard</option>
                 </select>
             </div>
-            <div>
-                <label for="image" class='form-label'>Image</label>
-                <input type="file" id="image" class='form-control w-full' name="image">
-            </div>
-            <button type='submit'>Save Recipe</button>
+            <button class='bg-gray-200 dark:bg-gray-800 p-2' type='submit'>Save Recipe</button>
         </form>
     </div>
 </x-recipe-layout>

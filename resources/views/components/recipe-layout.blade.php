@@ -8,7 +8,7 @@
 </head>
 <body class='bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-sans'>
     <x-header/>
-    <main class='items-center'>
+    <main class='items-center p-8'>
         <div class='flex justify-between gap-8'>
             {{-- User info --}}
             @auth
@@ -57,7 +57,7 @@
                 @auth
                     <div class='w-full mb-2'>
                         <h2>Find Recipes</h2>
-                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 bg-gray-100 p-4'>
+                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4'>
                             @csrf
                             <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full' value={{ old('term') }}>
                             <input type='submit' name='submit' class='btn' value='Go'>

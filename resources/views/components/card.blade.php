@@ -20,7 +20,7 @@
             <h2 class='fs-6'><a {{ $attributes }}>{{ $recipe->title }}</a></h2>
             @if($recipe->image_path)
             <div class='bg-black w-full flex justify-center align-items-center'>
-                <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-fit h-100 self-center'>
+                <img src='{{ route('image.recipes',$recipe->image_path) }}' class='aspect-auto h-fit max-h-80 self-center'>
             </div>
             @endif
             <p>{{ svg('bi-clock') }} Preparation - {{ $recipe->preparation_time}} Minutes</p>

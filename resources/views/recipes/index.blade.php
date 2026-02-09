@@ -6,7 +6,7 @@
                 <h2>Recent Recipes</h2><a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
             </div>
             {{-- Recipe List --}}
-            <ul class='lg:grid lg:grid-cols-2 flex flex-col gap-4'>
+            <ul class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
                 @foreach($recipes as $recipe)
                     <li class='col-span-1 row-span-1'>
                         {{-- If recipe has a lot of likes, could have a fire border,

@@ -38,7 +38,7 @@
                 :user='$comment->user_id === auth()->user()->id' 
                 :friend='session("friendslist")->pluck("friend_user_id")->contains($comment->user_id)'
                 :comment='$comment'
-                />
+            />
         @endforeach
     @endif
     <div class='bg-gray-50 items-center p-3 flex ml-12 mt-4 dark:bg-gray-700 dark:text-gray-200 gap-2'>

@@ -12,7 +12,7 @@
             <div class='flex flex-row gap-2'>
                 <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
                 <div>
-                    <strong>{{ $recipe->user->name }}</strong>
+                    <h5><a href='{{ route('users.show', $recipe->user) }}'>{{ $recipe->user->name }}</a></h5>
                     <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>
                     <p>{{ $recipe->created_at->diffForHumans() }}</p>
                 </div>

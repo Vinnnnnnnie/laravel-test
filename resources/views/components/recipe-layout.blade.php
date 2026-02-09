@@ -36,7 +36,7 @@
                     </div>
                 </div>
             @endauth
-            <div class='flex-2 gap-4 bg-gray-200 dark:bg-gray-800'>
+            <div class='flex-4 gap-4 bg-gray-200 dark:bg-gray-800'>
                 <ul>
                     @if(session('success'))
                         <div class='bg-green-200 text-green-800 p-2 rounded mb-4 bold'>

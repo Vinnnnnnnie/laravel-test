@@ -11,8 +11,9 @@
         <div>
             <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
         </div>
+        {{-- {{ dd($comment->user) }} --}}
         <div class="w-full">
-            <h5><strong>{{ $comment->user->name }}</strong></h5>
+            <h5><a href='{{ route('users.show', $comment->user) }}'>{{ $comment->user->name }}</a></h5>
             {{ $comment->comment }}
         </div>
     </div>

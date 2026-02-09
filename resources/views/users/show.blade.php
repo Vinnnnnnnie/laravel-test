@@ -9,32 +9,33 @@
             <p><strong>{{ $user->email }}</strong></p>
             <p>{{$user->bio}}</p>
         </div>
+        <div>
+            @if (session("friendslist")->pluck("friend_user_id")->contains($user->id))
+                <form action='{{ route('friends.destroy') }}' method='post'>
+                    @csrf
+                    @method('DELETE')
+                    <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
+                    <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
+                    <input type='submit' class="btn bg-red-500" value='Remove Friend'>
+                </form>
+            @elseif ($user->id !== auth()->user()->id)
+                <form action='{{ route('friends.store') }}' method='post'>
+                    @csrf
+                    <input hidden readonly id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
+                    <input hidden readonly id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
+                    <input type='submit' class="btn bg-green-500" value='Add Friend'>
+                </form>
+            @else
+                <form action='' method='post'>
+                    @csrf
+                    <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
+                    <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
+                    <input type='submit' class="btn bg-green-500" value='Edit Profile'>
+                </form>  
+            @endif
+        </div>
     </div>
-    <div>
-        @if (session("friendslist")->pluck("friend_user_id")->contains($user->id))
-            <form action='{{ route('friends.destroy') }}' method='post'>
-                @csrf
-                @method('DELETE')
-                <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
-                <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
-                <input type='submit' class="btn bg-red-500" value='Remove Friend'>
-            </form>
-        @elseif ($user->id !== auth()->user()->id)
-            <form action='{{ route('friends.store') }}' method='post'>
-                @csrf
-                <input hidden readonly id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
-                <input hidden readonly id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
-                <input type='submit' class="btn bg-green-500" value='Add Friend'>
-            </form>
-        @else
-            <form action='' method='post'>
-                @csrf
-                <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
-                <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
-                <input type='submit' class="btn bg-green-500" value='Edit Profile'>
-            </form>  
-        @endif
-    </div>
+    
     {{-- Recipe List --}}
     {{-- {{ dd($recipes) }} --}}
     <div class='w-full'>

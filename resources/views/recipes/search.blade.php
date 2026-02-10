@@ -20,19 +20,10 @@
             {{  $users->withQueryString()->links() }}
         @endif
         <h2>Recipes</h2>
-        <ul class='flex flex-col gap-4'>
-            @if(isset($recipes))
-                @foreach($recipes as $recipe)
-                    <li>
-                        <x-card href="{{ route('recipes.show', $recipe) }}" 
-                            :user='$recipe->user_id === auth()->user()->id' 
-                            :friend='session("friendslist")->pluck("friend_user_id")->contains($recipe->user_id)'
-                            :recipe='$recipe'
-                            />
-                    </li>
-                @endforeach
-            @endif
-        </ul>
+        <x-recipe-list 
+            :recipes='$recipes'
+            :pagination='false'
+        />
         {{  $recipes->withQueryString()->links() }}
     </div>
 </x-recipe-layout>

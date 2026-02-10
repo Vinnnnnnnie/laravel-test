@@ -26,6 +26,13 @@
             <p>{{ svg('bi-clock') }} Preparation - {{ $recipe->preparation_time}} Minutes</p>
             <p><x-bi-thermometer-high/> Cooking - {{ $recipe->cooking_time}} Minutes</p>
             <p><x-bi-stoplights/>Difficulty - {{$recipe->difficulty}}</p>
+            @if($recipe->tags)
+                <ul class='flex flex-row gap-2'>
+                    @foreach ($recipe->tags as $tag)
+                        <span class='bg-blue-500 text-white p-2 rounded'>{{ $tag->name }}</span>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 </a>

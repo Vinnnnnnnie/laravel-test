@@ -21,7 +21,7 @@ class RecipeController extends Controller
         $recipes = Recipe::with(['comment' => function ($query) {
             $query->orderBy('created_at', 'desc')
                 ->limit(3);
-        }, 'user'])
+        }, 'user', 'tags'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
         $userFriends = new UserFriendController();

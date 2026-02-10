@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use App\Models\Comment;
 use App\Models\UserFriend;
 use App\Models\User;
+use App\Models\Tag;
 use App\Http\Controllers\UserFriendController;
 use Illuminate\Validation\Rules\File;
 use App\Http\Controllers\RecipeImageController;
@@ -32,7 +33,8 @@ class RecipeController extends Controller
         return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create() {
-        return view('recipes.create');
+        $tags = Tag::all();
+        return view('recipes.create', ['tags' => $tags]);
     }
     public function store(Request $request) {
         if(isset($request->image))

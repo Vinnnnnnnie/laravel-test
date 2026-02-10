@@ -16,17 +16,20 @@
                     <x-user-card
                         :user='auth()->user()'
                     />
-                    <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4'>
-                        <div class='flex flex-col w-fit'>
-                            <div class='w-fit'>
-                                <h2 class='text-xl font-bold'>Settings</h2>
-                            </div>
-                            <a href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-gear-fill') }} General</a>
-                            <a href=''  class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-lock-fill') }} Security and Login</a>
-                            <a href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-globe') }} Language and Region</a>
-                            <a href=''  class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'><x-bi-shield-fill></x-bi-shield-fill> Blocking</a>
-                        </div>
+                    @auth
+                    {{-- Recipe Search --}}
+                    <div class='w-full mb-2'>
+                        <h2>Find Recipes</h2>
+                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4'>
+                            @csrf
+                            <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full' value={{ old('term') }}>
+                            <input type='submit' name='submit' class='btn' value='Go'>
+                        </form>
                     </div>
+                    <div class='flex justify-between items-center mb-4'>
+                        <a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
+                    </div>
+                @endauth    
                 </div>
             @endauth
             <div class='flex-4 gap-4 basis-2xl bg-gray-200 dark:bg-gray-800'>
@@ -46,17 +49,7 @@
                         </ul>
                     </div>
                 @endif
-                {{-- Recipe Search --}}
-                @auth
-                    <div class='w-full mb-2'>
-                        <h2>Find Recipes</h2>
-                        <form action='{{ route('recipes.search') }}' method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4'>
-                            @csrf
-                            <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full' value={{ old('term') }}>
-                            <input type='submit' name='submit' class='btn' value='Go'>
-                        </form>
-                    </div>
-                @endauth    
+                
                 {{ $slot }}
             </div>
             {{-- Friends List --}}

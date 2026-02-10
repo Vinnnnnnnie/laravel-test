@@ -15,8 +15,11 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         $tagArray = [
-            'Asian', 'Chinese', 'Indian', 'Curry', 'Hearty', 'Warming', 'Welsh', 
-            'Scottish', 'Irish', 'French', 'Spanish', 'Spicy', 'BBQ', 'Cajun', 
+            'Asian', 'Chinese', 'Indian', 'Korean', 'Thai', 'Japanese', 'Mexican', 
+            'Spanish', 'Mediteranean', 'Italian', 'Greek', 'French', 'British', 'Middle Eastern', 'One-pot', 
+            'Main', 'Side', 'Dessert', 'Sauce', 'Drink', 'Roasted', 'Fried', 'Baked', 'Fusion', 'Curry', 
+            'Soup', 'Stew', 'Sandwich', 'Dairy-free', 'Light', 'Fresh', 'Salad', 'Hearty', 'Warming', 'Welsh', 
+            'Breakfast', 'Lunch', 'Dinner', 'Snack', 'Scottish', 'Irish', 'Spicy', 'BBQ', 'Cajun', 
             'Meaty', 'Vegatarian', 'Vegan'
         ];
         foreach ($tagArray as $tag)

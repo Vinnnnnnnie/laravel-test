@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('image_path')->nullable()->default('no-user.png');
             $table->text('bio')->nullable();
+            $table->integer('reputation')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

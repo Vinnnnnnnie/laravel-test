@@ -13,7 +13,7 @@
                 <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
                 <div>
                     <h5><a href='{{ route('users.show', $recipe->user) }}'>{{ $recipe->user->name }}</a></h5>
-                    <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>
+                    <p>{{ count($recipe->user->recipes) }} @if (count($recipe->user->recipes) > 1)Recipes @else Recipe @endif</p>
                     <p>{{ $recipe->created_at->diffForHumans() }}</p>
                 </div>
             </div>
@@ -33,6 +33,7 @@
                     @endforeach
                 </ul>
             @endif
+            {{ svg('bi-chat-fill') }} {{ count($recipe->comments) }}
         </div>
     </div>
 </a>

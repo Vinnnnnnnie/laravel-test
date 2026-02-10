@@ -12,7 +12,7 @@ class Recipe extends Model
     /** @use HasFactory<\Database\Factories\RecipeFactory> */
     use HasFactory;
 
-    public function comment() {
+    public function comments() {
         return $this->hasMany(Comment::class);
     }
 

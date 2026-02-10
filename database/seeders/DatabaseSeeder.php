@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BikeSeeder::class);
         $this->call(RecipeSeeder::class);
         $this->call(TagSeeder::class);
-        $this->call(RecipeTagSeeder::class);
         $this->call(CommentSeeder::class);
         $this->call(UserFriendSeeder::class);
     }

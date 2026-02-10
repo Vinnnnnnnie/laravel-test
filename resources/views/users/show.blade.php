@@ -5,8 +5,29 @@
         <img src='{{ route('image.users', $user->image_path)}}' class='w-50 max-w-50' alt='{{$user->name}} Profile Picture'>
         @endif
         <div class='flex flex-col gap-4'>
-            <div class='flex justify-start w-full'><h2>{{ $user->name}}</h2></div>
+            <div class='flex flex-col justify-start w-full'>
+                <h2>{{ $user->name}}</h2>
+                <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
+                    @if($user->reputation < 5)
+                        Arsonist
+                    @elseif($user->reputation < 10)
+                        Barbecuer
+                    @elseif($user->reputation < 20)
+                        Cook
+                    @elseif($user->reputation < 30)
+                        Chef
+                    @elseif($user->reputation < 50)
+                        Gourmand
+                    @elseif($user->reputation < 100)
+                        Michellin
+                    @elseif($user->reputation > 99)
+                        Master Chef
+                    @endif
+                    {{ svg('bi-arrow-up-circle-fill') }} {{ $user->reputation }}
+                </div>
+            </div>
             <p><strong>{{ $user->email }}</strong></p>
+            
             <p>{{$user->bio}}</p>
         </div>
         <div>

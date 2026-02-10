@@ -24,13 +24,14 @@ class UserSeeder extends Seeder
             'email' => 'vincent@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
+            'reputation' => 1000
         ]);
         User::create([
             'name' => 'Tom Bozier',
             'email' => 'tom@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
-
+            'reputation' => 1000
         ]);
         User::create([
             'name' => 'Ellen Maxwell',
@@ -45,7 +46,7 @@ class UserSeeder extends Seeder
             'email' => 'vera@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
-
+            'reputation' => 1000
         ]
         );
         User::create(
@@ -54,6 +55,7 @@ class UserSeeder extends Seeder
             'email' => 'spike@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
+            'reputation' => 1000
         ]
         );
     }

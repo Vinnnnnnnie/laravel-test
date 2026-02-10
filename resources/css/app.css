@@ -24,10 +24,10 @@ h1 a:hover {
     text-decoration: none;
 }
 h2 {
-    @apply text-3xl font-semibold mb-3;
+    @apply text-3xl font-semibold;
 }
 h3 {
-    @apply text-2xl font-semibold mb-2;
+    @apply text-2xl font-semibold;
 }
 
 a:hover {
@@ -115,10 +115,6 @@ a.card {
     @apply mb-2 bg-gray-200 p-1 rounded;
     @apply dark:bg-gray-200 dark:text-gray-800;
     @apply invalid:border-red-500
-}
-.form {
-    @apply flex bg-gray-50 p-4 flex-col w-70 items-center justify-self-center my-20 rounded;
-    @apply dark:bg-gray-800;
 }
 .profile {
     @apply bg-gray-100 flex items-center gap-4 p-4;

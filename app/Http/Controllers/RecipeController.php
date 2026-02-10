@@ -18,9 +18,8 @@ class RecipeController extends Controller
     //
     public function index() {
         
-        $recipes = Recipe::with(['comment' => function ($query) {
-            $query->orderBy('created_at', 'desc')
-                ->limit(3);
+        $recipes = Recipe::with(['comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
         }, 'user', 'tags'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'bio',
         'password',
         'image_path',
+        'reputation'
     ];
 
     /**
@@ -48,11 +49,15 @@ class User extends Authenticatable
         ];
     }
 
-    public function recipe() {
+    public function recipes() {
         return $this->hasMany(Recipe::class);
     }
 
-    public function friend() {
+    public function friends() {
         return $this->hasMany(UserFriend::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 }

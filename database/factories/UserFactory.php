@@ -33,6 +33,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
+            'reputation' => random_int(0,100),
         ];
     }
 

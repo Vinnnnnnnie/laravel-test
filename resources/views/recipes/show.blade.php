@@ -6,7 +6,7 @@
                     <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
                     <div>
                         <strong>{{ $recipe->user->name }}</strong>
-                        <p>{{ count($recipe->user->recipe) }} @if (count($recipe->user->recipe) > 1)Recipes @else Recipe @endif</p>
+                        <p>{{ count($recipe->user->recipes) }} @if (count($recipe->user->recipes) > 1)Recipes @else Recipe @endif</p>
                         <p>{{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
             </div>
         </div>
     </div>
-    @if($recipe->comment)
-        @foreach($recipe->comment as $comment)
+    @if($recipe->comments)
+        @foreach($recipe->comments as $comment)
             <x-comment 
                 :highlight='$recipe->user_id === $comment->user_id' 
                 :user='$comment->user_id === auth()->user()->id' 

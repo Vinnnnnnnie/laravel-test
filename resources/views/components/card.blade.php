@@ -23,13 +23,13 @@
                 <img src='{{ route('image.recipes',$recipe->image_path) }}' class='aspect-auto h-fit max-h-80 self-center'>
             </div>
             @endif
-            <p>{{ svg('bi-clock') }} Preparation - {{ $recipe->preparation_time}} Minutes</p>
-            <p><x-bi-thermometer-high/> Cooking - {{ $recipe->cooking_time}} Minutes</p>
-            <p><x-bi-stoplights/>Difficulty - {{$recipe->difficulty}}</p>
+            <p class='flex items-center flex-row gap-2'>{{ svg('bi-clock') }} Preparation - {{ $recipe->preparation_time}} Minutes</p>
+            <p class='flex items-center flex-row gap-2'><x-bi-thermometer-high/> Cooking - {{ $recipe->cooking_time}} Minutes</p>
+            <p class='flex items-center flex-row gap-2'><x-bi-stoplights/>Difficulty - {{$recipe->difficulty}}</p>
             @if($recipe->tags)
                 <ul class='flex flex-row gap-2'>
                     @foreach ($recipe->tags as $tag)
-                        <span class='bg-blue-500 text-white p-2 rounded'>{{ $tag->name }}</span>
+                        <span class='bg-blue-500 text-white p-2 rounded-md'>{{ $tag->name }}</span>
                     @endforeach
                 </ul>
             @endif

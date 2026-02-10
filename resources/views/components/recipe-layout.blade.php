@@ -18,19 +18,19 @@
                         <img src='{{ route('image.users', auth()->user()->image_path)}}' class='w-20 max-w-20'>
                         @endif
                         <div>
-                            <h2 class='text-xl font-bold'><a href={{ route('users.show', auth()->user()->id) }}>{{ auth()->user()->name }}</a></h2>
+                            <h2 class='text-xl font-bold w-fit'><a href={{ route('users.show', auth()->user()->id) }}>{{ auth()->user()->name }}</a></h2>
                             <p>{{ auth()->user()->email }}</p>
                             <p>{{ count(auth()->user()->recipe) }} @if (count(auth()->user()->recipe) > 1)Recipes @else Recipe @endif</p>
                         </div>
                     </div>
                     <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4'>
-                        <div class='flex flex-col'>
-                            <div>
+                        <div class='flex flex-col w-fit'>
+                            <div class='w-fit'>
                                 <h2 class='text-xl font-bold'>Settings</h2>
                             </div>
                             <a href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-gear-fill') }} General</a>
                             <a href=''  class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-lock-fill') }} Security and Login</a>
-                            <a  href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-globe') }} Language and Region</a>
+                            <a href='' class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'>{{ svg('bi-globe') }} Language and Region</a>
                             <a href=''  class='p-4 hover:bg-gray-200 dark:hover:bg-gray-800 flex-row flex items-center gap-4 w-100'><x-bi-shield-fill></x-bi-shield-fill> Blocking</a>
                         </div>
                     </div>

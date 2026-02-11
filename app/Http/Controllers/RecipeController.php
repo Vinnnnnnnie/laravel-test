@@ -44,7 +44,8 @@ class RecipeController extends Controller
             $image_path = str_replace('recipes/', '', $image_path); 
             $request->merge(['image_path' => $image_path]);
         }
-        
+        $request->merge(['user_id' => auth()->user()->id]);
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'ingredients' => 'required|string',
@@ -57,6 +58,7 @@ class RecipeController extends Controller
             'image_path' => 'string',
             'tags' => 'array'
         ]);
+
 
         $recipe = Recipe::create($validated);
         $recipe->tags()->attach(array_keys($request->tags));
@@ -81,6 +83,7 @@ class RecipeController extends Controller
             ->join('users', 'users.id', '=', 'recipes.user_id')
             ->where('recipes.title', 'LIKE', '%'.$term.'%')
             ->orWhere('users.name', 'LIKE', '%'.$term.'%')
+            ->orWhere('tags.')
             ->orderBy('recipes.created_at', 'DESC')
             ->paginate(
                 $perPage = 15, $columns = ['*'], $pageName = 'recipes'

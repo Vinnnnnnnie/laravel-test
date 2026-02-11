@@ -33,6 +33,17 @@
                         <button class=btn type="submit">Delete Recipe</button>
                     </form>
                     @endif
+                    @if($recipe->savedUsers()->find(auth()->user()->id))
+                    <form action='{{ route('users.removeSavedRecipe', $recipe) }}' method='post'>
+                        @csrf
+                        <input type='submit' class="btn bg-green-500" value='Save Recipe'>
+                    </form>
+                    @else
+                    <form action='{{ route('users.addSavedRecipe', $recipe) }}' method='post'>
+                        @csrf
+                        <input type='submit' class="btn bg-green-500" value='Save Recipe'>
+                    </form>
+                    @endif
                     <a class='btn' href="{{ route('recipes.index') }}">Back to all Recipes</a>
                 </div>
             </div>

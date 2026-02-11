@@ -49,9 +49,7 @@
             @else
                 <form action='' method='post'>
                     @csrf
-                    <input hidden id='user_id' name='user_id' value='{{ auth()->user()->id }}'>
-                    <input hidden id='friend_user_id' name='friend_user_id' value='{{ $user->id }}'>
-                    <input type='submit' class="btn bg-green-500" value='Edit Profile'>
+                    <a href='{{ route('users.edit') }}' class="btn bg-green-500">Edit Profile</a>
                 </form>  
             @endif
         </div>

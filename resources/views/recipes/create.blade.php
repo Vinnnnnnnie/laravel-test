@@ -11,28 +11,19 @@
     <div class='bg-gray-100 dark:bg-gray-900 p-4'>
         <div class="flex flex-col gap-2">
             <h2>Create a New Recipe</h2>
-            <img id='image-preview' src='' class='w-full'>
+            <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
+                <img id='image-preview' src='' class='aspect-auto h-fit max-h-80 self-center'>
+            </div>             
             <form class='flex flex-col p-4 gap-2' method="POST" action="{{ route('recipes.store') }}" enctype="multipart/form-data">
                 @csrf
-                <div hidden>
-                    <label for="user_id" class='form-label'>User Id</label>
-                    <input type="text" id="user_id" name="user_id" class='form-control w-full' value='{{ auth()->user()->id }}' required>
+                <div>
+                    <label for="image" class='form-label'>Image</label>
+                    <input type="file" id="image" class='form-control w-full' name="image">
                 </div>
                 <div>
                     <label for="title" class='form-label'>Recipe Title</label>
                     <input type="text" id="title" name="title" class='form-control w-full' value='{{ old('title') }}' required>
                 </div>
-                <ul class=" select-none  flex flex-row gap-2 flex-wrap">
-                    @foreach($tags as $tag)
-                    <li >
-                        <input type="checkbox" id="{{ $tag->id }}" name='tags[{{ $tag->id }}]' class="hidden peer" />
-                        <label for="{{ $tag->id }}" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
-                                py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500  ">
-                                <span>{{ $tag->name }}</span>
-                        </label>
-                    </li>
-                    @endforeach
-                </ul>
 
                 <div>
                     <label for="ingredients" class='form-label'>Ingredients</label>
@@ -69,10 +60,18 @@
                         <label class='form-label' for="hard">Hard</label>
                     </div>
                 </div>
-                <div>
-                    <label for="image" class='form-label'>Image</label>
-                    <input type="file" id="image" class='form-control w-full' name="image">
-                </div>
+                <ul class=" select-none  flex flex-row gap-2 flex-wrap">
+                    @foreach($tags as $tag)
+                    <li >
+                        <input type="checkbox" id="{{ $tag->id }}" name='tags[{{ $tag->id }}]' class="hidden peer" />
+                        <label for="{{ $tag->id }}" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
+                                py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500  ">
+                                <span>{{ $tag->name }}</span>
+                        </label>
+                    </li>
+                    @endforeach
+                </ul>
+                
 
                 <button type="submit" class='btn'>Create Recipe</button>
             </form>

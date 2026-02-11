@@ -23,4 +23,8 @@ class Recipe extends Model
     public function tags() {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function savedUsers() {
+        return $this->belongsToMany(User::class, 'saved_recipes');
+    }
 }

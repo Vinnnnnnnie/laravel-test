@@ -67,7 +67,14 @@ Route::middleware('auth')->controller(UserFriendController::class)->group(functi
 });
 
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
-Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+
+Route::middleware('auth')->controller(UserController::class)->group(function () {
+    Route::get('/users/edit', 'edit')->name('users.edit');
+    Route::get('/users/{user}','show')->name('users.show');
+    Route::post('/users/update', 'update')->name('users.update');
+    Route::post('/users/saveRecipe/{recipe}', 'addSavedRecipe')->name('users.addSavedRecipe');
+    Route::post('/users/removeRecipe/{recipe}', 'removeSavedRecipe')->name('users.removeSavedRecipe');
+});
 
 // Bike Routes
 Route::middleware('auth')->controller(BikeController::class)->group(function () {

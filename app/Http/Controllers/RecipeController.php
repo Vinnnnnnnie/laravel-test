@@ -33,9 +33,10 @@ class RecipeController extends Controller
         return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create() {
-        $tags = Tag::all();
+        $tags = Tag::orderBy('name', 'asc')->get();
         return view('recipes.create', ['tags' => $tags]);
     }
+
     public function store(Request $request) {
         if(isset($request->image))
         {
@@ -53,10 +54,12 @@ class RecipeController extends Controller
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
             'user_id' => 'required|integer|exists:users,id',
-            'image_path' => 'string'
+            'image_path' => 'string',
+            'tags' => 'array'
         ]);
 
-        Recipe::create($validated);
+        $recipe = Recipe::create($validated);
+        $recipe->tags()->attach(array_keys($request->tags));
         return redirect('/recipes')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
@@ -66,7 +69,8 @@ class RecipeController extends Controller
 
     public function edit($id) {
         $recipe = Recipe::findOrFail($id);
-        return view('recipes.edit', ['recipe' => $recipe]);
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('recipes.edit', ['recipe' => $recipe, 'tags' => $tags]);
     }
 
     public function search(Request $request) {
@@ -91,9 +95,13 @@ class RecipeController extends Controller
     }
 
     public function update(Request $request) {
-        $image_path = $request->image->store("recipes", 'public');
-        $image_path = str_replace('recipes/', '', $image_path); 
-        $request->merge(['image_path' => $image_path]);
+        if ($request->image)
+        {
+            $image_path = $request->image->store("recipes", 'public');
+            $image_path = str_replace('recipes/', '', $image_path); 
+            $request->merge(['image_path' => $image_path]);
+        }
+        
         $validated = $request->validate([
             'id' => 'required|integer|exists:recipes',
             'title' => 'required|string|max:255',
@@ -103,10 +111,14 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
-            'image_path' => 'string'
+            'image_path' => 'string',
         ]);
-        Recipe::where('recipes.id', '=' ,$request->input('id'))
-            ->update($validated);
+
+
+        $recipe = Recipe::find($request->input('id'));
+        $recipe->tags()->sync(array_keys($request->tags));
+        $recipe->update($validated);
+
         $recipe = Recipe::with(['user'])
         ->where('recipes.id', '=' ,$request->input('id'))
         ->get();

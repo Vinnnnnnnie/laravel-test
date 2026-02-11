@@ -1,6 +1,6 @@
 <x-home-layout>
     <div class="grid">
-        <h2 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-12'>Vincent Owens - Software Developer</h3>
+        <h2 class='w-fit justify-self-center bg-gradient-to-b from-50% from-gray-200 dark:from-gray-800 to-50% to-gray-100 dark:to-gray-900 px-3 translate-y-9'>Vincent Owens - Software Developer</h3>
         <section class='dark:bg-gray-900 bg-gray-100 border-1 border-gray-500 p-8 my-4 flex flex-row gap-4 items-center'>
             <div>
                 <img src="{{ route('image.website', 'me.png') }}" class="rounded-full w-75">

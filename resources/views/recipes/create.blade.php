@@ -25,19 +25,12 @@
                 <ul class=" select-none  flex flex-row gap-2 flex-wrap">
                     @foreach($tags as $tag)
                     <li >
-                        <input type="checkbox" id="{{ $tag->id }}" class="hidden peer" />
-                        <label for="{{ $tag->id }}" class="select-none cursor-pointer flex items-center justify-center rounded-lg  
+                        <input type="checkbox" id="{{ $tag->id }}" name='tags[{{ $tag->id }}]' class="hidden peer" />
+                        <label for="{{ $tag->id }}" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
                                 py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500  ">
                                 <span>{{ $tag->name }}</span>
                         </label>
-                        {{-- <input type="checkbox" id="tag-{{ $tag->id }}" value="" class="hidden peer" required="">
-                        <label for="tag-{{ $tag->id }}" class='cursor-pointer p-4 bg-blue-500 peer-checked:bg-green-500 peer-checked:hover:bg-blue-400'>                           
-                            <div class="block" >
-                                <div id="" class="w-full font-medium mb-1">{{ $tag->name }}</div>
-                            </div>
-                        </label> --}}
                     </li>
-                        {{-- <input type="checkbox" id="{{ $tag->id }}" class="p-2 hover:bg-blue-600 hover:cursor-pointer rounded bg-blue-500" value="{{ $tag->name }}"> --}}
                     @endforeach
                 </ul>
 

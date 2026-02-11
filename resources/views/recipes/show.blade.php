@@ -12,6 +12,13 @@
                 </div>
                 <h3>{{ $recipe->title }}</h3>
                 <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-100 max-w-100'>
+                @if($recipe->tags)
+                    <ul class='flex flex-row gap-2'>
+                        @foreach ($recipe->tags as $tag)
+                            <span class='bg-blue-500 text-white p-2 rounded-md'>{{ $tag->name }}</span>
+                        @endforeach
+                    </ul>
+                @endif
                 <p><strong>Prep Time: </strong>{{ $recipe->preparation_time}} Minutes</p>
                 <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}} Minutes</p>
                 <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>

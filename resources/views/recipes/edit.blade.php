@@ -8,10 +8,13 @@
             </ul>
         </div>
     @endif
-    <div class="card flex flex-col">
+    <div class="bg-gray-100 dark:bg-gray-900 p-4 flex flex-col">
         <h2>Edit Recipe</h2>
         <form class='flex flex-col gap-4' action='{{ route('recipes.update', $recipe->id) }}' method='POST' enctype="multipart/form-data">
             @csrf
+            <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
+                <img id='image-preview' src='{{ route('image.recipes',$recipe->image_path) }}' class='aspect-auto h-fit max-h-80 self-center'>
+            </div>            
             <div hidden>
                 <label class='text-xl font-semibold' for="id">Recipe id</label>
                 <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="id" name="id" value='{{ $recipe->id }}' required>
@@ -52,8 +55,42 @@
                     <option value="Medium" {{ $recipe->difficulty == 'Medium' ? 'selected' : '' }}>Medium</option>
                     <option value="Hard" {{ $recipe->difficulty == 'Hard' ? 'selected' : '' }}>Hard</option>
                 </select>
+                
             </div>
+            <ul class=" select-none  flex flex-row gap-2 flex-wrap">
+                @php // There must be a way to do this in the other foreach
+                    foreach ($recipe->tags as $tag)
+                    {
+                        $recipeTagIds[] = $tag->id;
+                    }
+                @endphp
+                @foreach($tags as $tag)
+                <li >
+                    <input {{ in_array($tag->id, $recipeTagIds) ? 'checked' : '' }} type="checkbox" id="{{ $tag->id }}" name='tags[{{ $tag->id }}]' class="hidden peer" />
+                    <label for="{{ $tag->id }}" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
+                            py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500  ">
+                            <span>{{ $tag->name }}</span>
+                    </label>
+                </li>
+                @endforeach
+            </ul>
             <button class='bg-gray-200 dark:bg-gray-800 p-2' type='submit'>Save Recipe</button>
         </form>
     </div>
 </x-recipe-layout>
+<script>
+    function readURL(input) {
+        if (input.target.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                document.getElementById('image-preview').src = e.target.result;
+            }
+            
+            reader.readAsDataURL(input.target.files[0]);
+        }
+    }
+    document.getElementById('image').addEventListener('change', (e) => {
+        readURL(e);
+    })
+</script>

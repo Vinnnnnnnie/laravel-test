@@ -59,6 +59,7 @@
             </div>
             <ul class=" select-none  flex flex-row gap-2 flex-wrap">
                 @php // There must be a way to do this in the other foreach
+                $recipeTagIds = [];
                     foreach ($recipe->tags as $tag)
                     {
                         $recipeTagIds[] = $tag->id;

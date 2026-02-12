@@ -11,7 +11,9 @@
                     </div>
                 </div>
                 <h3>{{ $recipe->title }}</h3>
-                <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-100 max-w-100'>
+                <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
+                    <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-100 max-w-100'>
+                </div>
                 @if($recipe->tags)
                     <ul class='flex flex-row gap-2'>
                         @foreach ($recipe->tags as $tag)

@@ -2,6 +2,9 @@
     ['recipes' => NULL,
     'pagination' => true]
 )
+@php
+    $user = auth()->user();
+@endphp
 <ul class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
     @foreach($recipes as $recipe)
         <li class='col-span-1 row-span-1'>
@@ -10,8 +13,9 @@
             if it is disliked a lot, give it a controversial border --}}
             {{-- Border or tag I suppose --}}
             <x-card href="{{ route('recipes.show', $recipe) }}" 
-                :user='$recipe->user_id === auth()->user()->id' 
+                :user='$recipe->user_id === $user->id' 
                 :friend='session("friendslist")->pluck("friend_user_id")->contains($recipe->user_id)'
+                :saved='$user->savedRecipes()->get()->contains($recipe->id)'
                 :recipe='$recipe'
             />
         </li>

@@ -78,6 +78,9 @@ a.card {
 .fire {
     
 }
+.saved {
+    @apply border-l-4 border-orange-500;
+}
 @keyframes rotate {
   from {
     transform: rotate(0);

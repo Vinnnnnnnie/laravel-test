@@ -4,9 +4,10 @@
     'owner' => false, 
     'friend' => false, 
     'fire' => false, 
+    'saved' => false,
     'recipe' => NULL]
 )
-<div @class(['highlight' => $highlight, 'user' => $user, 'owner' => $owner, 'friend' => $friend, 'fire' => $fire, 'card'])>
+<div @class(['highlight' => $highlight, 'user' => $user, 'owner' => $owner, 'friend' => $friend, 'fire' => $fire, 'saved' => $saved, 'card'])>
     <div class='w-full'>
         <div class='flex flex-col gap-0.5 w-full justify-start'>
             <div class='flex flex-row gap-2'>

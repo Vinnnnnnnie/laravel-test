@@ -28,11 +28,11 @@ class TagSeeder extends Seeder
                 'name' => $tag
             ]);
         }
-        $tags = Tag::all();
-        $recipeIds = collect(Recipe::all('id'));
-        foreach ($tags as $tag)
-        {
-            $tag->recipes()->attach($recipeIds->random(5));
-        }
+        // $tags = Tag::all();
+        // $recipeIds = collect(Recipe::all('id'));
+        // foreach ($tags as $tag)
+        // {
+        //     $tag->recipes()->attach($recipeIds->random(5));
+        // }
     }
 }

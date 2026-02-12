@@ -33,10 +33,10 @@
                         <button class=btn type="submit">Delete Recipe</button>
                     </form>
                     @endif
-                    @if($recipe->savedUsers()->find(auth()->user()->id))
+                    @if($recipe->savedUsers()->get()->contains(auth()->user()->id))
                     <form action='{{ route('users.removeSavedRecipe', $recipe) }}' method='post'>
                         @csrf
-                        <input type='submit' class="btn bg-green-500" value='Save Recipe'>
+                        <input type='submit' class="btn bg-green-500" value='Remove Saved Recipe'>
                     </form>
                     @else
                     <form action='{{ route('users.addSavedRecipe', $recipe) }}' method='post'>

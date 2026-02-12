@@ -30,6 +30,7 @@ class RecipeController extends Controller
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {
+        
         return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create() {
@@ -58,7 +59,6 @@ class RecipeController extends Controller
             'image_path' => 'string',
             'tags' => 'array'
         ]);
-
 
         $recipe = Recipe::create($validated);
         $recipe->tags()->attach(array_keys($request->tags));

@@ -26,8 +26,9 @@
                             <input type='submit' name='submit' class='btn' value='Go'>
                         </form>
                     </div>
-                    <div class='flex justify-between items-center mb-4'>
-                        <a class='btn' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
+                    <div class='flex flex-col items-center gap-2 mb-4'>
+                        <a class='btn flex flex-row gap-2' href="{{ route('recipes.create') }}"> + Create a New Recipe</a>
+                        <a class='btn flex flex-row gap-2' href="{{ route('users.savedRecipes') }}">{{ svg('bi-save') }} Saved Recipes</a>
                     </div>
                 @endauth    
                 </div>

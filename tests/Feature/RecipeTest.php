@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Database\Seeders\RecipeSeeder;
 use App\Models\Recipe;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeTest extends TestCase
 {
@@ -35,8 +37,19 @@ class RecipeTest extends TestCase
             ]
         );
         $this->assertDatabaseHas('recipes', [
-            'title' => 'Recipe that has been updateds',
+            'title' => 'Recipe that has been updated',
         ]);
+    }
+    public function test_search_returns_recipe(): void
+    {
+        $user = User::factory()->createOne();
+        $title = 'Search term you cant guess';
+        $recipe = Recipe::factory()->create([
+            'title' => $title
+        ]);
+        $response = $this->actingAs($user)->get(route('recipes.search', ['term' => $title]));
+        $response->assertStatus(200);
+        $response->assertSee($title);
     }
     
 }

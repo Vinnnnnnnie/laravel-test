@@ -14,7 +14,7 @@
             {{-- Border or tag I suppose --}}
             <x-card href="{{ route('recipes.show', $recipe) }}" 
                 :user='$recipe->user_id === $user->id' 
-                :friend='session("friendslist")->pluck("friend_user_id")->contains($recipe->user_id)'
+                :friend='$user->friends()->get()->contains($recipe->user_id)'
                 :saved='$user->savedRecipes()->get()->contains($recipe->id)'
                 :recipe='$recipe'
             />

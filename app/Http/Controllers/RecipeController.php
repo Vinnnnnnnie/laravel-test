@@ -85,15 +85,14 @@ class RecipeController extends Controller
             ->select('users.image_path as user_image', 'recipes.image_path as recipe_image', 'recipes.*', 'users.name')
             ->join('users', 'users.id', '=', 'recipes.user_id')
             ->where('recipes.title', 'LIKE', '%'.$term.'%')
-            ->orWhere('users.name', 'LIKE', '%'.$term.'%')
-            ->orWhere('tags.')
+            ->orWhere('users.name', 'LIKE', $term.'%')
             ->orderBy('recipes.created_at', 'DESC')
             ->paginate(
                 $perPage = 15, $columns = ['*'], $pageName = 'recipes'
             );
         $users = User::query()
             ->select('image_path', 'name', 'id')
-            ->where('name', 'LIKE', '%'.$term.'%')
+            ->where('name', 'LIKE', $term.'%')
             ->paginate(
                 $perPage = 5, $columns = ['*'], $pageName = 'users'
             );

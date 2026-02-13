@@ -25,9 +25,7 @@
                     @endif
                     {{ svg('bi-arrow-up-circle-fill') }} {{ $user->reputation }}
                 </div>
-            </div>
-            <p><strong>{{ $user->email }}</strong></p>
-            
+            </div>            
             <p>{{$user->bio}}</p>
         </div>
         <div>

@@ -7,13 +7,14 @@
 )
 <div @class(['highlight' => $highlight,'user'=>$user, 'owner'=>$owner, 'friend' => $friend,  'comment'])>
     {{-- User image and content --}}
-    <div class='flex w-full items-center justify-between gap-2'>
-        <div>
-            <img src='{{ route('image.users', $comment->user->image_path) }}' class='w-20 max-w-20'>
-        </div>
+    <div class='flex w-full justify-between gap-2'>
+        <x-profile-picture
+            :size='20'
+            :image='$comment->user->image_path'
+        />
         {{-- {{ dd($comment->user) }} --}}
-        <div class="w-full">
-            <h5><a href='{{ route('users.show', $comment->user) }}'>{{ $comment->user->name }}</a></h5>
+        <div class="w-full flex flex-col items-start h-full">
+            <h5 class='text-l font-semibold'><a href='{{ route('users.show', $comment->user) }}'>{{ $comment->user->name }}</a></h5>
             {{ $comment->comment }}
         </div>
     </div>

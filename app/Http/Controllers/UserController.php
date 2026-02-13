@@ -47,7 +47,7 @@ class UserController extends Controller
         }
         $validated = $request->validate([
             'name' => 'required|string',
-            'bio' => 'string|max:255',
+            'bio' => 'nullable|string|max:255',
             'image_path' => 'string'
         ]);
         $user = User::find(auth()->user()->id);

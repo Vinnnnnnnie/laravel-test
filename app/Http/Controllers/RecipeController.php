@@ -61,7 +61,10 @@ class RecipeController extends Controller
         ]);
 
         $recipe = Recipe::create($validated);
-        $recipe->tags()->attach(array_keys($request->tags));
+        if ($request->tags !== NULL)
+        {
+            $recipe->tags()->sync(array_keys($request->tags));
+        }
         return redirect('/recipes')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
@@ -98,8 +101,12 @@ class RecipeController extends Controller
     }
 
     public function update(Request $request) {
+        
         if ($request->image)
         {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
             $image_path = $request->image->store("recipes", 'public');
             $image_path = str_replace('recipes/', '', $image_path); 
             $request->merge(['image_path' => $image_path]);
@@ -119,7 +126,10 @@ class RecipeController extends Controller
 
 
         $recipe = Recipe::find($request->input('id'));
-        $recipe->tags()->sync(array_keys($request->tags));
+        if ($request->tags !== NULL)
+        {
+            $recipe->tags()->sync(array_keys($request->tags));
+        }
         $recipe->update($validated);
 
         $recipe = Recipe::with(['user'])

@@ -1,31 +1,48 @@
 <x-recipe-layout>
-    <div class="card">
-        <div href="{{ route('recipes.show', $recipe) }}">
-            <div style='display:flex;flex-direction:column;gap:0.5rem;'>
-                <div class='flex flex-row gap-2' style='flex-direction:row'>
-                    <img src='{{ route('image.users',$recipe->user->image_path) }}' class='w-20 max-w-20'>
+    <div class="card p-4">
+        <div class='w-full flex flex-col gap-4'>
+                <div class='flex flex-row gap-2'>
+                    <x-profile-picture
+                        :size='30'
+                        :image='$recipe->user->image_path'
+                    />
                     <div>
                         <strong>{{ $recipe->user->name }}</strong>
                         <p>{{ count($recipe->user->recipes) }} @if (count($recipe->user->recipes) > 1)Recipes @else Recipe @endif</p>
                         <p>{{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
-                <h3>{{ $recipe->title }}</h3>
-                <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
-                    <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-100 max-w-100'>
+                <div class='flex flex-col-reverse w-full xl:flex-row gap-4'>
+                    {{-- Recipe Details --}}
+                    <div class='flex-1 flex-col flex gap-2'>
+                        <h2>{{ $recipe->title }}</h3>
+                        <p><strong>Prep Time: </strong>{{ $recipe->preparation_time}} Minutes</p>
+                        <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}} Minutes</p>
+                        <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
+                        <div>
+                            <h4 class='text-xl font-semibold'>Ingredients</h4>
+                            <pre class='font-sans text-wrap'>{{ $recipe->ingredients }}</pre>
+                        </div>
+                        <div>
+                            <h4 class='text-xl font-semibold'>Instructions</h4>
+                            <pre class='font-sans text-wrap'>{{ $recipe->instructions }}</pre>
+                        </div>
+                        {{-- Recipe Tags --}}
+                        @if($recipe->tags)
+                        <h4 class='text-xl font-semibold'>Tags</h4>
+                        <ul class='flex flex-row gap-2'>
+                            @foreach ($recipe->tags as $tag)
+                                <span class='bg-blue-500 text-white p-2 rounded-md'>{{ $tag->name }}</span>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </div>
+                    {{-- Image and Container --}}
+                    <div class='dark:bg-gray-950 bg-gray-50 w-full flex flex-1 justify-center align-items-center'>
+                        <img src='{{ route('image.recipes',$recipe->image_path) }}' class='w-100 max-w-100'>
+                    </div>
                 </div>
-                @if($recipe->tags)
-                    <ul class='flex flex-row gap-2'>
-                        @foreach ($recipe->tags as $tag)
-                            <span class='bg-blue-500 text-white p-2 rounded-md'>{{ $tag->name }}</span>
-                        @endforeach
-                    </ul>
-                @endif
-                <p><strong>Prep Time: </strong>{{ $recipe->preparation_time}} Minutes</p>
-                <p><strong>Cook Time: </strong>{{ $recipe->cooking_time}} Minutes</p>
-                <p><strong>Difficulty: </strong>{{$recipe->difficulty}}</p>
-                <p><strong>Ingredients: </strong>{{ $recipe->ingredients }}</p>
-                <p><strong>Instructions: </strong>{{ $recipe->instructions }}</p>
+                {{-- Buttons --}}
                 <div class='flex gap-2'>
                     @if (Auth::id() === $recipe->user->id)
                     <a class='btn' href="{{ route('recipes.edit', $recipe) }}">Edit Recipe</a>
@@ -48,7 +65,6 @@
                     @endif
                     <a class='btn' href="{{ route('recipes.index') }}">Back to all Recipes</a>
                 </div>
-            </div>
         </div>
     </div>
     @if($recipe->comments)
@@ -62,9 +78,10 @@
         @endforeach
     @endif
     <div class='bg-gray-50 items-center p-3 flex ml-12 mt-4 dark:bg-gray-700 dark:text-gray-200 gap-2'>
-        <div>
-            <img src='{{ route('image.users', auth()->user()->image_path) }}' class='w-20 max-w-20'>
-        </div>
+        <x-profile-picture
+            :size='20'
+            :image='auth()->user()->image_path'
+        />
         <div class='w-full'>
             <strong>{{ auth()->user()->name }}</strong>
             <form action='{{ route('comments.store', $recipe) }}' method='POST'>

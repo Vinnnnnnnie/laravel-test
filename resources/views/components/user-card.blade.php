@@ -3,9 +3,11 @@
 )
 <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4 border-l-4 border-blue-500 w-full'>
     @if($user->image_path)
-    <img src='{{ route('image.users', $user->image_path)}}' class='w-20 max-w-20'>
+    <div class='dark:bg-gray-950 aspect-square overflow-hidden min-w-30 min-h-30 w-30 h-30 flex items-center justify-center bg-gray-50 align-items-center rounded-sm'>
+        <img src='{{ route('image.users', $user->image_path)}}' class='w-full h-full object-cover'>
+    </div>
     @endif
-    <div class='w-full'>
+    <div class=''>
         <h2 class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'>
             <a href={{ route('users.show', $user->id) }}>{{ $user->name }}</a> 
             <a href=''>{{ svg('bi-gear-fill') }}</a>
@@ -28,7 +30,6 @@
             @endif
             {{ svg('bi-arrow-up-circle-fill') }} {{ $user->reputation }}
         </div>
-        <p>{{ $user->email }}</p>
         <p>{{ count($user->recipes) }} @if (count($user->recipes) > 1)Recipes @else Recipe @endif</p>
     </div>
 </div>

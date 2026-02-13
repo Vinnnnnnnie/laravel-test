@@ -28,7 +28,7 @@
             </div>
             <div class='flex flex-col'>
                 <label class='text-xl font-semibold' for="bio">Description</label>
-                <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="bio" name="bio" required>{{ $user->bio }}</textarea>
+                <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="bio" name="bio">{{ $user->bio }}</textarea>
             </div>
             <button class='bg-gray-200 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 dark:bg-gray-800 p-2' type='submit'>Save Changes</button>
         </form>

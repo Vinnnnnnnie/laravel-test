@@ -5,7 +5,10 @@
     ]
 )
 <div class='flex flex-row gap-2'>
-    <img src='{{ route('image.users',$user->image_path) }}' class='w-20 max-w-20'>
+    <x-profile-picture
+        :image='$user->image_path'
+        :size='20'
+    />
     <div>
         <h5><a href='{{ route('users.show', $user) }}'>{{ $user->name }}</a></h5>
         <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>

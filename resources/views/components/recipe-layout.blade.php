@@ -51,7 +51,6 @@
                         </ul>
                     </div>
                 @endif
-                
                 {{ $slot }}
             </div>
             {{-- Friends List --}}

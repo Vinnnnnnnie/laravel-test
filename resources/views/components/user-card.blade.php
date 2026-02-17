@@ -10,7 +10,6 @@
     <div class=''>
         <h2 class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'>
             <a href={{ route('users.show', $user->id) }}>{{ $user->name }}</a> 
-            <a href=''>{{ svg('bi-gear-fill') }}</a>
         </h2>
         <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
             @if($user->reputation < 5)

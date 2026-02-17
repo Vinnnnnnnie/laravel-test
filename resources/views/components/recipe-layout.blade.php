@@ -30,6 +30,7 @@
                     <div class='flex flex-col items-center gap-2 mb-4'>
                         <a class='btn flex flex-row gap-2' href="{{ route('recipes.create') }}"><x-bi-plus-circle/> Create a New Recipe</a>
                         <a class='btn flex flex-row gap-2' href="{{ route('users.savedRecipes') }}"><x-bi-bookmark/> Saved Recipes</a>
+                        <a class="btn flex flex-row gap-2" href=""><x-bi-gear-fill></x-bi-gear-fill> Settings</a>
                     </div>
                 @endauth    
                 </div>

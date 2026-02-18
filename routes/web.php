@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return Inertia::render('Home');
+    return Inertia::render('Home', ['image' => route('image.website', 'me.png')]);
 });
 
 Route::get('/cv', function() {

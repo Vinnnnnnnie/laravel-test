@@ -10,8 +10,8 @@
         <h1 class='font-mono'>vinnie.fyi</h1>
         <nav class="flex gap-12 items-center">
             <a @class(['', 'text-xl', 'font-bold' => ($page === 'home')]) href='/'>Home</a>
-            <a @class(['', 'text-xl', 'font-bold' => ($page === 'recipes')]) href='{{ route('recipes.index')}}'>RecipeShare</a>
-            <a @class(['', 'text-xl', 'font-bold' => ($page === 'games')]) href='{{ route('games.index') }}' disabled>Steam Activity</a>
+            <a @class(['', 'text-xl', 'font-bold' => ($page === 'recipes')]) href="route('recipes.index')">RecipeShare</a>
+            <a @class(['', 'text-xl', 'font-bold' => ($page === 'games')]) href="route('games.index')" disabled>Steam Activity</a>
         </nav>
         @auth
             <div class="flex p-2 items-center">

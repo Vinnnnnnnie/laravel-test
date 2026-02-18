@@ -18,7 +18,7 @@ Route::get('/home', function () {
 });
 
 Route::get('/cv', function() {
-    return view('cv');
+    return Inertia::render('Cv');
 })->name('cv');
 
 Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');

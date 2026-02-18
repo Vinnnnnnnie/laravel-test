@@ -2,6 +2,7 @@
 import Layout from './Components/Layout.vue'
 import { Head } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3'
+import { route } from 'ziggy-js';
 
 const props = defineProps({ image: Object })
 
@@ -20,10 +21,10 @@ const props = defineProps({ image: Object })
                         Here are some things you should check out:
                     </div>
                     <div class="py-4 flex flex-col gap-4">
-                        <Link class="p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 border-1 border-gray-500"  href="route('recipes.index')">RecipeShare</Link>
+                        <Link class="p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 border-1 border-gray-500"  :href="route('recipes.index')">RecipeShare</Link>
                         <a class="p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 border-1 border-gray-500" target='_blank'  href="https://ldjam.com/users/vinnnie/">Ludum Dare</a>
                         <a class="p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 border-1 border-gray-500"  target='_blank' href="https://www.linkedin.com/in/vincent-owens-653685264/">LinkedIn</a>
-                        <Link class="p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 border-1 border-gray-500"  href="route('cv')">CV</Link>
+                        <Link class="p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 border-1 border-gray-500"  :href="route('cv')">CV</Link>
                     </div>
                 </div>
             </section>
@@ -31,7 +32,3 @@ const props = defineProps({ image: Object })
     </Layout>
     
 </template>
-<script>
-    // console.log(image);
-    // document.getElementById('me').src = route('image.website', 'me.png');
-</script>

@@ -9,7 +9,6 @@ import { Link } from '@inertiajs/vue3'
                 <h3 class="text-xl font-bold">Projects</h3>
                 <ul>
                     <li>
-                        
                         <a href='https://vinnie.fyi' class='font-bold'>Portfolio Website</a>
                     </li>
                     <li>
@@ -24,16 +23,20 @@ import { Link } from '@inertiajs/vue3'
                 </ul>
             </div>
             <div>
-                <h3 class="text-xl font-bold">Friends</h3>
+                <h3 class="text-xl font-bold">Documentation</h3>
                 <ul>
-                    <li>Mohammed Abdul</li>
-                    <li>Jotaro Joestar</li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold">Other Links</h3>
-                <ul>
-                    <a href='https://laravel.com/docs/12.x/installation'>Laravel Docs</a>
+                    <li>
+                        <a href='https://laravel.com/docs/12.x/installation'>Laravel</a>
+                    </li>
+                    <li>
+                        <a href='https://inertiajs.com/docs/v2/getting-started'>InertiaJS</a>
+                    </li>
+                    <li>
+                        <a href='https://vuejs.org/guide/introduction.html'>Vue</a>
+                    </li>
+                    <li>
+                        <a href='https://tailwindcss.com/docs/installation/using-vite'>TailwindCSS</a>
+                    </li>
                 </ul>
             </div>
         </div>

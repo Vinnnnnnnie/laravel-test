@@ -12,7 +12,7 @@ use App\Http\Controllers\UserFriendController;
 use Illuminate\Validation\Rules\File;
 use App\Http\Controllers\RecipeImageController;
 use Illuminate\Support\Facades\Storage;
-
+use Inertia\Inertia;
 
 class RecipeController extends Controller
 {
@@ -27,6 +27,7 @@ class RecipeController extends Controller
         $userFriends = new UserFriendController();
         $userFriends->updateFriendsList();
 
+        return Inertia::render('Recipes/Index', ['recipes' => $recipes]);
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {

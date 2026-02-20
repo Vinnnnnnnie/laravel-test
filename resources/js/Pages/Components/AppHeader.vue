@@ -12,6 +12,6 @@ import { Link } from '@inertiajs/vue3'
                 <Link class='text-xl' :href="route('recipes.index')">RecipeShare</Link>
                 <Link class='text-xl' :href="route('games.index')" disabled>Steam Activity</Link>
             </nav>
-        </div>
+        </div>      
     </header>
 </template>

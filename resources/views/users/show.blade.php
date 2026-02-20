@@ -2,7 +2,9 @@
     {{-- User information --}}
     <div class='card flex flex-row gap-4'>
         @if($user->image_path)
-        <img src='{{ route('image.users', $user->image_path)}}' class='w-50 max-w-50' alt='{{$user->name}} Profile Picture'>
+        <div class='dark:bg-gray-950 aspect-square overflow-hidden min-w-50 min-h-50 w-50 h-50 flex items-center justify-center bg-gray-50 align-items-center rounded-sm'>
+            <img src='{{ route('image.users', $user->image_path)}}' class='w-full h-full object-cover'>
+        </div>
         @endif
         <div class='flex flex-col gap-4'>
             <div class='flex flex-col justify-start w-full'>

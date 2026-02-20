@@ -9,23 +9,32 @@ use Illuminate\Container\Attributes\Auth as AttributesAuth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
+
 
 class AuthController extends Controller
 {
     public function showRegister()
     {
-        return view('auth.register');
+        return Inertia::render('Auth/Register');
     }
     public function showLogin()
     {
-        return view('auth.login');
+        return Inertia::render('Auth/Login');
     }
     public function register(Request $request)
     {
+        $files = Storage::disk('users')->allFiles('');
+        $path = $files[array_rand($files)];
+        $request->merge(['image_path' => $path]);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8|confirmed'
+            'password' => 'required|string|min:8|confirmed',
+            'image_path' => 'required|string',
         ]);
 
         $user = User::create($validated);
@@ -54,6 +63,7 @@ class AuthController extends Controller
         FacadesAuth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        return Inertia::render('Auth/Login.vue');
 
         return redirect()->route('show.login');
     }

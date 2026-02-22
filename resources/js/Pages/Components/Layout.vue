@@ -2,17 +2,23 @@
 import { Link } from '@inertiajs/vue3'
 import AppHeader from './AppHeader.vue'
 import AppFooter from './AppFooter.vue'
-defineProps({
-    errors: Array
-})
+import { onMounted, defineProps } from 'vue';
+const props = defineProps({
+    errors: {
+        type: [Array, Object],
+        default: []
+    },
+    user: Object
+});
+
 </script>
 
 <template>
     <AppHeader/>
     <main class='items-center striped-background'>
-        <div v-if='errors.count() > 0' class="alert alert-danger">
+        <div v-if="errors"  class="alert alert-danger">
             <ul v-for='error in errors' class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
-                <li class='text-red-500'>{{ error.value }}</li>
+                <li class='text-red-500'>{{ error.credentials.value }}</li>
             </ul>
         </div>
         <div class='grid grid-cols-12 divide-solid divide-x-1 divide-gray-500 justify-between gap-8 '>

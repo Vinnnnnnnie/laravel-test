@@ -22,12 +22,16 @@ class RecipeController extends Controller
         $recipes = Recipe::with(['comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }, 'user', 'tags'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->orderBy('created_at', 'desc')->limit(10)->get();
+            // ->paginate(10);
         $userFriends = new UserFriendController();
         $userFriends->updateFriendsList();
 
-        return Inertia::render('Recipes/Index', ['recipes' => $recipes]);
+        return Inertia::render('Recipes/Index', 
+        [
+            'recipes' => $recipes,
+            'user' => auth()->user()
+            ]);
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {

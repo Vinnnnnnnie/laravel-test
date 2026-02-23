@@ -31,7 +31,7 @@ Route::get('/public/images/users/{filename}', function ($filename) {
     $path = public_path('storage/users/' . $filename);
 
     if (!file_exists($path)) {
-        abort(404);
+        $path = public_path('storage/users/Aubergine.jpg');
     }
     return response()->file($path);
 })->name('image.users');
@@ -39,7 +39,7 @@ Route::get('/public/images/users/{filename}', function ($filename) {
 Route::get('/public/images/recipes/{filename}', function ($filename) {
     $path = public_path('storage/recipes/' . $filename);
     if (!file_exists($path)) {
-        abort(404);
+        $path = public_path('storage/recipes/Plate.jpg');
     }
     return response()->file($path);
 })->name('image.recipes');
@@ -90,10 +90,10 @@ Route::middleware('auth')->controller(BikeController::class)->group(function () 
 
 Route::get('/games', function() 
 {
-    return view('coming-soon');
+    return Inertia::render('ComingSoon');
 })->name('games.index');
 
 Route::get('/games/*', function() 
 {
-    return view('coming-soon');
+    return Inertia::render('ComingSoon');
 });

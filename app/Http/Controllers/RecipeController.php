@@ -19,9 +19,11 @@ class RecipeController extends Controller
     //
     public function index() {
         
-        $recipes = Recipe::with(['comments' => function ($query) {
+        $recipes = Recipe::with(
+            ['user',
+             'comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
-        }, 'user', 'tags'])
+        }, 'tags'])
             ->orderBy('created_at', 'desc')->limit(10)->get();
             // ->paginate(10);
         $userFriends = new UserFriendController();
@@ -35,11 +37,18 @@ class RecipeController extends Controller
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {
-        
-        return view('recipes.show', ['recipe' => $recipe]);
+        $recipe->load('user', 'comments', 'tags');
+        return Inertia::render('Recipes/Show', 
+            [
+                'recipe' => $recipe,
+                'user' => auth()->user()
+            
+            ]);
+        // return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create() {
         $tags = Tag::orderBy('name', 'asc')->get();
+        return Inertia::render('Recipes/Create', ['tags' => $tags]);
         return view('recipes.create', ['tags' => $tags]);
     }
 

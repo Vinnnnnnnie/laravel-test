@@ -4,6 +4,7 @@ import AppHeader from './AppHeader.vue'
 import AppFooter from './AppFooter.vue'
 import { onMounted, defineProps } from 'vue';
 import { Form } from '@inertiajs/vue3';
+import UserCard from './UserCard.vue';
 const props = defineProps({
     errors: {
         type: [Array, Object],
@@ -15,21 +16,17 @@ const props = defineProps({
 </script>
 
 <template>
-    <AppHeader/>
+    <AppHeader :user/>
     <main class='items-center p-8'>
         <div class='flex justify-between gap-8'>
             <div v-if="user" class='flex-2 sticky top-4 h-fit flex flex-col gap-4'>
-                <!--Vue User Card-->
-                <div>{{ user.name }}</div>
-                    <!-- <<x-user-card>
-                        :user='auth()->user()'
-                    /> -->
+                <UserCard :user/>
                 <div class='w-full mb-2'>
                     <h2>Find Recipes</h2>
                     <Form :action="route('recipes.search')" method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4'>
                         <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full' value=''>
                         <input type='submit' name='submit' class='btn' value='Go'>
-                    </form>
+                    </Form>
                 </div>
                 <div class='flex flex-col items-center gap-2 mb-4'>
                     <Link class='btn flex flex-row gap-2' :href="route('recipes.create')"> Create a New Recipe</Link>

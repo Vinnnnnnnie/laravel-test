@@ -1,11 +1,12 @@
 <script setup>
+import { Form } from '@inertiajs/vue3';
 import Layout from '../Components/Layout.vue'
 </script>
 <template>
     <Layout>
         <div class='form'>
         <h2>Register</h2>
-        <form class='flex flex-col gap-4' method="POST" :action="route('register')">
+        <Form class='flex flex-col gap-4' method="POST" :action="route('register')">
             <div class='flex flex-col'>
                 <label class='form-label' for="name">Name</label>
                 <input class='form-control' type="text" id="name" name="name" value='' required>

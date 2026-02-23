@@ -3,10 +3,12 @@ import ProfilePicture from '../Components/ProfilePicture.vue';
 import { Link } from '@inertiajs/vue3';
 import { Form } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
-
+import Comment from '../Components/Comment.vue';
 const props = defineProps({
     recipe: Object,
-    user: Object
+    user: Object,
+    comments: Object,
+    tags: Object
 });
 
 </script>
@@ -57,7 +59,7 @@ const props = defineProps({
                 <!--Buttons-->
                 <div class='flex gap-2'>
                     <a v-if='user.id === recipe.user_id' class='btn' :href="route('recipes.edit', recipe)">Edit Recipe</a>
-                    <Form method="DELETE" :action="route('recipes.destroy', recipe.id)">
+                    <Form v-if='user.id === recipe.user_id' method="DELETE" :action="route('recipes.destroy', recipe.id)">
                         <button class=btn type="submit">Delete Recipe</button>
                     </Form>
                     <!-- @if($recipe->savedUsers()->get()->contains(auth()->user()->id)) -->
@@ -71,8 +73,8 @@ const props = defineProps({
                 </div>
             </div>
         </div>
-        <div v-if='recipe.comments'>
-            <Comment v-for='comment in recipe.comments' 
+        <div v-if='comments'>
+            <Comment v-for='comment in comments' 
                 :highlight='recipe.user_id === comment.user.id'
                 :user='comment.user_id === user.id'
                 :comment

@@ -38,10 +38,13 @@ class RecipeController extends Controller
     }
     public function show(Recipe $recipe) {
         $recipe->load('user', 'comments', 'tags');
+        $comments = $recipe->comments;
+        $comments->load('user');
         return Inertia::render('Recipes/Show', 
             [
                 'recipe' => $recipe,
-                'user' => auth()->user()
+                'user' => auth()->user(),
+                'comments' => $comments,
             
             ]);
         // return view('recipes.show', ['recipe' => $recipe]);

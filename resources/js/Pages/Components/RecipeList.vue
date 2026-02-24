@@ -3,6 +3,7 @@ import RecipeCard from './RecipeCard.vue';
 import { Link } from '@inertiajs/vue3';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
+import { InfiniteScroll } from '@inertiajs/vue3'
 
 const page = usePage();
 
@@ -18,14 +19,16 @@ const props = defineProps({
  });
 </script>
 <template>
-    <ul v-if='recipes' class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
-        <li v-for="recipe in props.recipes" class='col-span-1 row-span-1'>
+    <InfiniteScroll v-if='recipes' data='recipes' class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
+        <div v-for="recipe in recipes.data" :key="recipe.id" class='col-span-1 row-span-1'>
             <RecipeCard 
                 :recipe="recipe"
                 :saved="savedRecipeIds.length > 0 && savedRecipeIds.includes(recipe.id)"
                 :owner="user.id === recipe.user_id"
                 >
             </RecipeCard>
+        </div>
+    </InfiniteScroll>
             <!--RecipeCard.vue-->
             <!-- <x-card href="{{ route('recipes.show', $recipe) }}" 
                 :user='$recipe->user_id === $user->id' 
@@ -33,15 +36,12 @@ const props = defineProps({
                 :saved='$user->savedRecipes()->get()->contains($recipe->id)'
                 :recipe='$recipe'
             /> -->
-        </li>
-    </ul>
     <ul v-else>
         <li>
             <span class='text-3xl py-4'>
                 No recipes found. Why not 
                 <Link class='btn flex flex-row gap-2' :href="route('recipes.create')"> Create a New Recipe?</Link>
             </span>
-
         </li>
     </ul>
 </template>

@@ -24,15 +24,32 @@ class RecipeController extends Controller
              'comments' => function ($query) {
             $query->select('id', 'user_id', 'recipe_id');
         }, 'tags'])
-            ->orderBy('created_at', 'desc')->limit(10)->get();
+            ->select('id', 'title', 'user_id', 
+                'created_at', 'preparation_time', 
+                'cooking_time', 'servings', 'difficulty', 
+                'image_path')
+            ->orderBy('created_at', 'desc')->get();
             // ->paginate(10);
         $userFriends = new UserFriendController();
         $userFriends->updateFriendsList();
 
         return Inertia::render('Recipes/Index', 
-        [
-            'recipes' => $recipes
-            ]);
+            [
+                'recipes' => Inertia::scroll(fn () => Recipe::with(
+                    [
+                        'user',
+                        'comments' => function ($query) {
+                            $query->select('id', 'user_id', 'recipe_id');
+                        }, 
+                        'tags'
+                    ]
+                )
+                ->select('id', 'title', 'user_id', 
+                    'created_at', 'preparation_time', 
+                    'cooking_time', 'servings', 'difficulty', 
+                    'image_path')
+                ->orderBy('created_at', 'desc')->paginate()
+        )]);
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {

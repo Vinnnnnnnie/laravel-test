@@ -21,7 +21,7 @@ const props = defineProps({
 </script>
 <template>
     <RecipeLayout :user>
-        <div class="card p-4">
+        <div class="card p-4" :class="{'saved': savedRecipeIds.includes(recipe.id)}">
             <div class='w-full flex flex-col gap-4'>
                 <div v-if='recipe.user' class='flex flex-row gap-2'>
                     <ProfilePicture
@@ -44,7 +44,7 @@ const props = defineProps({
                         <p v-else-if="recipe.user.recipes">{{ recipe.user.recipes.length }} Recipes</p>
                         <p v-else>0 Recipes</p>
                     </div>
-                    
+                    <div v-if="savedRecipeIds.includes(recipe.id)" class='size-10 text-orange-500'>Saved</div>
                 </div>
                 <div class='flex flex-col-reverse w-full xl:flex-row gap-4'>
                     <!--Recipe Details -->

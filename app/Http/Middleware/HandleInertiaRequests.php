@@ -43,25 +43,21 @@ class HandleInertiaRequests extends Middleware
     // }
     public function share(Request $request): array
     {
-        $user = auth()->user()->load(
-            [
-                'recipes' => function ($query) {
-                    $query->select('recipes.id', 'recipes.title', 'recipes.user_id');
-                },
-                'savedRecipes' => function ($query) {
-                    $query->select('recipe_id', 'pivot_user_id');
-                }
-            ]            // 'recipes:id, title',
-            // 'savedRecipes:recipe_id'
-            // [
-            //     'recipes' => function ($query) {
-            //         $query->select('id', 'title');
-            //     },
-            //     'savedRecipes' => function ($query) {
-            //         $query->select('id', 'title');
-            //     }
-            // ]
-        );
+        $user = [];
+        if (auth()->user())
+        {
+            $user = auth()->user()->load(
+                [
+                    'recipes' => function ($query) {
+                        $query->select('recipes.id', 'recipes.title', 'recipes.user_id');
+                    },
+                    'savedRecipes' => function ($query) {
+                        $query->select('recipe_id', 'pivot_user_id');
+                    }
+                ]
+            );
+        }
+        
         return array_merge(parent::share($request), [
             'auth.user' => $user
         ]);

@@ -66,8 +66,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return Inertia::render('Auth/Login.vue');
-
-        return redirect()->route('show.login');
     }
 
 }

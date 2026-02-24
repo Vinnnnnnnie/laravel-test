@@ -4,9 +4,15 @@ import { Link } from '@inertiajs/vue3';
 import { Form } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
 import Comment from '../Components/Comment.vue';
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const page = usePage();
+
+const user = computed(() => page.props.auth.user);
+
 const props = defineProps({
     recipe: Object,
-    user: Object,
     comments: Object,
     tags: Object
 });
@@ -23,10 +29,21 @@ const props = defineProps({
                     />
                     <div>
                         <strong>{{ recipe.user.name }}</strong>
+                        <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
+                            <span v-if="user.reputation < 5">Arsonist</span>
+                            <span v-else-if="user.reputation < 10">Barbecuer</span>
+                            <span v-else-if="user.reputation < 20">Cook</span>
+                            <span v-else-if="user.reputation < 30">Chef</span>
+                            <span v-else-if="user.reputation < 50">Gourmand</span>
+                            <span v-else-if="user.reputation < 100">Michellin</span>
+                            <span v-else-if="user.reputation > 99">Master Chef</span>
+                            {{ recipe.user.reputation }}
+                        </div>
                         <p v-if="recipe.user.recipes && recipe.user.recipes.length === 1">{{ recipe.user.recipes.length }} Recipe</p>
                         <p v-else-if="recipe.user.recipes">{{ recipe.user.recipes.length }} Recipes</p>
                         <p v-else>0 Recipes</p>
                     </div>
+                    
                 </div>
                 <div class='flex flex-col-reverse w-full xl:flex-row gap-4'>
                     <!--Recipe Details -->

@@ -31,21 +31,21 @@ class RecipeController extends Controller
 
         return Inertia::render('Recipes/Index', 
         [
-            'recipes' => $recipes,
-            'user' => auth()->user()
+            'recipes' => $recipes
             ]);
         return view('recipes.index', ['recipes' => $recipes]);
     }
     public function show(Recipe $recipe) {
         $recipe->load('user', 'comments', 'tags');
         $comments = $recipe->comments;
+        $tags = $recipe->tags;
         $comments->load('user');
         return Inertia::render('Recipes/Show', 
             [
                 'recipe' => $recipe,
                 'user' => auth()->user(),
                 'comments' => $comments,
-            
+                'tags' => $tags
             ]);
         // return view('recipes.show', ['recipe' => $recipe]);
     }
@@ -121,7 +121,7 @@ class RecipeController extends Controller
         if ($request->image)
         {
             $request->validate([
-                'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+                'image' => 'image|mimes:jpeg,png,jpg,gif'
             ]);
             $image_path = $request->image->store("recipes", 'public');
             $image_path = str_replace('recipes/', '', $image_path); 

@@ -1,8 +1,12 @@
 <script setup>
-const props = defineProps({ 
-    user: Object,
- });
- import { Link } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const page = usePage();
+
+const user = computed(() => page.props.auth.user);
 </script>
 <template>
     <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4 border-l-4 border-blue-500 w-full'>

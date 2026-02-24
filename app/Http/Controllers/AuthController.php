@@ -51,6 +51,8 @@ class AuthController extends Controller
 
         if(FacadesAuth::attempt($validated)) {
             $request->session()->regenerate();
+            Inertia::share('user', auth()->user());
+
             return redirect()->route('recipes.index');
         }
     

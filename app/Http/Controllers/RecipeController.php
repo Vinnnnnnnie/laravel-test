@@ -35,7 +35,12 @@ class RecipeController extends Controller
 
         return Inertia::render('Recipes/Index', 
             [
-                'recipes' => Inertia::scroll(fn () => Recipe::with(
+                'recipes' => self::scrollableRecipeList()]);
+        return view('recipes.index', ['recipes' => $recipes]);
+    }
+
+    public function scrollableRecipeList() {
+        return Inertia::scroll(fn () => Recipe::with(
                     [
                         'user',
                         'comments' => function ($query) {
@@ -49,8 +54,7 @@ class RecipeController extends Controller
                     'cooking_time', 'servings', 'difficulty', 
                     'image_path')
                 ->orderBy('created_at', 'desc')->paginate()
-        )]);
-        return view('recipes.index', ['recipes' => $recipes]);
+        );
     }
     public function show(Recipe $recipe) {
         $recipe->load('user', 'comments', 'tags');

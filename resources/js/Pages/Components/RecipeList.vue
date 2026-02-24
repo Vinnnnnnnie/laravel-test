@@ -24,7 +24,7 @@ const props = defineProps({
             <RecipeCard 
                 :recipe="recipe"
                 :saved="savedRecipeIds.length > 0 && savedRecipeIds.includes(recipe.id)"
-                :owner="user.id === recipe.user_id"
+                :user="user.id === recipe.user_id"
                 >
             </RecipeCard>
         </div>

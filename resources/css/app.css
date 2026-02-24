@@ -65,22 +65,22 @@ a.card {
     @apply dark:hover:bg-gray-800;
 }
 .highlight {
-    @apply border-l-4 border-red-500;
+    @apply border-4 border-red-500;
 }
 .owner {
-    @apply border-l-4 border-green-500;
+    @apply border-4 border-green-500;
 }
 .user {
-    @apply border-l-4 border-blue-500;
+    @apply border-4 border-blue-500;
 }
 .friend {
-    @apply border-l-4 border-yellow-500;
+    @apply border-4 border-yellow-500;
 }
 .fire {
     
 }
 .saved {
-    @apply border-l-4 border-orange-500;
+    @apply border-4 border-orange-500;
 }
 @keyframes rotate {
   from {

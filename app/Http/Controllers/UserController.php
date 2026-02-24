@@ -22,7 +22,8 @@ class UserController extends Controller
         $user = auth()->user();
         
         $user->savedRecipes()->attach($recipe->id);
-    return redirect()->route('recipes.show', ['recipe' => $recipe])->with('success', 'Added to your saved recipes!');
+
+        return redirect()->route('recipes.show', ['recipe' => $recipe])->with('success', 'Added to your saved recipes!');
     }
     public function removeSavedRecipe(Recipe $recipe)
     {

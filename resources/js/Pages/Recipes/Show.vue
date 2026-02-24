@@ -10,6 +10,7 @@ import { usePage } from "@inertiajs/vue3";
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
+const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
 
 const props = defineProps({
     recipe: Object,
@@ -80,7 +81,7 @@ const props = defineProps({
                         <button class=btn type="submit">Delete Recipe</button>
                     </Form>
                     <!-- @if($recipe->savedUsers()->get()->contains(auth()->user()->id)) -->
-                    <Form v-if='true' :action="route('users.removeSavedRecipe', recipe)" method='post'>
+                    <Form v-if='savedRecipeIds.includes(recipe.id)' :action="route('users.removeSavedRecipe', recipe)" method='post'>
                         <input type='submit' class="btn bg-green-500" value='Remove Saved Recipe'>
                     </Form>
                     <Form v-else :action="route('users.addSavedRecipe', recipe)" method='post'>

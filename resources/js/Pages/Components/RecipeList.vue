@@ -1,6 +1,14 @@
 <script setup>
 import RecipeCard from './RecipeCard.vue';
 import { Link } from '@inertiajs/vue3';
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const page = usePage();
+
+const user = computed(() => page.props.auth.user);
+const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
+
 const props = defineProps({ 
     recipes: {
         type: [Array, Object],
@@ -12,7 +20,11 @@ const props = defineProps({
 <template>
     <ul v-if='recipes' class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
         <li v-for="recipe in props.recipes" class='col-span-1 row-span-1'>
-            <RecipeCard :recipe="recipe">
+            <RecipeCard 
+                :recipe="recipe"
+                :saved="savedRecipeIds.length > 0 && savedRecipeIds.includes(recipe.id)"
+                :owner="user.id === recipe.user_id"
+                >
             </RecipeCard>
             <!--RecipeCard.vue-->
             <!-- <x-card href="{{ route('recipes.show', $recipe) }}" 

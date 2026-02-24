@@ -22,7 +22,7 @@ class RecipeController extends Controller
         $recipes = Recipe::with(
             ['user',
              'comments' => function ($query) {
-            $query->orderBy('created_at', 'desc');
+            $query->select('id', 'user_id', 'recipe_id');
         }, 'tags'])
             ->orderBy('created_at', 'desc')->limit(10)->get();
             // ->paginate(10);

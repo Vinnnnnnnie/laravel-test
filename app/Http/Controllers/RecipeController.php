@@ -35,7 +35,10 @@ class RecipeController extends Controller
 
         return Inertia::render('Recipes/Index', 
             [
-                'recipes' => self::scrollableRecipeList()]);
+                'recipes' => self::scrollableRecipeList()])->with([
+                    'success' => 'Test Success',
+                    'error' => 'Test Error'
+                ]);
         return view('recipes.index', ['recipes' => $recipes]);
     }
 

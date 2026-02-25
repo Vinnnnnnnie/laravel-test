@@ -20,6 +20,11 @@ const props = defineProps({
 </script>
 <template>
     <InfiniteScroll v-if='recipes' data='recipes' class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
+        <template #loading class="col-span-1 row-span-1">
+            <div class="col-span-1 row-span-1 py-4">
+                <div class="card animate-pulse text-center items-center text-2xl font-semibold">Loading more recipes...</div>
+            </div>
+        </template>
         <div v-for="recipe in recipes.data" :key="recipe.id" class='col-span-1 row-span-1'>
             <RecipeCard 
                 :recipe="recipe"

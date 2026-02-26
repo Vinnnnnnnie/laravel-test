@@ -34,11 +34,7 @@ class RecipeController extends Controller
         $userFriends->updateFriendsList();
 
         return Inertia::render('Recipes/Index', 
-            [
-                'recipes' => self::scrollableRecipeList()])->with([
-                    'success' => 'Test Success',
-                    'errors' => ['Test Error']
-                ]);
+            ['recipes' => self::scrollableRecipeList()]);
         return view('recipes.index', ['recipes' => $recipes]);
     }
 
@@ -120,6 +116,7 @@ class RecipeController extends Controller
     public function edit($id) {
         $recipe = Recipe::findOrFail($id);
         $tags = Tag::orderBy('name', 'asc')->get();
+        return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
         return view('recipes.edit', ['recipe' => $recipe, 'tags' => $tags]);
     }
 
@@ -179,6 +176,7 @@ class RecipeController extends Controller
         $recipe = Recipe::with(['user'])
         ->where('recipes.id', '=' ,$request->input('id'))
         ->get();
+        return Inertia::render('Users/Show', auth()->user())->with('success', 'Recipe updated successfully!');
         return redirect()->route('users.show', auth()->user())->with('success', 'Recipe updated successfully!');
     }
 }

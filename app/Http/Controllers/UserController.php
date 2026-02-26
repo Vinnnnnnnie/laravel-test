@@ -5,13 +5,50 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Recipe;
-
+use Inertia\Inertia;
 class UserController extends Controller
 {
     public function show(User $user)
     {
-        $recipes = Recipe::where('user_id','=',$user->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('users.show', ['user' => $user, 'recipes' => $recipes]);
+        return Inertia::render('Users/Show',
+            ['user' => $user, 
+            'recipes' => Inertia::scroll(fn () => Recipe::with(
+                    [
+                        'user',
+                        'comments' => function ($query) {
+                            $query->select('id', 'user_id', 'recipe_id');
+                        }, 
+                        'tags'
+                    ]
+                )
+                ->select('id', 'title', 'user_id', 
+                    'created_at', 'preparation_time', 
+                    'cooking_time', 'servings', 'difficulty', 
+                    'image_path')
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')->paginate()
+            )
+        ]);
+    }
+
+    public function follow(Request $request)
+    {
+        $userToFollow = $request->friend_user_id;
+        $user = auth()->user();
+
+        $user->followed()->attach($userToFollow);
+
+        return redirect()->route('users.show', ['user' => $user])->with('success', 'Followed!');
+
+    }
+    public function unfollow(Request $request)
+    {
+        $userToUnfollow = $request->friend_user_id;
+        $user = auth()->user();
+
+        $user->followed()->detach($userToUnfollow);
+
+        return redirect()->route('users.show', ['user' => $user])->with('success', 'Unfollowed!');
     }
     public function edit()
     {

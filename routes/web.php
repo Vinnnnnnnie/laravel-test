@@ -74,6 +74,8 @@ Route::middleware('auth')->controller(UserController::class)->group(function () 
     Route::get('/users/edit', 'edit')->name('users.edit');
     Route::get('/users/savedRecipes', 'savedRecipes')->name('users.savedRecipes');
     Route::get('/users/{user}','show')->name('users.show');
+    Route::post('/users/follow', 'follow')->name('users.follow');
+    Route::delete('/users/unfollow', 'unfollow')->name('users.unfollow');
     Route::post('/users/update', 'update')->name('users.update');
     Route::post('/users/saveRecipe/{recipe}', 'addSavedRecipe')->name('users.addSavedRecipe');
     Route::post('/users/removeRecipe/{recipe}', 'removeSavedRecipe')->name('users.removeSavedRecipe');

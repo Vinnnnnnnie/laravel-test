@@ -53,6 +53,12 @@ class HandleInertiaRequests extends Middleware
                     },
                     'savedRecipes' => function ($query) {
                         $query->select('recipe_id', 'pivot_user_id');
+                    },
+                    'followed' => function ($query) {
+                        $query->select('follower_id', 'pivot_user_id');
+                    },
+                    'followers' => function ($query) {
+                        $query->select('user_id', 'follower_id', 'name');
                     }
                 ]
             );

@@ -123,21 +123,24 @@ class RecipeController extends Controller
     public function search(Request $request) {
         $term = $request->term;
         $validated = $request->validate(['term' => 'required|max:64']);
-        $recipes = Recipe::query()
-            ->select('users.image_path as user_image', 'recipes.image_path as recipe_image', 'recipes.*', 'users.name')
+        $recipes = Inertia::scroll(fn () => Recipe::query()
+            ->select('users.image_path', 'recipes.image_path', 'recipes.*', 'users.name')
             ->join('users', 'users.id', '=', 'recipes.user_id')
             ->where('recipes.title', 'LIKE', '%'.$term.'%')
             ->orWhere('users.name', 'LIKE', $term.'%')
+            ->with(
+            ['user',
+                'comments' => function ($query) {
+                $query->select('id', 'user_id', 'recipe_id');
+            }, 'tags'])
             ->orderBy('recipes.created_at', 'DESC')
-            ->paginate(
-                $perPage = 15, $columns = ['*'], $pageName = 'recipes'
-            );
+            ->paginate(15));
         $users = User::query()
             ->select('image_path', 'name', 'id')
             ->where('name', 'LIKE', $term.'%')
-            ->paginate(
-                $perPage = 5, $columns = ['*'], $pageName = 'users'
-            );
+            ->limit(5)
+            ->get();
+        return Inertia::render('Recipes/Search', ['recipes' => $recipes, 'users' => $users]);
         return view('recipes.search', ['recipes' => $recipes, 'users' => $users]);
     }
 

@@ -37,7 +37,7 @@ class RecipeController extends Controller
             [
                 'recipes' => self::scrollableRecipeList()])->with([
                     'success' => 'Test Success',
-                    'error' => 'Test Error'
+                    'errors' => ['Test Error']
                 ]);
         return view('recipes.index', ['recipes' => $recipes]);
     }

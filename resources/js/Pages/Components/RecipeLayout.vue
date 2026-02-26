@@ -12,13 +12,7 @@ const page = usePage();
 
 const user = computed(() => page.props.auth.user);
 const errors = computed(() => page.props.errors);
-
-const props = defineProps({
-    errors: {
-        type: [Array, Object],
-        default: []
-    }
-});
+const success = computed(() => page.props.success);
 
 </script>
 
@@ -48,9 +42,9 @@ const props = defineProps({
                             <li class='text-red-500'>{{ error }}</li>
                         </ul>
                     </div>
-                    <div v-if="success"  class="alert alert-danger">
-                        <ul v-for='message in success' class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
-                            <li class='text-green-500'>{{ message }}</li>
+                    <div v-if="success"  class="alert alert-success">
+                        <ul class='px-4 py-2 bg-green-200 rounded-lg mb-2'>
+                            <li class='text-green-500'>{{ success }}</li>
                         </ul>
                     </div>
                     <slot />

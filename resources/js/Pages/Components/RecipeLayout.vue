@@ -7,7 +7,7 @@ import { Form } from '@inertiajs/vue3';
 import UserCard from './UserCard.vue';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
-
+import ProfilePicture from '../Components/ProfilePicture.vue';
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
@@ -53,17 +53,18 @@ const success = computed(() => page.props.success);
         <div class='flex-2 sticky top-4 border-l-4 border-yellow-500 h-fit p-4 bg-gray-100 dark:bg-gray-900'>
             <ul>
                 <li><h2>Followed</h2></li>
-                    <li>
-                        <!--Vue Friend Stuff-->
-                        <!-- <a class="btn flex gap-2 items-center" href="{{ route('users.show', $friend->friend_user_id) }}">
-                            <x-profile-picture
-                                :image='$friend->image_path'
-                                :size='10'
-                            />
-                            <strong>{{ $friend->name }}</strong>
-                        </a> -->
-                    </li>
-                    <li>
+                    <div v-if="user.following > 0">
+                        <li v-for="followed in user.following">
+                            <div>
+                                <ProfilePicture
+                                    :image='followed.image_path'
+                                    :size='10'
+                                />
+                                <Link class="flex gap-2 items-center" :href="route('users.show', followed.user_id)">{{ followed.name }}</Link>
+                            </div>
+                        </li>
+                    </div>
+                    <li v-else>
                         You're not following anyone yet
                     </li>
                 </ul>

@@ -19,7 +19,7 @@ const props = defineProps({
             </div>
             <div class='flex flex-col gap-4'>
                 <div class='flex flex-col justify-start w-full'>
-                    <h2>{{ user.name}}</h2>
+                    <h2>{{ user.first_name}} {{ user.last_name }}</h2>
                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                         
                         {{ user.reputation }}
@@ -28,20 +28,20 @@ const props = defineProps({
                 <p>{{user.bio}}</p>
             </div>
             <div>
-                    <Form :action="route('users.unfollow', user)" method='DELETE'>
+                    <Form v-if="authUser.following.find(u => u.user_id)" :action="route('users.unfollow', user)" method='DELETE'>
                         <input hidden id='friend_user_id' name='friend_user_id' :value='user.id'>
                         <input type='submit' class="btn bg-red-500" value='Unfollow'>
-                    </Form>
-                    <Form :action="route('users.follow', user)" method='post'>
+                    </Form >
+                    <Form v-else-if="authUser.id != user.id" :action="route('users.follow', user)" method='post'>
                         <input hidden readonly id='friend_user_id' name='friend_user_id' :value='user.id'>
                         <input type='submit' class="btn bg-green-500" value='Follow'>
                     </Form>
-                    <Link :href="route('users.edit')" class="btn bg-green-500">Edit Profile</Link>
+                    <Link v-if="authUser.id === user.id" :href="route('users.edit')">Edit Profile</Link>
             </div>
         </div>
         <div class='w-full'>
             <div class='flex justify-between items-center mb-4'>
-                <h2>Recipes by {{user.name}}</h2>
+                <h2>Recipes by {{user.first_name}} {{ user.last_name }}</h2>
             </div>
             <RecipeList 
                 :recipes='recipes'

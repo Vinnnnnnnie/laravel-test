@@ -31,7 +31,8 @@ class AuthController extends Controller
         $request->merge(['image_path' => $path]);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'image_path' => 'required|string',
@@ -53,7 +54,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             Inertia::share('user', auth()->user());
 
-            return redirect()->route('recipes.index');
+            return redirect()->route(route: 'recipes.index');
         }
     
         throw ValidationException::withMessages([
@@ -65,7 +66,8 @@ class AuthController extends Controller
         FacadesAuth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return Inertia::render('Auth/Login.vue');
+    
+        return redirect()->route('show.login');
     }
 
 }

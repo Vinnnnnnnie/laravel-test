@@ -18,7 +18,6 @@ class RecipeController extends Controller
 {
     //
     public function index() {
-        
         $recipes = Recipe::with(
             ['user',
              'comments' => function ($query) {

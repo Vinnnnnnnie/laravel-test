@@ -36,9 +36,9 @@ class UserController extends Controller
         $userToFollow = $request->friend_user_id;
         $user = auth()->user();
 
-        $user->followed()->attach($userToFollow);
+        $user->following()->attach($userToFollow);
 
-        return redirect()->route('users.show', ['user' => $user])->with('success', 'Followed!');
+        return redirect()->route('users.show', ['user' => $userToFollow])->with('success', 'Followed!');
 
     }
     public function unfollow(Request $request)
@@ -46,13 +46,13 @@ class UserController extends Controller
         $userToUnfollow = $request->friend_user_id;
         $user = auth()->user();
 
-        $user->followed()->detach($userToUnfollow);
+        $user->following()->detach($userToUnfollow);
 
-        return redirect()->route('users.show', ['user' => $user])->with('success', 'Unfollowed!');
+        return redirect()->route('users.show', ['user' => $userToUnfollow])->with('success', 'Unfollowed!');
     }
     public function edit()
     {
-        return view('users.edit');
+        return Inertia::render('Users/Edit');
     }
     public function addSavedRecipe(Recipe $recipe)
     {
@@ -84,10 +84,13 @@ class UserController extends Controller
             $request->merge(['image_path' => $image_path]);
         }
         $validated = $request->validate([
-            'name' => 'required|string',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email',
             'bio' => 'nullable|string|max:255',
             'image_path' => 'string'
         ]);
+
         $user = User::find(auth()->user()->id);
         $user->update($validated);
 

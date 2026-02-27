@@ -18,10 +18,9 @@ const props = defineProps({
                     <li v-for="user in users">
                         <div class='w-100 sticky top-4 h-fit'>
                             <div class='profile'>
-                                
                                 <img :src="route('image.users', user.image_path)" class='w-20 max-w-20'>
                                 <div>
-                                    <h2 class='text-xl font-bold'><Link :href="route('users.show', user.id)">{{ user.name }}</Link></h2>
+                                    <h2 class='text-xl font-bold'><Link :href="route('users.show', user.id)">{{ user.first_name }} {{ user.last_name }}</Link></h2>
                                 </div>
                             </div>
                         </div>

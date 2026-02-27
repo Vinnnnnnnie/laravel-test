@@ -29,7 +29,7 @@ const props = defineProps({
                         :image='recipe.user.image_path'
                     />
                     <div>
-                        <strong>{{ recipe.user.name }}</strong>
+                        <strong>{{ recipe.user.first_name }} {{ recipe.user.last_name }}</strong>
                         <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                             <span v-if="user.reputation < 5">Arsonist</span>
                             <span v-else-if="user.reputation < 10">Barbecuer</span>
@@ -110,7 +110,7 @@ const props = defineProps({
                 :image='user.image_path'
             />
             <div class='w-full'>
-                <strong>{{ user.name }}</strong>
+                <strong>{{ user.first_name }} {{ user.last_name}}</strong>
                 <Form :action="route('comments.store', recipe)" method='POST'>
                     <input type='hidden' name='recipe_id' :value='recipe.id'>
                     <textarea name='comment' class='w-full' placeholder='Add your comment here...' required></textarea>

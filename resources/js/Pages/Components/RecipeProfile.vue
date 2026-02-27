@@ -13,7 +13,7 @@ const props = defineProps({
             :size='20'
         />
         <div>
-            <h5><Link :href="route('users.show', user)">{{ user.name }}</Link></h5>
+            <h5><Link :href="route('users.show', user)"> {{ user.first_name }} {{ user.last_name }}</Link></h5>
             <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                 <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                     <span v-if="user.reputation < 5">Arsonist</span>

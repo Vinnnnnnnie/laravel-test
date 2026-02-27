@@ -22,7 +22,7 @@ const user = computed(() => page.props.auth.user);
                 <Link class='text-xl' :href="route('games.index')">Steam Activity</Link>
             </nav>
             <div v-if="user.id" class="flex p-2 items-center">
-                <span class="font-bold text-lg mr-2 content-center">Hello, {{ user.name }}</span>
+                <span class="font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
                 <Form :action="route('logout')" method='POST'>
                     <button class='btn' type='submit'>Logout</button>
                 </Form>

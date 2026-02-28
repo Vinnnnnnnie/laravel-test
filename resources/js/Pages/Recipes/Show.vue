@@ -55,18 +55,21 @@ const props = defineProps({
                         <p><strong>Difficulty: </strong>{{ recipe.difficulty }}</p>
                         <div>
                             <h4 class='text-xl font-semibold'>Ingredients</h4>
-                            <pre class='font-sans text-wrap'>{{ recipe.ingredients }}</pre>
+                            <pre class='py-2 font-sans text-wrap'>{{ recipe.ingredients }}</pre>
                         </div>
                         <div>
                             <h4 class='text-xl font-semibold'>Instructions</h4>
-                            <pre class='font-sans text-wrap'>{{ recipe.instructions }}</pre>
+                            <pre class='py-2 font-sans text-wrap'>{{ recipe.instructions }}</pre>
                         </div>
                         <!--Recipe Tags -->
                         <div v-if='recipe.tags'>
                             <h4 class='text-xl font-semibold'>Tags</h4>
-                            <ul v-for='tag in tags' class='flex flex-row gap-2'>
-                                <span class='bg-blue-500 text-white p-2 rounded-md'>{{ tag.name }}</span>
+                            <ul class="flex flex-row flex-wrap gap-2 py-2">
+                                <li v-for='tag in tags' class='flex flex-row gap-2'>
+                                    <span class='bg-blue-500 text-white p-2 rounded-md'>{{ tag.name }}</span>
+                                </li>
                             </ul>
+                            
                         </div>
                     </div>
                     <!-- Image and Container -->
@@ -93,11 +96,14 @@ const props = defineProps({
         </div>
         <div v-if='comments'>
             <Comment v-for='comment in comments' 
-                :highlight='recipe.user_id === comment.user.id'
+                :owner='recipe.user_id === comment.user.id'
                 :user='comment.user_id === user.id'
                 :comment
-                />
+                >
+                
+                </Comment>
         </div>
+
                 <!-- <x-comment 
                     :highlight='$recipe->user_id === $comment->user_id' 
                     :user='$comment->user_id === auth()->user()->id' 

@@ -10,7 +10,7 @@ const props = defineProps({
 })
 </script>
 <template>
-    <div :class="{highlight: 'highlight',user:'user', owner:'owner', friend:'friend', }" class='comment'>
+    <div :class="{'highlight':highlight,'user':user, 'owner':owner, 'friend':friend}" class='comment'>
         <div class='flex w-full justify-between gap-2'>
             <ProfilePicture
                 :size='20'

@@ -65,16 +65,16 @@ a.card {
     @apply dark:hover:bg-gray-800;
 }
 .highlight {
-    @apply border-4 border-red-500;
+    @apply border-2 border-red-500;
 }
 .owner {
-    @apply border-4 border-green-500;
+    @apply border-2 border-green-500;
 }
 .user {
-    @apply border-4 border-blue-500;
+    @apply border-2 border-blue-500;
 }
 .friend {
-    @apply border-4 border-yellow-500;
+    @apply border-2 border-yellow-500;
 }
 .fire {
     

@@ -2,8 +2,22 @@
 import { Form } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
 import { usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
 const page = usePage()
 const user = page.props.auth.user;
+
+const imageUrl = ref('');
+const previewImage = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+    console.log(event)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        imageUrl.value = e.target.result
+    }
+    reader.readAsDataURL(file)
+}
+
 </script>
 <template>
     <RecipeLayout>
@@ -11,11 +25,11 @@ const user = page.props.auth.user;
             <h2>Edit User</h2>
             <Form class='flex flex-col gap-4' :action="route('users.update')" method='POST' enctype="multipart/form-data">
                 <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
-                    <img id='image-preview' :src="route('image.users',user.image_path)" class='aspect-auto h-fit max-h-80 self-center'>
+                    <img v-if="imageUrl" id='image-preview' :src="imageUrl" class='aspect-auto h-fit max-h-80 self-center'>
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="image">Image</label>
-                    <input type="file" id="image" class='form-control w-full' name="image">
+                    <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image">
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="first-name">First Name</label>

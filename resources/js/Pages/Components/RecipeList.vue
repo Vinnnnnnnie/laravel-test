@@ -19,7 +19,7 @@ const props = defineProps({
  });
 </script>
 <template>
-    <InfiniteScroll v-if='recipes' data='recipes' class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
+    <InfiniteScroll v-if='recipes.data.length > 0' data='recipes' class='2xl:grid 2xl:grid-cols-2 flex flex-col gap-4'>
         <template #loading class="col-span-1 row-span-1">
             <div class="col-span-1 row-span-1 py-4">
                 <div class="card animate-pulse text-center items-center text-2xl font-semibold">Loading more recipes...</div>
@@ -44,8 +44,7 @@ const props = defineProps({
     <ul v-else>
         <li>
             <span class='text-3xl py-4'>
-                No recipes found. Why not 
-                <Link class='btn flex flex-row gap-2' :href="route('recipes.create')"> Create a New Recipe?</Link>
+                No recipes to see here :(
             </span>
         </li>
     </ul>

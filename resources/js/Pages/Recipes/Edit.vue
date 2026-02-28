@@ -1,10 +1,23 @@
 <script setup>
 import { Form } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
+import { ref } from 'vue';
 const props = defineProps({
     recipe: Object,
     tags: Object
 })
+
+const imageUrl = ref('');
+const previewImage = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+    console.log(event)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        imageUrl.value = e.target.result
+    }
+    reader.readAsDataURL(file)
+}
 
 </script>
 <template>
@@ -13,7 +26,7 @@ const props = defineProps({
             <h2>Edit Recipe</h2>
             <Form class='flex flex-col gap-4' :action="route('recipes.update', recipe.id)" method='POST' enctype="multipart/form-data">
                 <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
-                    <img id='image-preview' :src="route('image.recipes',recipe.image_path)" class='aspect-auto h-fit max-h-80 self-center'>
+                    <img v-if="imageUrl" id='image-preview' :src="imageUrl" class='aspect-auto h-fit max-h-80 self-center'>
                 </div>            
                 <div hidden>
                     <label class='text-xl font-semibold' for="id">Recipe id</label>
@@ -21,7 +34,7 @@ const props = defineProps({
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold form-label' for="image">Image</label>
-                    <input type="file" id="image" class='form-control w-full' name="image">
+                    <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image">
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="title">Recipe Title</label>
@@ -55,10 +68,8 @@ const props = defineProps({
                         <option value="Medium">Medium</option>
                         <option value="Hard">Hard</option>
                     </select>
-                    
                 </div>
                 <ul class=" select-none  flex flex-row gap-2 flex-wrap">
-                    
                     <li v-for="tag in tags">
                         <input type="checkbox" :id="tag.id" :name='tag.name' class="hidden peer" />
                         <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  

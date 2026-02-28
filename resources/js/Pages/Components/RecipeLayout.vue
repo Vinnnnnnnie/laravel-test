@@ -53,7 +53,7 @@ const success = computed(() => page.props.success);
         <div class='flex-2 sticky top-4 border-l-4 border-yellow-500 h-fit p-4 bg-gray-100 dark:bg-gray-900'>
             <ul>
                 <li><h2>Followed</h2></li>
-                    <div v-if="user.following > 0">
+                    <div v-if="user.following.length > 0">
                         <li v-for="followed in user.following">
                             <div>
                                 <ProfilePicture

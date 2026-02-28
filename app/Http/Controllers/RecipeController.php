@@ -18,23 +18,8 @@ class RecipeController extends Controller
 {
     //
     public function index() {
-        $recipes = Recipe::with(
-            ['user',
-             'comments' => function ($query) {
-            $query->select('id', 'user_id', 'recipe_id');
-        }, 'tags'])
-            ->select('id', 'title', 'user_id', 
-                'created_at', 'preparation_time', 
-                'cooking_time', 'servings', 'difficulty', 
-                'image_path')
-            ->orderBy('created_at', 'desc')->get();
-            // ->paginate(10);
-        $userFriends = new UserFriendController();
-        $userFriends->updateFriendsList();
-
         return Inertia::render('Recipes/Index', 
             ['recipes' => self::scrollableRecipeList()]);
-        return view('recipes.index', ['recipes' => $recipes]);
     }
 
     public function scrollableRecipeList() {
@@ -62,7 +47,6 @@ class RecipeController extends Controller
         return Inertia::render('Recipes/Show', 
             [
                 'recipe' => $recipe,
-                'user' => auth()->user(),
                 'comments' => $comments,
                 'tags' => $tags
             ]);
@@ -71,7 +55,6 @@ class RecipeController extends Controller
     public function create() {
         $tags = Tag::orderBy('name', 'asc')->get();
         return Inertia::render('Recipes/Create', ['tags' => $tags]);
-        return view('recipes.create', ['tags' => $tags]);
     }
 
     public function store(Request $request) {
@@ -101,7 +84,7 @@ class RecipeController extends Controller
         {
             $recipe->tags()->sync(array_keys($request->tags));
         }
-        return redirect('/recipes')->with('success', 'Recipe added successfully!');
+        return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
         if ($recipe->user_id === auth()->user()->id)
@@ -116,7 +99,6 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         $tags = Tag::orderBy('name', 'asc')->get();
         return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
-        return view('recipes.edit', ['recipe' => $recipe, 'tags' => $tags]);
     }
 
     public function search(Request $request) {
@@ -140,7 +122,6 @@ class RecipeController extends Controller
             ->limit(5)
             ->get();
         return Inertia::render('Recipes/Search', ['recipes' => $recipes, 'users' => $users]);
-        return view('recipes.search', ['recipes' => $recipes, 'users' => $users]);
     }
 
     public function update(Request $request) {
@@ -179,6 +160,5 @@ class RecipeController extends Controller
         ->where('recipes.id', '=' ,$request->input('id'))
         ->get();
         return Inertia::render('Users/Show', auth()->user())->with('success', 'Recipe updated successfully!');
-        return redirect()->route('users.show', auth()->user())->with('success', 'Recipe updated successfully!');
     }
 }

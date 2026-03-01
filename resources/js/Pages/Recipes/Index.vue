@@ -15,8 +15,8 @@ const props = defineProps({
 <template>
     <RecipeLayout :user>
         <div class='flex justify-between mb-4 gap-8'>
-            <div class='w-full'>
-                <h2>Recent Recipes</h2>
+            <div class='w-full flex flex-col gap-4'>
+                <h2 class="text-center">Recent Recipes</h2>
                 <RecipeList :recipes='recipes'/>
             </div>
         </div>

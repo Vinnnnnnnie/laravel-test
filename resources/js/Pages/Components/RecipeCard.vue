@@ -12,31 +12,33 @@ const props = defineProps({
 import RecipeProfile from './RecipeProfile.vue';
 </script>
 <template>
-    <div :class="{'highlight': highlight, 'user': user, 'owner': owner, 'friend' : friend, 'fire' : fire, 'saved': saved, 'card': true}">
+    <div :class="{'highlight': highlight, 'user': user, 'owner': owner, 'friend' : friend, 'fire' : fire, 'saved': saved}"
+    class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
         <div class='w-full'>
             <div class='flex flex-col gap-0.5 w-full justify-start'>
-
                 <div class='flex justify-between items-center'>
                     <RecipeProfile :user='recipe.user' :created='recipe.created_at'/>
                     <div v-if="saved" class='size-10 text-orange-500'>Saved</div>
                 </div>
-                
                 <h2 class='fs-6'><Link :href="route('recipes.show', recipe)">{{ recipe.title }}</Link></h2>
                 <div v-if="recipe.image_path" class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
                     <img :src="route('image.recipes',recipe.image_path)" class='aspect-auto h-fit max-h-80 self-center'>
                 </div>
-                <p class='flex items-center flex-row gap-2'> Preparation - {{ recipe.preparation_time }} Minutes</p>
-                <p class='flex items-center flex-row gap-2'> Cooking - {{ recipe.cooking_time }} Minutes</p>
-                <p class='flex items-center flex-row gap-2'> Difficulty - {{recipe.difficulty }}</p>
+                <div class="grid grid-cols-2 grid-rows-2 gap-2 p-4">
+                    <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Prep: {{ recipe.preparation_time }} mins</p>
+                    <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Cook: {{ recipe.cooking_time }} mins</p>
+                    <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">{{ recipe.difficulty }}</p>
+                    <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Serves {{ recipe.servings }}</p>
+                </div>
                 <ul v-if="recipe.tags" class='flex flex-row flex-wrap gap-2'>
                     <span v-for="tag in recipe.tags" class='bg-blue-500 text-white p-2 rounded-md'>{{ tag.name }}</span>
                 </ul>
                 <div class='flex flex-row justify-between py-2'>
                     <div class='flex flex-row gap-2 items-center'>
-                        Comments: {{ recipe.comments.length }}
+                        {{ recipe.comments.length }} Comments
                     </div>
                     <div v-if="recipe.savedUsers" class='flex flex-row gap-2 items-center'>
-                        Saves: {{ recipe.savedUsers.length }}
+                        {{ recipe.savedUsers.length }} Saves
                     </div>
                 </div>
             </div>

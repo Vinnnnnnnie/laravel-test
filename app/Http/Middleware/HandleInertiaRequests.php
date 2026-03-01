@@ -55,10 +55,10 @@ class HandleInertiaRequests extends Middleware
                         $query->select('recipe_id', 'title');
                     },
                     'following' => function ($query) {
-                        $query->select('follower_id', 'user_id', 'name', 'image_path');
+                        $query->select('follower_id', 'user_id', 'name', 'image_path', 'reputation');
                     },
                     'followers' => function ($query) {
-                        $query->select('user_id', 'follower_id', 'name');
+                        $query->select('user_id', 'follower_id', 'name', 'image_path', 'reputation');
                     }
                 ]
             );

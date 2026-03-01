@@ -35,14 +35,14 @@ const props = defineProps({
                     <p>{{user.bio}}</p>
                 </div>
             </div>
-            <div class="flex flex-row">
-                <Form v-if="authUser.following.find(u => u.user_id === authUser.id)" :action="route('users.unfollow', user)" method='DELETE'>
+            <div class="flex flex-row py-4">
+                <Form v-if="authUser.following.some(u => u.user_id)" :action="route('users.unfollow', user)" method='DELETE'>
                     <input hidden id='friend_user_id' name='friend_user_id' :value='user.id'>
-                    <input type='submit' class="btn bg-red-500" value='Unfollow'>
+                    <input type='submit' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold" value='Unfollow'>
                 </Form >
                 <Form v-else-if="authUser.id != user.id" :action="route('users.follow', user)" method='post'>
                     <input hidden readonly id='friend_user_id' name='friend_user_id' :value='user.id'>
-                    <input type='submit' class="btn bg-green-500" value='Follow'>
+                    <input type='submit' class='p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold' value='Follow'>
                 </Form>
                 <Link v-if="authUser.id === user.id" :href="route('users.edit')">Edit Profile</Link>
             </div>

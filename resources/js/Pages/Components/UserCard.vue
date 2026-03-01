@@ -9,7 +9,7 @@ const page = usePage();
 const user = computed(() => page.props.auth.user);
 </script>
 <template>
-    <div class='bg-gray-100 dark:bg-gray-900 flex items-center gap-4 p-4 border-l-4 border-blue-500 w-full'>
+    <div class='p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold '>
         <div v-if="user.image_path" class='dark:bg-gray-950 aspect-square overflow-hidden min-w-30 min-h-30 w-30 h-30 flex items-center justify-center bg-gray-50 align-items-center rounded-sm'>
             <img :src="route('image.users', user.image_path)" class='w-full h-full object-cover'>
         </div>

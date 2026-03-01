@@ -19,24 +19,24 @@ const success = computed(() => page.props.success);
 <template>
     <AppHeader :user/>
     <main class='items-center p-8'>
-        <div class='flex justify-between gap-8'>
-            <div v-if="user" class='flex-2 sticky top-4 h-fit flex flex-col gap-4'>
-                <UserCard :user/>
+        <div class='flex justify-between xl:flex-row flex-col gap-8'>
+            <div v-if="user" class='flex-2 xl:sticky top-4 h-fit flex flex-col gap-4'>
+                <UserCard class="hidden xl:flex" :user/>
                 <div class='w-full mb-2'>
                     <h2>Find Recipes</h2>
-                    <Form :action="route('recipes.search')" method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4'>
+                    <Form :action="route('recipes.search')" method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4 rounded-md '>
                         <input type='text' id='term' name='term' placeholder='Search Recipes...' class='w-full' value=''>
-                        <input type='submit' name='submit' class='btn' value='Go'>
+                        <input type='submit' name='submit' class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' value='Go'>
                     </Form>
                 </div>
-                <div class='flex flex-col items-center gap-2 mb-4'>
-                    <Link class='btn flex flex-row gap-2' :href="route('recipes.create')"> Create a New Recipe</Link>
-                    <Link class='btn flex flex-row gap-2' :href="route('users.savedRecipes')"> Saved Recipes</Link>
-                    <Link class="btn flex flex-row gap-2" > Settings</Link>
+                <div class='flex flex-row xl:flex-col justify-center items-center gap-4 mb-4'>
+                    <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.create')"> Create a New Recipe</Link>
+                    <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('users.savedRecipes')"> Saved Recipes</Link>
+                    <Link class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold" > Settings</Link>
                 </div>
             </div>
-            <div class='grid grid-cols-12 divide-solid divide-x-1 divide-gray-500 justify-between gap-8 '>
-                <div class='col-start-2 col-span-10 flex-2 gap-4 bg-gray-200 dark:bg-gray-800 border-gray-500 p-4 border-x-1'>
+            <div class='justify-between gap-8 '>
+                <div class='flex-2 gap-4 dark:bg-gray-800'>
                     <div v-if="errors"  class="alert alert-danger">
                         <ul v-for='error in errors' class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
                             <li class='text-red-500'>{{ error }}</li>
@@ -50,17 +50,29 @@ const success = computed(() => page.props.success);
                     <slot />
                 </div>
             </div>
-        <div class='flex-2 sticky top-4 border-l-4 border-yellow-500 h-fit p-4 bg-gray-100 dark:bg-gray-900'>
-            <ul>
-                <li><h2>Followed</h2></li>
+            <div class='hidden xl:block h-min flex-2 p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold '>
+                <ul class="">
+                    <li><h2>Followed</h2></li>
                     <div v-if="user.following.length > 0">
                         <li v-for="followed in user.following">
-                            <div>
+                            <div class="flex gap-2">
                                 <ProfilePicture
                                     :image='followed.image_path'
                                     :size='10'
                                 />
-                                <Link class="flex gap-2 items-center" :href="route('users.show', followed.user_id)">{{ followed.name }}</Link>
+                                <div>
+                                    <Link class="flex gap-2 items-center" :href="route('users.show', followed.user_id)">{{ followed.name }}</Link>
+                                    <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
+                                        <span v-if="followed.reputation < 5">Arsonist</span>
+                                        <span v-else-if="followed.reputation < 10">Barbecuer</span>
+                                        <span v-else-if="followed.reputation < 20">Cook</span>
+                                        <span v-else-if="followed.reputation < 30">Chef</span>
+                                        <span v-else-if="followed.reputation < 50">Gourmand</span>
+                                        <span v-else-if="followed.reputation < 100">Michellin</span>
+                                        <span v-else-if="followed.reputation > 99">Master Chef</span>
+                                        {{ followed.reputation }}
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     </div>

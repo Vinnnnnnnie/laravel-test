@@ -10,15 +10,19 @@ const props = defineProps({
  });
  import { Link } from '@inertiajs/vue3';
 import RecipeProfile from './RecipeProfile.vue';
+import { computed } from 'vue';
+const created = computed (() => new Date(props.recipe.created_at).toLocaleString())
+
 </script>
 <template>
     <div :class="{'highlight': highlight, 'user': user, 'owner': owner, 'friend' : friend, 'fire' : fire, 'saved': saved}"
     class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
         <div class='w-full'>
             <div class='flex flex-col gap-0.5 w-full justify-start'>
-                <div class='flex justify-between items-center'>
-                    <RecipeProfile :user='recipe.user' :created='recipe.created_at'/>
-                    <div v-if="saved" class='size-10 text-orange-500'>Saved</div>
+                <div class='flex flex-col justify-between items-start'>
+                    <RecipeProfile :user='recipe.user'/>
+                    <p>{{ created }}</p>
+                    <div v-if="saved" class='p-3 self-center rounded-full bg-orange-500  font-semibold'>Saved</div>
                 </div>
                 <h2 class='fs-6'><Link :href="route('recipes.show', recipe)">{{ recipe.title }}</Link></h2>
                 <div v-if="recipe.image_path" class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>

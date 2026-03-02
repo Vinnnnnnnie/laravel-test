@@ -1,19 +1,27 @@
 <script setup>
+import { computed } from 'vue';
 import ProfilePicture from './ProfilePicture.vue';
 import { Link } from '@inertiajs/vue3';
 const props = defineProps({ 
     user: Object,
-    created: String
- });
+    userId: Number,
+    size: {
+        type: Number,
+        default: 20
+    }
+});
+
+const userId = props.userId === null ?? props.user.id 
+const fontClass = props.size > 20 ? 'text-3xl font-semibold' : 'text-xl'
 </script>
 <template>
     <div class='flex flex-row gap-2'>
         <ProfilePicture
             :image='user.image_path'
-            :size='20'
+            :size
         />
         <div>
-            <h5><Link :href="route('users.show', user)"> {{ user.first_name }} {{ user.last_name }}</Link></h5>
+            <div><Link :href="route('users.show', user)"  :class="fontClass">{{ user.first_name }} {{ user.last_name }}</Link></div>
             <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                 <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                     <span v-if="user.reputation < 5">Arsonist</span>
@@ -26,7 +34,6 @@ const props = defineProps({
                     {{ user.reputation }}
                 </div>
             </div>
-            <p>{{ Date(created) }}</p>
         </div>
     </div>
 </template>

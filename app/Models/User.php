@@ -39,6 +39,10 @@ class User extends Authenticatable
         'remember_token',
     ];
     
+    public function __construct()
+    {
+        $this->name = $this->first_name . ' ' . $this->last_name;
+    }
     /**
      * Get the attributes that should be cast.
      *
@@ -57,6 +61,10 @@ class User extends Authenticatable
         return 10;
         // Add number of recipes
         // Add number of comments
+    }
+
+    public function name() {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function recipes() {

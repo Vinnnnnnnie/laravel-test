@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
     <RecipeLayout>
         <div class="flex flex-col ">
-            <div class='card flex flex-row gap-4'>
+            <div class='p-4 rounded-md bg-gray-100 dark:bg-gray-900 flex flex-row gap-4'>
                 <div class='dark:bg-gray-950 aspect-square overflow-hidden min-w-50 min-h-50 w-50 h-50 flex items-center justify-center bg-gray-50 align-items-center rounded-sm'>
                     <img :src="route('image.users', user.image_path)" class='w-full h-full object-cover'>
                 </div>
@@ -35,22 +35,22 @@ const props = defineProps({
                     <p>{{user.bio}}</p>
                 </div>
             </div>
-            <div class="flex flex-row py-4">
-                <Form v-if="authUser.following.some(u => u.user_id)" :action="route('users.unfollow', user)" method='DELETE'>
+            <div class="flex flex-row py-4 gap-4">
+                <Form v-if="authUser.following.some(u => u.user_id === user.id)" :action="route('users.unfollow', user)" method='DELETE'>
                     <input hidden id='friend_user_id' name='friend_user_id' :value='user.id'>
                     <input type='submit' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold" value='Unfollow'>
                 </Form >
-                <Form v-else-if="authUser.id != user.id" :action="route('users.follow', user)" method='post'>
+                <Link v-else-if="authUser.id === user.id" :href="route('users.edit')" :data-auth="authUser.id" :data-user="user.id" className='p-3 cursor-pointer rounded-full border-green-500 dark:border-green-500 border-1 hover:bg-green-500 font-semibold'>Edit Profile</Link>
+                <Form v-else :action="route('users.follow', user)" method='post'>
                     <input hidden readonly id='friend_user_id' name='friend_user_id' :value='user.id'>
                     <input type='submit' class='p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold' value='Follow'>
                 </Form>
-                <Link v-if="authUser.id === user.id" :href="route('users.edit')">Edit Profile</Link>
             </div>
         </div>
         
         <div class='w-full'>
             <div class='flex justify-between items-center mb-4'>
-                <h2>Recipes by {{user.first_name}} {{ user.last_name }}</h2>
+                <h2>Recipes by {{user.name }}</h2>
             </div>
             <RecipeList 
                 :recipes='recipes'

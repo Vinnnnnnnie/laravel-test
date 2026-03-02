@@ -1,6 +1,19 @@
 <script setup>
 import RecipeLayout from '../Components/RecipeLayout.vue';
 import { Form } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const imageUrl = ref('');
+const previewImage = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+    console.log(event)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        imageUrl.value = e.target.result
+    }
+    reader.readAsDataURL(file)
+}
 </script>
 <template>
     <RecipeLayout>
@@ -8,12 +21,12 @@ import { Form } from '@inertiajs/vue3';
             <div class="flex flex-col gap-2">
                 <h2>Create a New Recipe</h2>
                 <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
-                    <img id='image-preview' src='' class='aspect-auto h-fit max-h-80 self-center'>
+                    <img v-if="imageUrl" id='image-preview' :src='imageUrl' class='aspect-auto h-fit max-h-80 self-center'>
                 </div>             
                 <Form class='flex flex-col p-4 gap-2' method="POST" :action="route('recipes.store')" enctype="multipart/form-data">
                     <div>
                         <label for="image" class='form-label'>Image</label>
-                        <input type="file" id="image" class='form-control w-full' name="image">
+                        <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image">
                     </div>
                     <div>
                         <label for="title" class='form-label'>Recipe Title</label>

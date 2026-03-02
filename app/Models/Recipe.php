@@ -27,4 +27,12 @@ class Recipe extends Model
     public function savedUsers() {
         return $this->belongsToMany(User::class, 'saved_recipes');
     }
+
+    public function steps() {
+        return $this->hasMany(Step::class);
+    }
+
+    public function ingredients() {
+        return $this->hasMany(Ingredient::class);
+    }
 }

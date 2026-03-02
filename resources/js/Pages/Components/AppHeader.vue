@@ -7,9 +7,6 @@ import { usePage } from "@inertiajs/vue3";
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 
-// const props = defineProps({
-//     user: Object
-// })
 </script>
 
 <template>

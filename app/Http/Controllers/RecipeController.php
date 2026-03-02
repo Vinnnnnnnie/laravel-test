@@ -84,6 +84,14 @@ class RecipeController extends Controller
         {
             $recipe->tags()->sync(array_keys($request->tags));
         }
+        if ($request->ingredients !== NULL)
+        {
+            $recipe->ingredients()->sync($request->ingredients);
+        }
+        if ($request->steps !== NULL)
+        {
+            $recipe->steps()->sync($request->steps);
+        }
         return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
@@ -117,7 +125,7 @@ class RecipeController extends Controller
             ->orderBy('recipes.created_at', 'DESC')
             ->paginate(15));
         $users = User::query()
-            ->select('image_path', 'name', 'id')
+            ->select('image_path', 'name', 'id', 'reputation')
             ->where('name', 'LIKE', $term.'%')
             ->limit(5)
             ->get();

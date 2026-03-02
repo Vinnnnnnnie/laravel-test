@@ -80,7 +80,7 @@ a.card {
     
 }
 .saved {
-    @apply border-4 border-orange-500;
+    @apply border-2 border-orange-500;
 }
 @keyframes rotate {
   from {

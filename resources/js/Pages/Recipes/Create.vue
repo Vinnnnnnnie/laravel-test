@@ -14,6 +14,16 @@ const previewImage = (event) => {
     }
     reader.readAsDataURL(file)
 }
+const ingredients = ref([{ingredient: ''}]);
+const steps = ref([{step: ''}]);
+function addToArray(value, fieldType)
+{
+    fieldType.push({});
+}
+function removeFromArray(index, fieldType)
+{
+    fieldType.splice(index, 1);
+}
 </script>
 <template>
     <RecipeLayout>
@@ -32,14 +42,23 @@ const previewImage = (event) => {
                         <label for="title" class='form-label'>Recipe Title</label>
                         <input type="text" id="title" name="title" class='form-control w-full' value='' required>
                     </div>
-
                     <div>
                         <label for="ingredients" class='form-label'>Ingredients</label>
-                        <textarea id="ingredients" name="ingredients" class='form-control w-full h-50' required></textarea>
+                        <div v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
+                            <input  v-model="input.value" name="ingredients[]" class='form-control w-full' required/>
+                            <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, ingredients)">Add Ingredient</button>
+                            <button v-show="ingredients.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, ingredients)">Remove Ingredient</button>
+                        </div>
+
                     </div>
                     <div>
-                        <label for="instructions" class='form-label'>Instructions</label>
-                        <textarea id="instructions" name="instructions" class='form-control w-full h-50' required></textarea>
+                        <label for="instructions" class='form-label'>Method</label>
+                        <div v-for="(input, index) in steps" :key="`step-${index}`">
+                            <label for="steps" class='form-label'>Step {{ index+1 }}</label>
+                            <input  v-model="input.value" name="steps[]" class='form-control w-full' required/>
+                            <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, steps)">Add Step</button>
+                            <button v-show="steps.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, steps)">Remove Step</button>
+                        </div>
                     </div>
                     <div>
                         <label for="preparation_time" class='form-label'>Preparation Time (minutes)</label>

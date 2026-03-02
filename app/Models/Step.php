@@ -9,4 +9,6 @@ class Step extends Model
 {
     /** @use HasFactory<\Database\Factories\StepsFactory> */
     use HasFactory;
+
+        protected $fillable = ['step', 'recipe_id', 'number'];
 }

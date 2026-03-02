@@ -18,7 +18,16 @@ const previewImage = (event) => {
     }
     reader.readAsDataURL(file)
 }
-
+const ingredients = ref(props.recipe.ingredients);
+const steps = ref(props.recipe.steps);
+function addToArray(value, fieldType)
+{
+    fieldType.push({});
+}
+function removeFromArray(index, fieldType)
+{
+    fieldType.splice(index, 1);
+}
 </script>
 <template>
     <RecipeLayout>
@@ -40,13 +49,23 @@ const previewImage = (event) => {
                     <label class='text-xl font-semibold' for="title">Recipe Title</label>
                     <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="title" name="title" :value='recipe.title' required>
                 </div>
-                <div class='flex flex-col'>
-                    <label class='text-xl font-semibold' for="ingredients">Ingredients</label>
-                    <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="ingredients" name="ingredients" required>{{recipe.ingredients}}</textarea>
+                 <div>
+                    <label for="ingredients" class='form-label'>Ingredients</label>
+                    <div v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
+                        <input  v-model="input.name" name="ingredients[]" class='form-control w-full' required/>
+                        <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, ingredients)">Add Ingredient</button>
+                        <button v-show="ingredients.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, ingredients)">Remove Ingredient</button>
+                    </div>
+
                 </div>
-                <div class='flex flex-col'>
-                    <label class='text-xl font-semibold' for="Instructions">Instructions</label>
-                    <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="instructions" name="instructions" required>{{recipe.instructions}}</textarea>
+                <div>
+                    <label for="instructions" class='form-label'>Method</label>
+                    <div v-for="(input, index) in steps" :key="`step-${index}`">
+                        <label for="steps" class='form-label'>Step {{ index+1 }}</label>
+                        <input  v-model="input.step" name="steps[]" class='form-control w-full' required/>
+                        <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, steps)">Add Step</button>
+                        <button v-show="steps.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, steps)">Remove Step</button>
+                    </div>
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="preparation_time">Preparation Time (minutes)</label>

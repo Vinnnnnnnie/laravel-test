@@ -31,6 +31,9 @@ class RecipeController extends Controller
                         'comments' => function ($query) {
                             $query->select('id', 'user_id', 'recipe_id');
                         }, 
+                        'savedUsers' => function ($query) {
+                            $query->select('user_id', 'recipe_id');
+                        },
                         'tags'
                     ]
                 )
@@ -86,7 +89,7 @@ class RecipeController extends Controller
         $recipe = Recipe::create($validated);
         if ($request->tags !== NULL)
         {
-            $recipe->tags()->sync(array_keys($request->tags));
+            $recipe->tags()->sync($request->tags);
         }
         
         if ($request->ingredients !== NULL)
@@ -223,7 +226,7 @@ class RecipeController extends Controller
         }
         if ($request->tags !== NULL)
         {
-            $recipe->tags()->sync(array_keys($request->tags));
+            $recipe->tags()->sync($request->tags);
         }
 
         $recipe = Recipe::with(['user'])

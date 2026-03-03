@@ -20,6 +20,7 @@ const previewImage = (event) => {
 }
 const ingredients = ref(props.recipe.ingredients);
 const steps = ref(props.recipe.steps);
+
 function addToArray(value, fieldType)
 {
     fieldType.push({});
@@ -51,20 +52,20 @@ function removeFromArray(index, fieldType)
                 </div>
                  <div>
                     <label for="ingredients" class='form-label'>Ingredients</label>
-                    <div v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
+                    <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
                         <input  v-model="input.name" name="ingredients[]" class='form-control w-full' required/>
-                        <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, ingredients)">Add Ingredient</button>
-                        <button v-show="ingredients.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, ingredients)">Remove Ingredient</button>
+                        <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, ingredients)">Add</button>
+                        <button v-show="ingredients.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, ingredients)">Remove</button>
                     </div>
 
                 </div>
                 <div>
                     <label for="instructions" class='form-label'>Method</label>
-                    <div v-for="(input, index) in steps" :key="`step-${index}`">
-                        <label for="steps" class='form-label'>Step {{ index+1 }}</label>
+                    <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in steps" :key="`step-${index}`">
+                        <label for="steps" class='form-label'>{{ index+1 }}.</label>
                         <input  v-model="input.step" name="steps[]" class='form-control w-full' required/>
-                        <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, steps)">Add Step</button>
-                        <button v-show="steps.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, steps)">Remove Step</button>
+                        <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, steps)">Add</button>
+                        <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, steps)">Remove</button>
                     </div>
                 </div>
                 <div class='flex flex-col'>
@@ -89,8 +90,8 @@ function removeFromArray(index, fieldType)
                     </select>
                 </div>
                 <ul class=" select-none  flex flex-row gap-2 flex-wrap">
-                    <li v-for="tag in tags">
-                        <input type="checkbox" :id="tag.id" :name='tag.name' class="hidden peer" />
+                    <li v-for="(tag, index) in tags" :key="`tag-${index}`">
+                        <input type="checkbox" :id="tag.id" name='tags[]' :value="tag.id" class="hidden peer" />
                         <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
                                 py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500  ">
                                 <span>{{ tag.name }}</span>

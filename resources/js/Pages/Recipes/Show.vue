@@ -35,7 +35,7 @@ const props = defineProps({
                                     :image='recipe.user.image_path'
                                 />
                                 <div>
-                                    <strong>{{ recipe.user.first_name }} {{ recipe.user.last_name }}</strong>
+                                    <div class="text-xl font-semibold">{{ recipe.user.first_name }} {{ recipe.user.last_name }}</div>
                                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                                         <span v-if="user.reputation < 5">Arsonist</span>
                                         <span v-else-if="user.reputation < 10">Barbecuer</span>
@@ -46,9 +46,6 @@ const props = defineProps({
                                         <span v-else-if="user.reputation > 99">Master Chef</span>
                                         {{ recipe.user.reputation }}
                                     </div>
-                                    <p v-if="recipe.user.recipes && recipe.user.recipes.length === 1">{{ recipe.user.recipes.length }} Recipe</p>
-                                    <p v-else-if="recipe.user.recipes">{{ recipe.user.recipes.length }} Recipes</p>
-                                    <p v-else>0 Recipes</p>
                                 </div>
                             </div>
                             <!--EndProfileComponent-->
@@ -96,13 +93,13 @@ const props = defineProps({
         </div>
         <!--Buttons-->
         <div class='flex gap-2'>
-            <a v-if='user.id === recipe.user_id' class='btn' :href="route('recipes.edit', recipe)">Edit Recipe</a>
+            <a v-if='user.id === recipe.user_id' class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.edit', recipe)">Edit Recipe</a>
             <Form v-if='user.id === recipe.user_id' method="DELETE" :action="route('recipes.destroy', recipe.id)">
-                <button class=btn type="submit">Delete Recipe</button>
+                <button class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' type="submit">Delete Recipe</button>
             </Form>
             <!-- @if($recipe->savedUsers()->get()->contains(auth()->user()->id)) -->
             
-            <Link class='btn' :href="route('recipes.index')">Back to all Recipes</Link>
+            <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.index')">Back to all Recipes</Link>
         </div>
         <div v-if='comments' class="flex flex-col py-2 gap-2">
             <Comment v-for='comment in comments' 

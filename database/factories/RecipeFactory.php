@@ -22,10 +22,9 @@ class RecipeFactory extends Factory
             . $this->faker->randomElement(['with Rice', 'with Pasta', 'with Bread', '']);
         $directory = public_path('storage/recipes');
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+        
         return [
             'title' => $title,
-            'ingredients' => $this->faker->paragraph,
-            'instructions' => $this->faker->text(500),
             'preparation_time' => $this->faker->numberBetween(10, 60),
             'cooking_time' => $this->faker->numberBetween(20, 120),
             'servings' => $this->faker->numberBetween(1, 5),

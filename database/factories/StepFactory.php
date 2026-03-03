@@ -17,7 +17,7 @@ class StepFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'step' => fake()->text(random_int(20, 50)),
         ];
     }
 }

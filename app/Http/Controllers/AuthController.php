@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -29,7 +29,6 @@ class AuthController extends Controller
         $files = Storage::disk('users')->allFiles('');
         $path = $files[array_rand($files)];
         $request->merge(['image_path' => $path]);
-
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -37,7 +36,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'image_path' => 'required|string',
         ]);
-
+        $validated['password'] = Hash::make($request->password);
         $user = User::create($validated);
 
         FacadesAuth::login($user);

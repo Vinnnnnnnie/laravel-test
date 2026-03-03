@@ -143,10 +143,15 @@ class RecipeController extends Controller
             ->where('recipes.title', 'LIKE', '%'.$term.'%')
             ->orWhere('users.name', 'LIKE', $term.'%')
             ->with(
-            ['user',
+            [
+                'user',
                 'comments' => function ($query) {
-                $query->select('id', 'user_id', 'recipe_id');
-            }, 'tags'])
+                    $query->select('id', 'user_id', 'recipe_id');
+                },
+                'savedUsers' => function ($query) {
+                    $query->select('user_id', 'recipe_id');
+                },
+                'tags'])
             ->orderBy('recipes.created_at', 'DESC')
             ->paginate(15));
         $users = User::query()
@@ -158,7 +163,6 @@ class RecipeController extends Controller
     }
 
     public function update(Request $request) {
-        
         if ($request->image)
         {
             $request->validate([
@@ -176,6 +180,7 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
+            'image_path' => 'string'
         ]);
 
         $validatedOthers = $request->validate([
@@ -183,7 +188,9 @@ class RecipeController extends Controller
             'steps' => 'required|array',
         ]);
 
+
         $recipe = Recipe::find($request->input('id'));
+        $recipe->update($validated);
         $recipe->ingredients()->delete();
         $recipe->steps()->delete();
         if ($request->ingredients !== NULL)
@@ -218,7 +225,6 @@ class RecipeController extends Controller
         {
             $recipe->tags()->sync(array_keys($request->tags));
         }
-        $recipe->update($validated);
 
         $recipe = Recipe::with(['user'])
         ->where('recipes.id', '=' ,$request->input('id'))

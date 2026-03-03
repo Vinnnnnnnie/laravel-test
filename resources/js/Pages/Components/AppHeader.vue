@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3'
 import { Form } from '@inertiajs/vue3';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
+import ProfilePicture from './ProfilePicture.vue';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -18,8 +19,11 @@ const user = computed(() => page.props.auth.user);
                 <Link class='text-xl' :href="route('recipes.index')">RecipeShare</Link>
                 <Link class='text-xl' :href="route('games.index')">Steam Activity</Link>
             </nav>
-            <div v-if="user.id" class="flex p-2 items-center">
-                <span class="font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
+            <div v-if="user.id" class="flex p-2 items-center gap-2">
+                <Link :href="route('users.show', user)">
+                    <ProfilePicture :image="user.image_path" :size="10"/>
+                </Link>
+                <span class="hidden xl:block font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
                 <Form :action="route('logout')" method='POST'>
                     <button class='btn' type='submit'>Logout</button>
                 </Form>

@@ -125,7 +125,7 @@ const props = defineProps({
                     :image='user.image_path'
                 />
                 <div class='w-full'>
-                    <strong>{{ user.name}}</strong>
+                    <div class="font-semibold text-lg">{{ user.name}}</div>
                     <Form :action="route('comments.store', recipe)" method='POST'>
                         <input type='hidden' name='recipe_id' :value='recipe.id'>
                         <textarea name='comment' class='w-full' placeholder='Add your comment here...' required></textarea>

@@ -39,10 +39,10 @@ const created = computed (() => new Date(props.recipe.created_at).toLocaleString
                 </ul>
                 <div class='flex flex-row justify-between py-2'>
                     <div class='flex flex-row gap-2 items-center'>
-                        {{ recipe.comments.length }} Comments
+                        {{ recipe.comments.length }} Commented
                     </div>
-                    <div v-if="recipe.savedUsers" class='flex flex-row gap-2 items-center'>
-                        {{ recipe.savedUsers.length }} Saves
+                    <div v-if="recipe.saved_users" class='flex flex-row gap-2 items-center'>
+                        {{ recipe.saved_users.length }} Saved
                     </div>
                 </div>
             </div>

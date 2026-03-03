@@ -72,7 +72,25 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $recipes = $user->savedRecipes()->paginate(10);
-        return view('users.savedRecipes', ['recipes' => $recipes]);
+        return Inertia::render('Users/SavedRecipes', 
+            ['recipes' => Inertia::scroll(fn () =>  
+                auth()
+                    ->user()
+                    ->savedRecipes()
+                    ->with(
+                    [
+                        'user',
+                        'comments' => function ($query) {
+                            $query->select('id', 'user_id', 'recipe_id');
+                        }, 
+                        'savedUsers' => function ($query) {
+                            $query->select('user_id', 'recipe_id');
+                        },
+                        'tags'
+                    ])
+                    ->orderBy('created_at', 'desc')
+                    ->paginate()
+                )]);
     }
 
     public function update(Request $request)

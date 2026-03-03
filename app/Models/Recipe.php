@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
-    protected $fillable = ['title', 'ingredients', 'instructions', 'preparation_time', 'cooking_time', 'servings', 'difficulty', 'image_path', 'user_id'];
+    protected $fillable = ['title', 'preparation_time', 'cooking_time', 'servings', 'difficulty', 'image_path', 'user_id'];
     /** @use HasFactory<\Database\Factories\RecipeFactory> */
     use HasFactory;
 

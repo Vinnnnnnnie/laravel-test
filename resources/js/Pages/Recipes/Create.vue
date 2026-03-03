@@ -3,6 +3,9 @@ import RecipeLayout from '../Components/RecipeLayout.vue';
 import { Form } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
+const props = defineProps({
+    tags: Object
+})
 const imageUrl = ref('');
 const previewImage = (event) => {
     const file = event.target.files[0]
@@ -42,22 +45,22 @@ function removeFromArray(index, fieldType)
                         <label for="title" class='form-label'>Recipe Title</label>
                         <input type="text" id="title" name="title" class='form-control w-full' value='' required>
                     </div>
-                    <div>
+                    <div class="flex flex-col gap-2">
                         <label for="ingredients" class='form-label'>Ingredients</label>
-                        <div v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
-                            <input  v-model="input.value" name="ingredients[]" class='form-control w-full' required/>
-                            <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, ingredients)">Add Ingredient</button>
-                            <button v-show="ingredients.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, ingredients)">Remove Ingredient</button>
+                        <div class="flex flex-row gap-2 items-baseline" v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
+                            <input v-on:keyup.enter="addToArray(input, steps)" v-model="input.value" name="ingredients[]" class='form-control w-full' required/>
+                            <button  type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, ingredients)">Add</button>
+                            <button v-show="ingredients.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, ingredients)">Remove</button>
                         </div>
 
                     </div>
-                    <div>
+                    <div class="flex flex-col gap-2">
                         <label for="instructions" class='form-label'>Method</label>
-                        <div v-for="(input, index) in steps" :key="`step-${index}`">
-                            <label for="steps" class='form-label'>Step {{ index+1 }}</label>
-                            <input  v-model="input.value" name="steps[]" class='form-control w-full' required/>
-                            <button type="button" class="rounded-full bg-green-800 p-2" @click="addToArray(input, steps)">Add Step</button>
-                            <button v-show="steps.length > 1" type="button" class="rounded-full bg-red-800 p-2" @click="removeFromArray(index, steps)">Remove Step</button>
+                        <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in steps" :key="`step-${index}`">
+                            <label for="steps" class='form-label'>{{ index+1 }}.</label>
+                            <input v-on:keyup.enter="addToArray(input, steps)"  v-model="input.value" name="steps[]" class='form-control w-full' required/>
+                            <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, steps)">Add</button>
+                            <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, steps)">Remove Step</button>
                         </div>
                     </div>
                     <div>
@@ -87,7 +90,7 @@ function removeFromArray(index, fieldType)
                             <label class='form-label' for="hard">Hard</label>
                         </div>
                     </div>
-                    <ul v-if='tags' class=" select-none  flex flex-row gap-2 flex-wrap">
+                    <ul v-if='tags.length > 0' class="select-none flex flex-row gap-2 flex-wrap">
                         <li v-for='tag in tags'>
                             <input type="checkbox" :id="tag.id" :name='tags[tag.id]' class="hidden peer" />
                             <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  

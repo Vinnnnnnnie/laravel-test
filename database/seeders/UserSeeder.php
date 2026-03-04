@@ -15,34 +15,39 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //
-        User::factory()->count(10)->create();
+        // User::factory()->count(10)->create();
         $directory = public_path('storage/users');
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
-
+        User::factory()->create(10);
         User::create([
-            'name' => 'Vincent Owens',
+            'first_name' => 'Vincent',
+            'last_name' => 'Owens',
             'email' => 'vincent@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
             'reputation' => 1000
         ]);
         User::create([
-            'name' => 'Tom Bozier',
+            'first_name' => 'Tom',
+            'last_name' => 'Bozier',
             'email' => 'tom@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
             'reputation' => 1000
         ]);
         User::create([
-            'name' => 'Ellen Maxwell',
+            'first_name' => 'Ellen',
+            'last_name' => 'Maxwell',
             'email' => 'ellen@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
+            'reputation' => 1000
 
         ]);
         User::create(
         [
-            'name' => 'Vera Stepanyan',
+            'first_name' => 'Vera',
+            'last_name' => 'Stepanyan',
             'email' => 'vera@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
@@ -51,7 +56,8 @@ class UserSeeder extends Seeder
         );
         User::create(
         [
-            'name' => 'Spike Owens',
+            'first_name' => 'Spike',
+            'last_name' => 'Owens',
             'email' => 'spike@gmail.com',
             'password' => Hash::make('password'), // Ensure to hash the password
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',

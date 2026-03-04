@@ -26,7 +26,8 @@ class UserFactory extends Factory
         $directory = public_path('storage/users');
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
         return [
-            'name' => fake()->name(),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'bio' => fake()->text(random_int(30, 100)),
             'email_verified_at' => now(),

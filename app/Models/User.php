@@ -28,6 +28,7 @@ class User extends Authenticatable
         'image_path',
         'reputation'
     ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -39,10 +40,6 @@ class User extends Authenticatable
         'remember_token',
     ];
     
-    public function __construct()
-    {
-        $this->name = $this->first_name . ' ' . $this->last_name;
-    }
     /**
      * Get the attributes that should be cast.
      *

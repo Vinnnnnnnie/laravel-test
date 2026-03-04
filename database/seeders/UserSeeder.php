@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         // User::factory()->count(10)->create();
         $directory = public_path('storage/users');
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
-        User::factory()->create(10);
+        User::factory()->create()->count(10);
         User::create([
             'first_name' => 'Vincent',
             'last_name' => 'Owens',

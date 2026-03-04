@@ -8,7 +8,6 @@ import { usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 
-const user = computed(() => page.props.auth.user);
 const errors = computed(() => page.props.errors);
 const success = computed(() => page.props.success);
 

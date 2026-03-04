@@ -40,13 +40,13 @@ const success = computed(() => page.props.success);
             </div>
             <div class='flex-4 justify-between gap-8 '>
                 <div class='flex-2 gap-4 dark:bg-gray-800'>
-                    <div v-if="errors"  class="alert alert-danger">
+                    <div v-if="errors.length>0"  class="alert alert-danger">
                         <ul v-for='error in errors' class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
                             <li class='text-red-500'>{{ error }}</li>
                         </ul>
                     </div>
-                    <div v-if="success"  class="alert alert-success">
-                        <ul class='px-4 py-2 bg-green-200 rounded-lg mb-2'>
+                    <div v-if="success.length>0"  class="alert alert-success">
+                        <ul class='px-4 py-2 bg-green-200 dark:bg-green-800 rounded-lg mb-2'>
                             <li class='text-green-500'>{{ success }}</li>
                         </ul>
                     </div>

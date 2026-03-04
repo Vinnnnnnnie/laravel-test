@@ -1,6 +1,5 @@
 <script setup>
 import Layout from './Components/Layout.vue'
-import { route } from 'ziggy-js';
 
 </script>
 <template>

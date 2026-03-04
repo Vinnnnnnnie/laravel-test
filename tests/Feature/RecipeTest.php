@@ -53,6 +53,15 @@ class RecipeTest extends TestCase
         ]);
 
     }
+    public function test_show_returns_recipe(): void
+    {
+        $user = User::factory()->createOne();
+
+        $recipe = Recipe::factory()->create();
+        $response = $this->actingAs($user)->get(route('recipes.show', ['recipe' => $recipe]));
+
+        $response->assertSee($recipe->title);
+    }
     public function test_search_returns_recipe(): void
     {
         $user = User::factory()->createOne();
@@ -63,8 +72,6 @@ class RecipeTest extends TestCase
         $response = $this->actingAs($user)->get(route('recipes.search', ['term' => $title]));
         $response->assertStatus(200);
         $response->assertSee($title);
-        $this->assertTrue(true);
-
     }
     
 }

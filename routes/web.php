@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 
 
-Route::inertia('/', 'Home');
+Route::inertia('/', 'Home')->name('home');
 
 Route::inertia('/cv', 'Cv')->name('cv');
 
@@ -26,7 +26,7 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
 Route::get('/public/images/users/{filename}', function ($filename) {
     $path = public_path('storage/users/' . $filename);
 
-    if (!file_exists($path)) {
+    if (!file_exists($path) || is_dir($filename)) {
         $path = public_path('storage/users/Aubergine.jpg');
     }
     return response()->file($path);
@@ -34,7 +34,7 @@ Route::get('/public/images/users/{filename}', function ($filename) {
 
 Route::get('/public/images/recipes/{filename}', function ($filename) {
     $path = public_path('storage/recipes/' . $filename);
-    if (!file_exists($path)) {
+    if (!file_exists($path) || is_dir($filename)) {
         $path = public_path('storage/recipes/Plate.jpg');
     }
     return response()->file($path);
@@ -42,7 +42,7 @@ Route::get('/public/images/recipes/{filename}', function ($filename) {
 
 Route::get('/public/images/website/{filename}', function ($filename) {
     $path = public_path('storage/website/' . $filename);
-    if (!file_exists($path)) {
+    if (!file_exists($path) || is_dir($filename)) {
         abort(404);
     }
     return response()->file($path);

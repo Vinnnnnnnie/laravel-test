@@ -68,10 +68,6 @@ class User extends Authenticatable
         return $this->hasMany(Recipe::class);
     }
 
-    public function friends() {
-        return $this->hasMany(UserFriend::class);
-    }
-
     public function followers() {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')->withTimestamps();
     }

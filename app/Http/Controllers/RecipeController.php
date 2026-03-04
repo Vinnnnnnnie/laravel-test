@@ -141,10 +141,10 @@ class RecipeController extends Controller
         $term = $request->term;
         $validated = $request->validate(['term' => 'required|max:64']);
         $recipes = Inertia::scroll(fn () => Recipe::query()
-            ->select('users.image_path', 'recipes.image_path', 'recipes.*', 'users.name')
+            ->select('users.image_path', 'recipes.image_path', 'recipes.*', 'users.first_name', 'users.last_name')
             ->join('users', 'users.id', '=', 'recipes.user_id')
             ->where('recipes.title', 'LIKE', '%'.$term.'%')
-            ->orWhere('users.name', 'LIKE', $term.'%')
+            ->orWhere('users.first_name', 'LIKE', $term.'%')
             ->with(
             [
                 'user',
@@ -158,8 +158,8 @@ class RecipeController extends Controller
             ->orderBy('recipes.created_at', 'DESC')
             ->paginate(15));
         $users = User::query()
-            ->select('image_path', 'name', 'id', 'reputation')
-            ->where('name', 'LIKE', $term.'%')
+            ->select('image_path', 'first_name', 'last_name', 'id', 'reputation')
+            ->where('first_name', 'LIKE', $term.'%')
             ->limit(5)
             ->get();
         return Inertia::render('Recipes/Search', ['recipes' => $recipes, 'users' => $users]);

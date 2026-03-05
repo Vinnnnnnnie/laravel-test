@@ -45,7 +45,7 @@ const success = computed(() => page.props.success);
                             <li class='text-red-500'>{{ error }}</li>
                         </ul>
                     </div>
-                    <div v-if="success.length>0"  class="alert alert-success">
+                    <div v-if="success"  class="alert alert-success">
                         <ul class='px-4 py-2 bg-green-200 dark:bg-green-800 rounded-lg mb-2'>
                             <li class='text-green-500'>{{ success }}</li>
                         </ul>

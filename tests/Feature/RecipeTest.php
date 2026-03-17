@@ -14,7 +14,6 @@ use Illuminate\Foundation\Testing\DatabaseTruncation;
 class RecipeTest extends TestCase
 {
     use RefreshDatabase;
-    protected $seed = true;
 
     public function test_recipes_can_be_deleted(): void
     {

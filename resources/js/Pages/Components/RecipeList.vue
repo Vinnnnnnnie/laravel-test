@@ -29,7 +29,7 @@ const props = defineProps({
             <RecipeCard 
                 :recipe="recipe"
                 :saved="savedRecipeIds.length > 0 && savedRecipeIds.includes(recipe.id)"
-                :user="user.id === recipe.user_id"
+                :isUser="user.id === recipe.user_id"
                 >
             </RecipeCard>
         </div>
@@ -44,7 +44,7 @@ const props = defineProps({
     <ul v-else>
         <li>
             <span class='text-3xl py-4'>
-                No recipes to see here :(
+                No recipes to see here
             </span>
         </li>
     </ul>

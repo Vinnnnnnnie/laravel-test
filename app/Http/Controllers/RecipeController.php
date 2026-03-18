@@ -97,7 +97,7 @@ class RecipeController extends Controller
             {
                 Ingredient::create(
                     [
-                        'name' => $ingredient,
+                        'name' => $ingredient['value'],
                         'number' => $counter,
                         'recipe_id' => $recipe->id
                     ]);
@@ -111,7 +111,7 @@ class RecipeController extends Controller
             {
                 Step::create(
                     [
-                        'step' => $step,
+                        'step' => $step['value'],
                         'number' => $counter,
                         'recipe_id' => $recipe->id
                     ]);

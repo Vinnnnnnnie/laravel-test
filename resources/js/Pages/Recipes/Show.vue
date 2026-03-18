@@ -6,12 +6,13 @@ import RecipeLayout from '../Components/RecipeLayout.vue';
 import Comment from '../Components/Comment.vue';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
+import SaveRecipeButtons from '../Components/SaveRecipeButtons.vue';
 
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
-
+const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 const props = defineProps({
     recipe: Object,
     comments: Object,
@@ -49,12 +50,7 @@ const props = defineProps({
                                 </div>
                             </div>
                             <!--EndProfileComponent-->
-                            <Form v-if='savedRecipeIds.includes(recipe.id)' :action="route('users.removeSavedRecipe', recipe)" className="flex justify-center" method='post'>
-                                <input type='submit' class="p-3 cursor-pointer rounded-full bg-orange-500 dark:border-orange-500 border-1 font-bold hover:bg-none" value='Remove Saved Recipe'>
-                            </Form>
-                            <Form v-else :action="route('users.addSavedRecipe', recipe)" className="flex justify-center" method='post'>
-                                <input type='submit' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold" value='Save Recipe'>
-                            </Form>
+                            <SaveRecipeButtons  :recipe></SaveRecipeButtons>
                             <div class="grid grid-cols-2 grid-rows-2 gap-2">
                                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Prep: {{ recipe.preparation_time }} mins</p>
                                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Cook: {{ recipe.cooking_time }} mins</p>

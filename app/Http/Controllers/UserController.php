@@ -33,20 +33,21 @@ class UserController extends Controller
 
     public function follow(Request $request)
     {
-        $userToFollow = $request->friend_user_id;
+        $userToFollow = $request->id;
         $user = auth()->user();
 
         $user->following()->attach($userToFollow);
-
+        return response()->json('User Followed!');
         return redirect()->route('users.show', ['user' => $userToFollow])->with('success', 'Followed!');
 
     }
     public function unfollow(Request $request)
     {
-        $userToUnfollow = $request->friend_user_id;
+        $userToUnfollow = $request->id;
         $user = auth()->user();
 
         $user->following()->detach($userToUnfollow);
+        return response()->json('User Unfollowed!');
 
         return redirect()->route('users.show', ['user' => $userToUnfollow])->with('success', 'Unfollowed!');
     }
@@ -59,14 +60,13 @@ class UserController extends Controller
         $user = auth()->user();
         
         $user->savedRecipes()->attach($recipe->id);
-
-        return redirect()->route('recipes.show', ['recipe' => $recipe])->with('success', 'Added to your saved recipes!');
+        return response()->json('Added to your saved recipes!', 200);
     }
     public function removeSavedRecipe(Recipe $recipe)
     {
         $user = auth()->user();
         $user->savedRecipes()->detach($recipe->id);
-        return redirect()->route('recipes.show', ['recipe' => $recipe])->with('success', 'Removed from your saved recipes!');
+        return response()->json('Removed from your saved recipes!', 200);
     }
     public function savedRecipes()
     {

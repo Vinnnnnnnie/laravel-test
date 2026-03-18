@@ -4,6 +4,7 @@ import RecipeLayout from '../Components/RecipeLayout.vue';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import RecipeList from '../Components/RecipeList.vue';
+import FollowUserButtons from '../Components/FollowUserButtons.vue';
 const page = usePage();
 const authUser = computed(() => page.props.auth.user);
 const props = defineProps({
@@ -36,7 +37,7 @@ const props = defineProps({
                 </div>
             </div>
             <div class="flex flex-row py-4 gap-4">
-                <Form v-if="authUser.following.some(u => u.user_id === user.id)" :action="route('users.unfollow', user)" method='DELETE'>
+                <!-- <Form v-if="authUser.following.some(u => u.user_id === user.id)" :action="route('users.unfollow', user)" method='DELETE'>
                     <input hidden id='friend_user_id' name='friend_user_id' :value='user.id'>
                     <input type='submit' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold" value='Unfollow'>
                 </Form >
@@ -44,7 +45,8 @@ const props = defineProps({
                 <Form v-else :action="route('users.follow', user)" method='post'>
                     <input hidden readonly id='friend_user_id' name='friend_user_id' :value='user.id'>
                     <input type='submit' class='p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold' value='Follow'>
-                </Form>
+                </Form> -->
+                <FollowUserButtons :user></FollowUserButtons>
             </div>
         </div>
         

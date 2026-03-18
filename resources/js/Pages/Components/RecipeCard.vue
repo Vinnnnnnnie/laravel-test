@@ -2,7 +2,7 @@
 const props = defineProps({ 
     recipe: Object,
     highlight: Boolean,
-    user: Boolean,
+    isUser: Boolean,
     owner: Boolean,
     friend: Boolean,
     fire: Boolean,
@@ -11,18 +11,24 @@ const props = defineProps({
  import { Link } from '@inertiajs/vue3';
 import RecipeProfile from './RecipeProfile.vue';
 import { computed } from 'vue';
+import SaveRecipeButtons from './SaveRecipeButtons.vue';
+import { usePage } from "@inertiajs/vue3";
+
+const page = usePage();
+
+const user = computed(() => page.props.auth.user);
+
 const created = computed (() => new Date(props.recipe.created_at).toLocaleString())
 
 </script>
 <template>
-    <div :class="{'highlight': highlight, 'user': user, 'owner': owner, 'friend' : friend, 'fire' : fire, 'saved': saved}"
+    <div :class="{'highlight': highlight, 'user': isUser, 'owner': owner, 'friend' : friend, 'fire' : fire, 'saved': saved}"
     class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
         <div class='w-full'>
             <div class='flex flex-col gap-0.5 w-full justify-start'>
                 <div class='flex flex-col justify-between items-start'>
                     <RecipeProfile :user='recipe.user'/>
                     <p>{{ created }}</p>
-                    <div v-if="saved" class='p-3 self-center rounded-full bg-orange-500  font-semibold'>Saved</div>
                 </div>
                 <h2 class='fs-6'><Link :href="route('recipes.show', recipe)">{{ recipe.title }}</Link></h2>
                 <div v-if="recipe.image_path" class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
@@ -41,6 +47,7 @@ const created = computed (() => new Date(props.recipe.created_at).toLocaleString
                     <div class='flex flex-row gap-2 items-center'>
                         {{ recipe.comments.length }} Commented
                     </div>
+                    <SaveRecipeButtons v-if="recipe.user_id !== user.id" :recipe></SaveRecipeButtons>
                     <div v-if="recipe.saved_users" class='flex flex-row gap-2 items-center'>
                         {{ recipe.saved_users.length }} Saved
                     </div>

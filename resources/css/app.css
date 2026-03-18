@@ -5,6 +5,7 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 @source '../**/*.vue';
+@source '../resources/js/Pages/*';
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',

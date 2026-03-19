@@ -14,12 +14,17 @@ use Inertia\Inertia;
 use App\Models\Ingredient;
 use App\Models\Step;
 
+use function Laravel\Prompts\error;
+
 class RecipeController extends Controller
 {
     //
     public function index() {
         return Inertia::render('Recipes/Index', 
-            ['recipes' => self::scrollableRecipeList()]);
+            [
+                    'recipes' => self::scrollableRecipeList(),
+                    'errors' => ['error bro']
+                ]);
     }
 
     public function scrollableRecipeList() {

@@ -1,0 +1,17 @@
+import { ref } from 'vue'
+
+// by convention, composable function names start with "use"
+export function makeToast() {
+  // state encapsulated and managed by the composable
+  const message = ref() 
+  const x = ref(0)
+  const y = ref(0)
+
+  // a composable can update its managed state over time.
+  function update(event) {
+    x.value = 
+  }
+
+  // expose managed state as return value
+  return { x, y }
+}

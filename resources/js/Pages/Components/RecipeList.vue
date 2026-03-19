@@ -34,13 +34,6 @@ const props = defineProps({
             </RecipeCard>
         </div>
     </InfiniteScroll>
-            <!--RecipeCard.vue-->
-            <!-- <x-card href="{{ route('recipes.show', $recipe) }}" 
-                :user='$recipe->user_id === $user->id' 
-                :friend='$user->friends()->get()->contains($recipe->user_id)'
-                :saved='$user->savedRecipes()->get()->contains($recipe->id)'
-                :recipe='$recipe'
-            /> -->
     <ul v-else>
         <li>
             <span class='text-3xl py-4'>

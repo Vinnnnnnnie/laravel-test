@@ -9,6 +9,8 @@ import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import RecipeProfile from './RecipeProfile.vue';
 import ProfilePicture from './ProfilePicture.vue';
+import Toast from './Toast.vue';
+
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
@@ -89,4 +91,6 @@ const success = computed(() => page.props.success);
         </div>
     </main>
     <AppFooter/>
+    <Toast/>
+
 </template>

@@ -2,21 +2,37 @@
 import { Link } from '@inertiajs/vue3'
 import AppHeader from './AppHeader.vue'
 import AppFooter from './AppFooter.vue'
-import { onMounted, defineProps } from 'vue';
+import { onMounted, defineProps, watch, ref } from 'vue';
 import { Form } from '@inertiajs/vue3';
 import UserCard from './UserCard.vue';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import RecipeProfile from './RecipeProfile.vue';
 import ProfilePicture from './ProfilePicture.vue';
+import { showToast } from '../../Composables/useToast';
 import Toast from './Toast.vue';
-
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
 const errors = computed(() => page.props.errors);
 const success = computed(() => page.props.success);
-
+let errorReceived = ref(false);
+console.log('Page props:', page.props)
+const statusMessage = ref(null);
+watch(success, (newVal) => {
+    console.log('Success changed: ', newVal)
+    if (newVal) {
+        showToast('success', newVal)
+    }
+})
+watch(errors, (newVal) => {
+    console.log('Errors changed: ', newVal)
+    if (newVal) {
+        Object.values(newVal).forEach(error => {
+            showToast('error', error)
+        })
+    }
+})
 </script>
 
 <template>
@@ -42,7 +58,8 @@ const success = computed(() => page.props.success);
             </div>
             <div class='flex-4 justify-between gap-8 '>
                 <div class='flex-2 gap-4 dark:bg-gray-800'>
-                    <div v-if="errors.length>0"  class="alert alert-danger">
+                    <Toast />
+                    <div :class="{hidden : !errorReceived}" v-if="errors.length>0"  class="alert alert-danger">
                         <ul v-for='error in errors' class='px-4 py-2 bg-red-200 rounded-lg mb-2'>
                             <li class='text-red-500'>{{ error }}</li>
                         </ul>

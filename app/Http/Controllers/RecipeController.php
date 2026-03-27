@@ -123,7 +123,7 @@ class RecipeController extends Controller
                 $counter++;
             }
         }
-        return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
+        return redirect()->route('recipes.index')->withSuccess('Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
         if ($recipe->user_id === auth()->user()->id)

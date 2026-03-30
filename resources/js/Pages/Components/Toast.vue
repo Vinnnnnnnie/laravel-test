@@ -7,7 +7,7 @@
 <template>
     <Transition name="fade">
         <div v-if="visible" 
-            class="fixed top-4 right-4 px-4 py-3 rounded shadow-lg text-white"
+            class="fixed bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-3 rounded shadow-lg text-white"
             :class="{
                 'bg-green-500' : toast.type === 'success',
                 'bg-red-500' : toast.type === 'error'

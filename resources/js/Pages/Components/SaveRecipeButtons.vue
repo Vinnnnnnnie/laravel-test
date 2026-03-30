@@ -1,6 +1,7 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { showToast } from '../../Composables/useToast';
 const page = usePage();
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -19,7 +20,7 @@ async function saveRecipe(recipe) {
             })
 
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            showToast('error', 'Error saving Recipe!');
         }
         page.props.auth.user.saved_recipes.push({
             'recipe_id' : recipe.id,
@@ -27,7 +28,7 @@ async function saveRecipe(recipe) {
         })
         console.log('Recipe:',recipe)
         const result = await response.json();
-        alert(result);
+        showToast('success', result);
     }
     catch(error)
     {
@@ -45,11 +46,11 @@ async function removeRecipe(recipe) {
             })
 
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            showToast('error', 'Error unsaving Recipe!');
         }
         page.props.auth.user.saved_recipes = page.props.auth.user.saved_recipes.filter(saved => saved.recipe_id !== recipe.id);
         const result = await response.json();
-        alert(result);
+        showToast('success', result);
     }
     catch(error)
     {

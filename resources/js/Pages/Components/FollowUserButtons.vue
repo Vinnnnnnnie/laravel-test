@@ -1,6 +1,7 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { showToast } from '../../Composables/useToast';
 const page = usePage();
 const followedIds = computed(() => page.props.auth.user.following.map((v) => v.user_id));
 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -19,7 +20,7 @@ async function addUser(user) {
             })
 
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            showToast('error', 'Error following User!');
         }
         page.props.auth.user.following.push({
             'user_id' : user.id,
@@ -29,11 +30,11 @@ async function addUser(user) {
             'reputation' : user.reputation 
         })
         const result = await response.json();
-        alert(result);
+        showToast('success', result);
     }
     catch(error)
     {
-        console.log(`Fuck we fucked: ${error}`)
+        console.log(`Error: ${error}`)
     }
 }
 async function removeUser(user) {
@@ -46,11 +47,11 @@ async function removeUser(user) {
                 body: user
             })
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            showToast('error', 'Error unfollowing User!');
         }
         page.props.auth.user.following = page.props.auth.user.following.filter(followed => followed.user_id !== user.id);
         const result = await response.json();
-        alert(result);
+        showToast('success', result);
     }
     catch(error)
     {

@@ -23,28 +23,28 @@ class RecipeController extends Controller
         return Inertia::render('Recipes/Index', 
             [
                     'recipes' => self::scrollableRecipeList(),
-                    'errors' => ['error bro']
                 ]);
     }
 
     public function scrollableRecipeList() {
         return Inertia::scroll(fn () => Recipe::with(
-                    [
-                        'user',
-                        'comments' => function ($query) {
-                            $query->select('id', 'user_id', 'recipe_id');
-                        }, 
-                        'savedUsers' => function ($query) {
-                            $query->select('user_id', 'recipe_id');
-                        },
-                        'tags'
-                    ]
-                )
-                ->select('id', 'title', 'user_id', 
-                    'created_at', 'preparation_time', 
-                    'cooking_time', 'servings', 'difficulty', 
-                    'image_path')
-                ->orderBy('created_at', 'desc')->paginate()
+                [
+                    'user',
+                    'comments' => function ($query) {
+                        $query->select('id', 'user_id', 'recipe_id');
+                    }, 
+                    'savedUsers' => function ($query) {
+                        $query->select('user_id', 'recipe_id');
+                    },
+                    'tags'
+                ]
+            )
+            ->select('id', 'title', 'user_id', 
+                'created_at', 'preparation_time', 
+                'cooking_time', 'servings', 'difficulty', 
+                'image_path')
+            ->orderBy('created_at', 'desc')
+            ->paginate()
         );
     }
     public function show(Recipe $recipe) {
@@ -123,7 +123,7 @@ class RecipeController extends Controller
                 $counter++;
             }
         }
-        return redirect()->route('recipes.index')->withSuccess('Recipe added successfully!');
+        return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
         if ($recipe->user_id === auth()->user()->id)

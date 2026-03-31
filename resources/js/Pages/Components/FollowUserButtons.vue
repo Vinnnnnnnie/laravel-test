@@ -34,6 +34,7 @@ async function addUser(user) {
     }
     catch(error)
     {
+        showToast('error', error);
         console.log(`Error: ${error}`)
     }
 }
@@ -55,6 +56,7 @@ async function removeUser(user) {
     }
     catch(error)
     {
+        showToast('error', error);
         console.log(`Fuck we fucked: ${error}`)
     }
 }

@@ -57,7 +57,7 @@ class HandleInertiaRequests extends Middleware
                     'following' => function ($query) {
                         $query->select('follower_id', 'user_id', 'first_name', 'last_name', 'image_path', 'reputation');
                     },
-                    'followers' => function ($query) {
+                'followers' => function ($query) {
                         $query->select('user_id', 'follower_id', 'first_name', 'last_name', 'image_path', 'reputation');
                     }
                 ]
@@ -66,8 +66,10 @@ class HandleInertiaRequests extends Middleware
 
         return array_merge(parent::share($request), [
             'auth.user' => $user,
-            'errors' => fn () => $request->session()->get('errors'),
-            'success' => fn () => $request->session()->get('success'),
+            // 'toast.errors' => fn () => $request->session()->get('errors')
+            //     ? $request->session()->get('errors')->getBag('default')->getMessages()
+            //     : (object) [],
+            // 'toast.success' => fn () => $request->session()->get('success'),
         ]);
     }
 }

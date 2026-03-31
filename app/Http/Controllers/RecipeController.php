@@ -66,6 +66,7 @@ class RecipeController extends Controller
     }
 
     public function store(Request $request) {
+
         if(isset($request->image))
         {
             $image_path = $request->image->store("recipes", 'public');
@@ -84,10 +85,11 @@ class RecipeController extends Controller
             'image_path' => 'string',
             'tags' => 'array'
         ]);
-        $validatedOthers = $request->validate([
-            'ingredients' => 'required|array',
-            'steps' => 'required|array',
-        ]);
+
+        // $validatedOthers = $request->validate([
+        //     'ingredients' => 'required|array',
+        //     'steps' => 'required|array',
+        // ]);
 
         $recipe = Recipe::create($validated);
         if ($request->tags !== NULL)

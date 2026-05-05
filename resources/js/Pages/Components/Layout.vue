@@ -2,7 +2,7 @@
 import { Link } from '@inertiajs/vue3'
 import AppHeader from './AppHeader.vue'
 import AppFooter from './AppFooter.vue'
-import { onMounted, defineProps } from 'vue';
+import { onMounted } from 'vue';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 

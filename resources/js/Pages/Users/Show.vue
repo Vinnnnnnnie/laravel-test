@@ -46,7 +46,14 @@ const props = defineProps({
                     <input hidden readonly id='friend_user_id' name='friend_user_id' :value='user.id'>
                     <input type='submit' class='p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold' value='Follow'>
                 </Form> -->
-                <FollowUserButtons :user></FollowUserButtons>
+                <FollowUserButtons v-if="user.id !== authUser.id" :user></FollowUserButtons>
+                <Link v-else-if="authUser.id === user.id" 
+                    :href="route('users.edit')" 
+                    :data-auth="authUser.id" 
+                    :data-user="user.id" 
+                    className='p-3 cursor-pointer rounded-full border-green-500 dark:border-green-500 border-1 hover:bg-green-500 font-semibold'>
+                    Edit Profile
+                </Link>
             </div>
         </div>
         

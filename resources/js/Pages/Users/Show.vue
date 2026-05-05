@@ -59,7 +59,7 @@ const props = defineProps({
         
         <div class='w-full'>
             <div class='flex justify-between items-center mb-4'>
-                <h2>Recipes by {{user.name }}</h2>
+                <h2>Recipes by {{user.first_name }} {{  user.last_name }}</h2>
             </div>
             <RecipeList 
                 :recipes='recipes'

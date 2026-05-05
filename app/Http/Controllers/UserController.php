@@ -18,7 +18,10 @@ class UserController extends Controller
                         'comments' => function ($query) {
                             $query->select('id', 'user_id', 'recipe_id');
                         }, 
-                        'tags'
+                        'tags',
+                        'savedUsers' => function ($query) {
+                            $query->select('user_id', 'recipe_id');
+                        },
                     ]
                 )
                 ->select('id', 'title', 'user_id', 

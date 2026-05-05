@@ -10,7 +10,6 @@ import SaveRecipeButtons from '../Components/SaveRecipeButtons.vue';
 
 const page = usePage();
 
-const user = computed(() => page.props.auth.user);
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 const props = defineProps({
@@ -21,7 +20,7 @@ const props = defineProps({
 
 </script>
 <template>
-    <RecipeLayout :user>
+    <RecipeLayout>
         <div class="flex flex-col gap-4">
             <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold" :class="{'saved': savedRecipeIds.includes(recipe.id)}">
                 <div class='w-full flex flex-col gap-4'>

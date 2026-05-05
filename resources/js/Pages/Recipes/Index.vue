@@ -6,14 +6,12 @@ import { usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 
-const user = computed(() => page.props.auth.user);
-
 const props = defineProps({ 
     recipes: Object,
  })
 </script>
 <template>
-    <RecipeLayout :user>
+    <RecipeLayout>
         <div class='flex justify-between mb-4 gap-8'>
             <div class='w-full flex flex-col gap-4'>
                 <h2 class="text-center">Recent Recipes</h2>

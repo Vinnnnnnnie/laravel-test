@@ -49,9 +49,6 @@ Route::get('/public/images/website/{filename}', function ($filename) {
 })->name('image.website');
 
 // Recipe Routes
-Route::controller(UserController::class)->group(function () {
-    Route::get('/users/{user}','show')->name('users.show');
-});
 
 Route::middleware('auth')->controller(UserController::class)->group(function () {
     Route::get('/users/edit', 'edit')->name('users.edit');
@@ -62,11 +59,8 @@ Route::middleware('auth')->controller(UserController::class)->group(function () 
     Route::post('/users/saveRecipe/{recipe}', 'addSavedRecipe')->name('users.addSavedRecipe');
     Route::delete('/users/removeRecipe/{recipe}', 'removeSavedRecipe')->name('users.removeSavedRecipe');
 });
-
-Route::controller(RecipeController::class)->group(function () {
-    Route::get('/recipes', 'index')->name('recipes.index');
-    Route::get('/recipes/search', 'search')->name('recipes.search');
-    Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
+Route::controller(UserController::class)->group(function () {
+    Route::get('/users/{user}','show')->name('users.show');
 });
 
 Route::middleware('auth')->controller(RecipeController::class)->group(function () {
@@ -76,6 +70,14 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::post('/recipes/update/{id}', 'update')->name('recipes.update');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
 });
+
+Route::controller(RecipeController::class)->group(function () {
+    Route::get('/recipes', 'index')->name('recipes.index');
+    Route::get('/recipes/search', 'search')->name('recipes.search');
+    Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
+});
+
+
 
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
 

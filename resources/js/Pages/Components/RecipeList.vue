@@ -8,6 +8,7 @@ import { InfiniteScroll } from '@inertiajs/vue3'
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
+
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
 
 const props = defineProps({ 

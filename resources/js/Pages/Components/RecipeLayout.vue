@@ -11,6 +11,19 @@ import Toast from './Toast.vue';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
+if (!page.props.auth.user.id)
+{
+    page.props.auth.user = {
+        "id":0,
+        "email":"Guest",
+        "first_name":"Guest",
+        "last_name":"User",
+        "image_path":"Pan.jpg",
+        "recipes":[],
+        "saved_recipes":[],
+        "following":[],
+        "followers":[]}
+}
 
 </script>
 
@@ -19,7 +32,7 @@ const user = computed(() => page.props.auth.user);
     <main class='container mx-auto p-8'>
         <div class='flex justify-between xl:flex-row flex-col gap-8'>
             <div v-if="user" class='flex-2 xl:sticky xl:top-4 h-fit flex flex-col gap-4'>
-                <div class="hidden xl:flex bg-gray-100 dark:bg-gray-900 p-4 rounded-md">
+                <div v-if="user !== 'Guest'" class="hidden xl:flex bg-gray-100 dark:bg-gray-900 p-4 rounded-md">
                     <RecipeProfile :size="30" :user/>
                 </div>
                 <div class='w-full mb-2'>
@@ -44,7 +57,7 @@ const user = computed(() => page.props.auth.user);
             <div class='hidden xl:block xl:sticky xl:top-4 h-min flex-2 p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold '>
                 <ul class="flex gap-2 flex-col">
                     <li><h2>Followed</h2></li>
-                    <div v-if="user.following.length > 0">
+                    <div v-if="user !== 'Guest' && user.following.length > 0">
                         <li class="p-2" v-for="followed in user.following">
                             <div class='flex flex-row gap-2'>
                                 <ProfilePicture

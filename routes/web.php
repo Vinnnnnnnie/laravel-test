@@ -49,7 +49,7 @@ Route::get('/public/images/website/{filename}', function ($filename) {
 })->name('image.website');
 
 // Recipe Routes
-Route::middleware('guest')->controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->group(function () {
     Route::get('/users/{user}','show')->name('users.show');
 });
 
@@ -63,7 +63,7 @@ Route::middleware('auth')->controller(UserController::class)->group(function () 
     Route::delete('/users/removeRecipe/{recipe}', 'removeSavedRecipe')->name('users.removeSavedRecipe');
 });
 
-Route::middleware('guest')->controller(RecipeController::class)->group(function () {
+Route::controller(RecipeController::class)->group(function () {
     Route::get('/recipes', 'index')->name('recipes.index');
     Route::get('/recipes/search', 'search')->name('recipes.search');
     Route::get('/recipes/{recipe}', 'show')->name('recipes.show');

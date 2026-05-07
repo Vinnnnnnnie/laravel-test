@@ -47,7 +47,7 @@ const created = computed (() => new Date(props.recipe.created_at).toLocaleString
                     <div class='flex flex-row gap-2 items-center'>
                         {{ recipe.comments.length }} Commented
                     </div>
-                    <SaveRecipeButtons v-if="recipe.user_id !== user.id" :recipe></SaveRecipeButtons>
+                    <SaveRecipeButtons :recipe></SaveRecipeButtons>
                     <div v-if="recipe.saved_users" class='flex flex-row gap-2 items-center'>
                         {{ recipe.saved_users.length }} Saved
                     </div>

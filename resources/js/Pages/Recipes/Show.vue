@@ -106,12 +106,7 @@ const props = defineProps({
                 />
         </div>
 
-                <!-- <x-comment 
-                    :highlight='$recipe->user_id === $comment->user_id' 
-                    :user='$comment->user_id === auth()->user()->id' 
-                    :friend='session("friendslist")->pluck("friend_user_id")->contains($comment->user_id)'
-                    :comment='$comment'
-                /> -->
+               
         <div class='flex gap-2 flex-row p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold'>
             <div class="flex w-full justify-between gap-2">
                 <ProfilePicture

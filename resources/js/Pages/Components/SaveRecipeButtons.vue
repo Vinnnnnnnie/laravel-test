@@ -59,6 +59,6 @@ async function removeRecipe(recipe) {
 }
 </script>
 <template>
-    <button v-if='savedRecipeIds.includes(recipe.id)' @click="removeRecipe(recipe)" type='button' class="p-3 cursor-pointer rounded-full bg-orange-500 dark:border-orange-500 border-1 font-bold hover:bg-none">Remove Recipe</button>
-    <button v-else @click="saveRecipe(recipe)" type='button' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold">Save Recipe</button>
+    <button v-if='page.props.auth.user !== 0 && savedRecipeIds.includes(recipe.id)' @click="removeRecipe(recipe)" type='button' class="p-3 cursor-pointer rounded-full bg-orange-500 dark:border-orange-500 border-1 font-bold hover:bg-none">Remove Recipe</button>
+    <button v-else-if="page.props.auth.user.id !== 0" @click="saveRecipe(recipe)" type='button' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold">Save Recipe</button>
 </template>

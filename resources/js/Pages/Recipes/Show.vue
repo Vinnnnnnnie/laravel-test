@@ -76,53 +76,56 @@ const props = defineProps({
                     </div>
                 </div>
             </div>
-        <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
-            <h4 class='text-xl font-bold pb-4'>Ingredients</h4>
-            <ul class="flex flex-col divide-gray-500 divide-y-2">
-                <li class="py-2" v-for="ingredient in recipe.ingredients">{{ingredient.name}}</li>
-            </ul>
-        </div>
-        <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
-            <h4 class='text-xl font-bold pb-4'>Method</h4>
-            <ul  class="flex flex-col divide-gray-500 divide-y-2">
-                <li class="py-2" v-for="step in recipe.steps">{{step.number+1}}. {{step.step}}</li>
-            </ul>
-        </div>
-        <!--Buttons-->
-        <div class='flex gap-2'>
-            <a v-if='user.id === recipe.user_id' class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.edit', recipe)">Edit Recipe</a>
-            <Form v-if='user.id === recipe.user_id' method="DELETE" :action="route('recipes.destroy', recipe.id)">
-                <button class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' type="submit">Delete Recipe</button>
-            </Form>
-            <!-- @if($recipe->savedUsers()->get()->contains(auth()->user()->id)) -->
-            
-            <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.index')">Back to all Recipes</Link>
-        </div>
-        <div v-if='comments' class="flex flex-col py-2 gap-2">
-            <Comment v-for='comment in comments' 
-                :owner='recipe.user_id === comment.user.id'
-                :user='comment.user_id === user.id'
-                :comment
-                />
-        </div>
+            <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
+                <h4 class='text-xl font-bold pb-4'>Ingredients</h4>
+                <ul class="flex flex-col divide-gray-500 divide-y-2">
+                    <li class="py-2" v-for="ingredient in recipe.ingredients">{{ingredient.name}}</li>
+                </ul>
+            </div>
+            <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
+                <h4 class='text-xl font-bold pb-4'>Method</h4>
+                <ul  class="flex flex-col divide-gray-500 divide-y-2">
+                    <li class="py-2" v-for="step in recipe.steps">{{step.number+1}}. {{step.step}}</li>
+                </ul>
+            </div>
+            <!--Buttons-->
+            <div class='flex gap-2'>
+                <a v-if='user.id === recipe.user_id' class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.edit', recipe)">Edit Recipe</a>
+                <Form v-if='user.id === recipe.user_id' method="DELETE" :action="route('recipes.destroy', recipe.id)">
+                    <button class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' type="submit">Delete Recipe</button>
+                </Form>
+                <!-- @if($recipe->savedUsers()->get()->contains(auth()->user()->id)) -->
+                
+                <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.index')">Back to all Recipes</Link>
+            </div>
+            <div v-if='comments' class="flex flex-col py-2 gap-2">
+                <Comment v-for='comment in comments' 
+                    :owner='recipe.user_id === comment.user.id'
+                    :user='comment.user_id === user.id'
+                    :comment
+                    />
+            </div>
 
-               
-        <div class='flex gap-2 flex-row p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold'>
-            <div class="flex w-full justify-between gap-2">
-                <ProfilePicture
-                    :size='20'
-                    :image='user.image_path'
-                />
-                <div class='w-full'>
-                    <div class="font-semibold text-lg">{{ user.name}}</div>
-                    <Form :action="route('comments.store', recipe)" method='POST'>
-                        <input type='hidden' name='recipe_id' :value='recipe.id'>
-                        <textarea name='comment' class='w-full' placeholder='Add your comment here...' required></textarea>
-                        <button class='btn' type='submit'>Submit Comment</button>
-                    </Form>
+                
+            <div v-if="user.id !== 0" class='flex gap-2 flex-row p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold'>
+                <div class="flex w-full justify-between gap-2">
+                    <ProfilePicture
+                        :size='20'
+                        :image='user.image_path'
+                    />
+                    <div class='w-full'>
+                        <div class="font-semibold text-lg">{{ user.name}}</div>
+                        <Form :action="route('comments.store', recipe)" method='POST'>
+                            <input type='hidden' name='recipe_id' :value='recipe.id'>
+                            <textarea name='comment' class='w-full' placeholder='Add your comment here...' required></textarea>
+                            <button class='btn' type='submit'>Submit Comment</button>
+                        </Form>
+                    </div>
                 </div>
             </div>
-        </div>
+            <Link v-else class='btn rounded-2xl' :href="route('show.register')">
+                Login to join the conversation
+            </Link>
         </div>
         
     </RecipeLayout>

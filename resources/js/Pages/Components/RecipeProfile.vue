@@ -21,7 +21,10 @@ const fontClass = props.size > 20 ? 'text-3xl font-semibold' : 'text-xl'
             :size
         />
         <div>
-            <div><Link :href="route('users.show', user)"  :class="fontClass">{{ user.first_name }} {{ user.last_name }}</Link></div>
+            <h2 v-if="user.id !== 0" class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'>
+                <Link  :href="route('users.show', user)">{{ user.first_name }} {{ user.last_name }}</Link> 
+            </h2>
+            <h2 v-else class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'> Guest</h2>
             <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                 <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                     <span v-if="user.reputation < 5">Arsonist</span>

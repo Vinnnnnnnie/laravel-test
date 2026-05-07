@@ -62,13 +62,13 @@ async function removeUser(user) {
 }
 </script>
 <template>
-    <button v-if="followedIds.includes(user.id)"
+    <button v-if=" page.props.auth.user.id !== 0 && followedIds.includes(user.id)"
         @click="removeUser(user)" 
         type="button" 
         class="p-3 cursor-pointer rounded-full bg-orange-500 hover:bg-orange-500 font-semibold">
         Unfollow
     </button>
-    <button v-else
+    <button v-else-if="page.props.auth.user.id !== 0"
         @click="addUser(user)" 
         type="button" 
         class="p-3 cursor-pointer rounded-full border-orange-500 border-1 hover:bg-orange-500 font-semibold">

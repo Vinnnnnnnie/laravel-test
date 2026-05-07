@@ -42,7 +42,7 @@ if (!page.props.auth.user.id)
                         <input type='submit' name='submit' class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' value='Go'>
                     </Form>
                 </div>
-                <div class='flex flex-row xl:flex-col justify-center items-center gap-4 mb-4'>
+                <div v-if="user.id !== 0" class='flex flex-row xl:flex-col justify-center items-center gap-4 mb-4'>
                     <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.create')"> Create a New Recipe</Link>
                     <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('users.savedRecipes')"> Saved Recipes</Link>
                     <Link class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold" > Settings</Link>
@@ -57,7 +57,7 @@ if (!page.props.auth.user.id)
             <div class='hidden xl:block xl:sticky xl:top-4 h-min flex-2 p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold '>
                 <ul class="flex gap-2 flex-col">
                     <li><h2>Followed</h2></li>
-                    <div v-if="user !== 'Guest' && user.following.length > 0">
+                    <div v-if="user.following.length > 0">
                         <li class="p-2" v-for="followed in user.following">
                             <div class='flex flex-row gap-2'>
                                 <ProfilePicture
@@ -82,6 +82,9 @@ if (!page.props.auth.user.id)
                             </div>
                         </li>
                     </div>
+                    <li v-else-if="user.id === 0">
+                        Login to follow other users
+                    </li>
                     <li v-else>
                         You're not following anyone yet
                     </li>

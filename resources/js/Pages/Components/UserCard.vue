@@ -14,9 +14,11 @@ const user = computed(() => page.props.auth.user);
             <img :src="route('image.users', user.image_path)" class='w-full h-full object-cover'>
         </div>
         <div>
-            <h2 class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'>
-                <Link :href="route('users.show', user.id)">{{ user.first_name }} {{ user.last_name }}</Link> 
+            <h2 v-if="user.id !== 0" class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'>
+                <Link  :href="route('users.show', user.id)">{{ user.first_name }} {{ user.last_name }}</Link> 
             </h2>
+            <h2 else class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'> Guest</h2>
+
             <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                 <span v-if="user.reputation < 5">Arsonist</span>
                 <span v-else-if="user.reputation < 10">Barbecuer</span>

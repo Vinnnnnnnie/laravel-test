@@ -71,7 +71,7 @@ const props = defineProps({
                         
                         <!-- Image and Container -->
                         <div class='dark:bg-gray-950 bg-gray-50 w-full flex flex-1 justify-center align-items-center rounded-xl'>
-                            <img :src="route('image.recipes',recipe.image_path)" class='w-100 max-w-100 object-contain'>
+                            <img :src="route('image.recipes',recipe.image_path)" class='aspect-auto h-fit max-h-100 self-center'>
                         </div>
                     </div>
                 </div>

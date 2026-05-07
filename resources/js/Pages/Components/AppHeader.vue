@@ -12,23 +12,23 @@ const user = computed(() => page.props.auth.user);
 
 <template>
     <header class='bg-gray-100 dark:bg-gray-900 shadow border-b-1 border-gray-500 dark:border-gray-500'>
-        <div class="flex flex-row justify-between text-center align-middle">
+        <div class="flex flex-col xl:flex-row  justify-between text-center align-middle">
             <h1 class='font-mono'>vinnie.fyi</h1>
-            <nav class="flex gap-12 items-center">
-                <Link class='text-xl' href='/'>Home</Link>
-                <Link class='text-xl' :href="route('recipes.index')">RecipeShare</Link>
-                <Link class='text-xl' :href="route('games.index')">Steam Activity</Link>
+            <nav class="flex gap-12 items-center justify-around">
+                <Link class='text-lg xl:text-xl' href='/'>Home</Link>
+                <Link class='text-lg xl:text-xl' :href="route('recipes.index')">RecipeShare</Link>
+                <Link class='text-lg xl:text-xl' :href="route('games.index')">Steam</Link>
             </nav>
-            <div v-if="user.id" class="flex p-2 items-center gap-2">
-                <Link :href="route('users.show', user)">
+            <div v-if="user.id" class="flex p-2 items-center gap-2 justify-center ">
+                <Link class="hidden xl:block" :href="route('users.show', user)">
                     <ProfilePicture :image="user.image_path" :size="20"/>
                 </Link>
-                <span class="hidden xl:block font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
+                <span class=" font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
                 <Form :action="route('logout')" method='POST'>
                     <button class='btn' type='submit'>Logout</button>
                 </Form>
             </div>
-            <div v-else class="flex p-2 items-center gap-2">
+            <div v-else class="flex p-2 items-center gap-2 justify-center">
                 <Link class='btn' :href="route('show.login')">Login</Link>
                 <Link class='btn' :href="route('show.register')">Register</Link>
             </div>

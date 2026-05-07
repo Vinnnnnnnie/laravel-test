@@ -58,8 +58,9 @@ class User extends Authenticatable
         // If given ID instead of User object
         if (is_int($user))
         {
-            $user = User::find($user, 'reputation');
+            $user = User::find($user, ['id', 'reputation']);
         }
+        
         $newReputation = $user->reputation + $reputation;
         $user->update(['reputation'=>$newReputation]);
     }

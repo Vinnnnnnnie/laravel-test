@@ -60,7 +60,6 @@ class User extends Authenticatable
         {
             $user = User::find($user, 'reputation');
         }
-        $user->reputation += $reputation;
         $newReputation = $user->reputation + $reputation;
         $user->update(['reputation'=>$newReputation]);
     }

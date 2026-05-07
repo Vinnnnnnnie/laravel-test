@@ -55,12 +55,6 @@ class UserController extends Controller
         return redirect()->route('users.show', ['user' => $userToUnfollow])->with('success', 'Unfollowed!');
     }
 
-    public function addReputation(User $user, int $reputation)
-    {
-        $user->reputation += $reputation;
-        $newReputation = $user->reputation + $reputation;
-        $user->update(['reputation'=>$newReputation]);
-    }
     public function edit()
     {
         return Inertia::render('Users/Edit');
@@ -70,12 +64,14 @@ class UserController extends Controller
         $user = auth()->user();
         
         $user->savedRecipes()->attach($recipe->id);
+        User::addReputation($recipe->user, 1);
         return response()->json('Added to your saved recipes!', 200);
     }
     public function removeSavedRecipe(Recipe $recipe)
     {
         $user = auth()->user();
         $user->savedRecipes()->detach($recipe->id);
+        User::addReputation($recipe->user, -1);
         return response()->json('Removed from your saved recipes!', 200);
     }
     public function savedRecipes()

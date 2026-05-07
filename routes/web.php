@@ -70,12 +70,9 @@ Route::middleware('guest')->controller(RecipeController::class)->group(function 
 });
 
 Route::middleware('auth')->controller(RecipeController::class)->group(function () {
-    Route::get('/recipes', 'index')->name('recipes.index');
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::get('/recipes/create', 'create')->name('recipes.create');
-    Route::get('/recipes/search', 'search')->name('recipes.search');
     Route::get('/recipes/edit/{recipe}', 'edit')->name('recipes.edit');
-    Route::get('/recipes/{recipe}', 'show')->name('recipes.show');
     Route::post('/recipes/update/{id}', 'update')->name('recipes.update');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');
 });

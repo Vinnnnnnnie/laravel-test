@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\User;
+use App\Models\Recipe;
 
 class CommentController extends Controller
 {
@@ -19,6 +21,9 @@ class CommentController extends Controller
             'user_id' => auth()->user()->id,
             'comment' => $request->input('comment'),
         ]);
+        User::addReputation(auth()->user(), 1);
+        $recipeOwner = Recipe::find($request->input('recipe_id'), 'user_id');
+        User::addReputation($recipeOwner->user_id, 1);
 
         return redirect()->back()->with('success', 'Comment added successfully!');
     }

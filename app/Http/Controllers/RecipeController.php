@@ -51,7 +51,7 @@ class RecipeController extends Controller
         $recipe->load('user', 'comments', 'tags', 'ingredients', 'steps');
         $comments = $recipe->comments;
         $tags = $recipe->tags;
-        $comments->load('user', );
+        $comments->load('user');
         return Inertia::render('Recipes/Show', 
             [
                 'recipe' => $recipe,
@@ -125,6 +125,7 @@ class RecipeController extends Controller
                 $counter++;
             }
         }
+        User::addReputation(auth()->user(), 1);
         return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {

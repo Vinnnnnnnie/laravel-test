@@ -54,6 +54,13 @@ class UserController extends Controller
 
         return redirect()->route('users.show', ['user' => $userToUnfollow])->with('success', 'Unfollowed!');
     }
+
+    public function addReputation(User $user, int $reputation)
+    {
+        $user->reputation += $reputation;
+        $newReputation = $user->reputation + $reputation;
+        $user->update(['reputation'=>$newReputation]);
+    }
     public function edit()
     {
         return Inertia::render('Users/Edit');

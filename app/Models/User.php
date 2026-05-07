@@ -53,6 +53,18 @@ class User extends Authenticatable
         ];
     }
 
+    public static function addReputation(User|int $user, int $reputation)
+    {
+        // If given ID instead of User object
+        if (is_int($user))
+        {
+            $user = User::find($user, 'reputation');
+        }
+        $user->reputation += $reputation;
+        $newReputation = $user->reputation + $reputation;
+        $user->update(['reputation'=>$newReputation]);
+    }
+
     public function totalReputation(): int
     {
         return 10;

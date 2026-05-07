@@ -10,6 +10,8 @@ import SaveRecipeButtons from '../Components/SaveRecipeButtons.vue';
 
 const page = usePage();
 
+const user = computed(() => page.props.auth.user);
+
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 const props = defineProps({
@@ -37,13 +39,13 @@ const props = defineProps({
                                 <div>
                                     <div class="text-xl font-semibold">{{ recipe.user.first_name }} {{ recipe.user.last_name }}</div>
                                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                                        <span v-if="user.reputation < 5">Arsonist</span>
-                                        <span v-else-if="user.reputation < 10">Barbecuer</span>
-                                        <span v-else-if="user.reputation < 20">Cook</span>
-                                        <span v-else-if="user.reputation < 30">Chef</span>
-                                        <span v-else-if="user.reputation < 50">Gourmand</span>
-                                        <span v-else-if="user.reputation < 100">Michellin</span>
-                                        <span v-else-if="user.reputation > 99">Master Chef</span>
+                                        <span v-if="recipe.user.reputation < 5">Arsonist</span>
+                                        <span v-else-if="recipe.user.reputation < 10">Barbecuer</span>
+                                        <span v-else-if="recipe.user.reputation < 20">Cook</span>
+                                        <span v-else-if="recipe.user.reputation < 30">Chef</span>
+                                        <span v-else-if="recipe.user.reputation < 50">Gourmand</span>
+                                        <span v-else-if="recipe.user.reputation < 100">Michellin</span>
+                                        <span v-else-if="recipe.user.reputation > 99">Master Chef</span>
                                         {{ recipe.user.reputation }}
                                     </div>
                                 </div>

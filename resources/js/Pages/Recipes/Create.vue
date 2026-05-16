@@ -82,7 +82,7 @@ watch(form.errors, (errors)=> {
                 <form @submit.prevent="submit" class='flex flex-col p-4 gap-2' enctype="multipart/form-data">
                     <div>
                         <label for="image" class='form-label'>Image</label>
-                        <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image">
+                        <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image" accept="image/*">
                     </div>
                     <div>
                         <label for="title" class='form-label'>Recipe Title</label> <span v-if="form.errors.title" class="text-red-500">{{form.errors.title}}</span>

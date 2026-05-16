@@ -66,10 +66,12 @@ class RecipeController extends Controller
     }
 
     public function store(Request $request) {
-
+        
         if(isset($request->image))
         {
+            
             $image_path = $request->image->store("recipes", 'public');
+            
             $image_path = str_replace('recipes/', '', $image_path); 
             $request->merge(['image_path' => $image_path]);
         }

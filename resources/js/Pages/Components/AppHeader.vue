@@ -21,7 +21,7 @@ const user = computed(() => page.props.auth.user);
             </nav>
             <div v-if="user.id" class="flex p-2 items-center gap-2 justify-center ">
                 <Link class="hidden xl:block" :href="route('users.show', user)">
-                    <ProfilePicture :image="user.image_path" :size="20"/>
+                    <ProfilePicture :image="user.image_path" :size="10"/>
                 </Link>
                 <span class=" font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
                 <Form :action="route('logout')" method='POST'>

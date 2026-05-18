@@ -2,6 +2,8 @@
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { showToast } from '../../Composables/useToast';
+import { PlusIcon } from '@heroicons/vue/16/solid';
+import { MinusIcon } from '@heroicons/vue/16/solid';
 const page = usePage();
 const followedIds = computed(() => page.props.auth.user.following.map((v) => v.user_id));
 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -65,14 +67,14 @@ async function removeUser(user) {
     <button v-if=" page.props.auth.user.id !== 0 && followedIds.includes(user.id)"
         @click="removeUser(user)" 
         type="button" 
-        class="p-3 cursor-pointer rounded-full bg-orange-500 hover:bg-orange-500 font-semibold">
-        Unfollow
+        class="p-3 flex gap-2 align-baseline self-center items-center cursor-pointer rounded-sm  bg-blue-500 hover:bg-blue-500 font-semibold">
+        <MinusIcon class="size-4"/> Unfollow
     </button>
     <button v-else-if="page.props.auth.user.id !== 0"
         @click="addUser(user)" 
         type="button" 
-        class="p-3 cursor-pointer rounded-full border-orange-500 border-1 hover:bg-orange-500 font-semibold">
-        Follow
+        class="p-3 flex gap-2 align-baseline self-center items-center cursor-pointer rounded-sm border-blue-500 border-1 hover:bg-blue-500 font-semibold">
+        <PlusIcon class="size-4"/> Follow
     </button>
     
 </template>

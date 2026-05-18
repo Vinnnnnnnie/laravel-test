@@ -30,10 +30,10 @@ if (!page.props.auth.user.id)
 <template>
     <AppHeader :user/>
     <main class='container mx-auto p-8'>
-        <div class='flex justify-between xl:flex-row flex-col gap-8'>
-            <div v-if="user" class='flex-2 xl:sticky xl:top-4 h-fit flex flex-col gap-4'>
+        <div class='flex justify-between xl:flex-row flex-col gap-4'>
+            <div v-if="user" class='flex-1 xl:sticky xl:top-4 h-fit flex flex-col gap-4'>
                 <div v-if="user !== 'Guest'" class="hidden xl:flex bg-gray-100 dark:bg-gray-900 p-4 rounded-md">
-                    <RecipeProfile :size="30" :user/>
+                    <RecipeProfile :size="30" :user :column="true" :rounded="true"/>
                 </div>
                 <div class='w-full mb-2'>
                     <h2>Find Recipes</h2>
@@ -54,7 +54,7 @@ if (!page.props.auth.user.id)
                     <slot />
                 </div>
             </div>
-            <div class='hidden xl:block xl:sticky xl:top-4 h-min flex-2 p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold '>
+            <div class='hidden xl:block xl:sticky xl:top-4 h-min flex-1 p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold '>
                 <ul class="flex gap-2 flex-col">
                     <li><h2>Followed</h2></li>
                     <div v-if="user.following.length > 0">

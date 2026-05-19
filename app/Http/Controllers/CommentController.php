@@ -27,4 +27,16 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'Comment added successfully!');
     }
+    public function destroy(Comment $comment)
+    {
+        if ($comment->user_id === auth()->user()->id)
+        {
+            $comment->delete();
+            return response()->json('Comment deleted!');
+        }
+        else
+        {
+            return response()->json('Operation not permitted!');
+        }
+    }
 }

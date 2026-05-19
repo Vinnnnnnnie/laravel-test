@@ -136,7 +136,7 @@ class RecipeController extends Controller
             $recipe->delete();
             return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
         }
-        return back()->withError('Operation not permitted.');
+        return back()->withErrors('Operation not permitted.');
     }
 
     public function edit($id) {

@@ -78,9 +78,8 @@ Route::controller(RecipeController::class)->group(function () {
 });
 
 
-
 Route::post('/recipes/{recipe}', [CommentController::class, 'store'])->name('comments.store');
-
+Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
 Route::get('/games', function() 

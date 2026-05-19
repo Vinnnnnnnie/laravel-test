@@ -13,7 +13,7 @@ import RecipeProfile from './RecipeProfile.vue';
 import { computed } from 'vue';
 import SaveRecipeButtons from './SaveRecipeButtons.vue';
 import { usePage } from "@inertiajs/vue3";
-import { ChatBubbleBottomCenterIcon } from '@heroicons/vue/16/solid';
+import { ChatBubbleBottomCenterIcon, ClockIcon, UsersIcon, ClipboardIcon } from '@heroicons/vue/16/solid';
 import { HeartIcon } from '@heroicons/vue/16/solid';
 
 const page = usePage();
@@ -40,10 +40,14 @@ const created = computed (() => new Date(props.recipe.created_at).toLocaleString
                         </div>
                     </Link>
                     <div class="grid grid-cols-2 grid-rows-2 gap-2 p-4">
-                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Prep: {{ recipe.preparation_time }} mins</p>
-                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Cook: {{ recipe.cooking_time }} mins</p>
-                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">{{ recipe.difficulty }}</p>
-                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Serves {{ recipe.servings }}</p>
+                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold"><ClipboardIcon class="size-4"/>Prep: {{ recipe.preparation_time }} mins</p>
+                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold"><ClockIcon class="size-4"/> Cook: {{ recipe.cooking_time }} mins</p>
+                        <p class="p-2 rounded-md  border-1 font-semibold" 
+                        :class="{
+                            'border-green-500':recipe.difficulty === 'Easy',
+                            'border-amber-500':recipe.difficulty === 'Medium',
+                            'border-red-500':recipe.difficulty === 'Hard'}">{{ recipe.difficulty }}</p>
+                        <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold"><UsersIcon class="size-4"/>Serves {{ recipe.servings }}</p>
                     </div>
                     <ul v-if="recipe.tags" class='flex flex-row flex-wrap gap-2'>
                         <span v-for="tag in recipe.tags" class='bg-blue-500 text-white p-2 rounded-md'>{{ tag.name }}</span>

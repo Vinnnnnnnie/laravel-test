@@ -76,8 +76,6 @@ class UserController extends Controller
     }
     public function savedRecipes()
     {
-        $user = auth()->user();
-        $recipes = $user->savedRecipes()->paginate(10);
         return Inertia::render('Users/SavedRecipes', 
             ['recipes' => Inertia::scroll(fn () =>  
                 auth()
@@ -119,5 +117,9 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('users.show', auth()->user())->with('success', 'Profile updated successfully!');
+    }
+
+    public function settings() {
+        return Inertia::render('Users/Settings');
     }
 }

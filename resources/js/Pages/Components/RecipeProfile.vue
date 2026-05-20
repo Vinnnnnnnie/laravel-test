@@ -4,6 +4,7 @@ import ProfilePicture from './ProfilePicture.vue';
 import { Link } from '@inertiajs/vue3';
 import { usePage } from "@inertiajs/vue3";
 import FollowUserButtons from './FollowUserButtons.vue';
+import { Cog6ToothIcon } from '@heroicons/vue/16/solid';
 const props = defineProps({ 
     user: Object,
     userId: Number,
@@ -50,6 +51,7 @@ const fontClass = props.size > 20 ? 'text-3xl font-semibold' : 'text-xl'
                         {{ user.reputation }}
                     </div>
                 </div>
+                <Link class="flex flex-row gap-2 items-center" :href="route('users.settings')"><Cog6ToothIcon class="size-4"/> Settings</Link>
             </div>
             
         </div>

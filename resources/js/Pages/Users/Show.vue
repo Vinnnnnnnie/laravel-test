@@ -21,7 +21,7 @@ const props = defineProps({
                 </div>
                 <div class='flex flex-col gap-4'>
                     <div class='flex flex-col justify-start w-full'>
-                        <h2>{{ user.first_name}} {{ user.last_name }}</h2>
+                        <h2>{{user.username}}</h2>
                         <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                             <span v-if="user.reputation < 5">Arsonist</span>
                             <span v-else-if="user.reputation < 10">Barbecuer</span>

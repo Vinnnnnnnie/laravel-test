@@ -27,11 +27,20 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $files = Storage::disk('users')->allFiles('');
-        $path = $files[array_rand($files)];
-        $request->merge(['image_path' => $path]);
+        if (!$request->image) {
+            $image_path = $files[array_rand($files)];
+            $request->merge(['image_path' => $image_path]);
+        }
+        else {
+            $image_path = $request->image->store("users", 'public');
+            $image_path = str_replace('users/', '', $image_path); 
+        }
+                
+        $request->merge(['image_path' => $image_path]);
         $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|unique:users|max:32',
+            'first_name' => 'required|string|max:32',
+            'last_name' => 'required|string|max:32',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'image_path' => 'required|string',

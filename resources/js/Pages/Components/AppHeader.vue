@@ -25,12 +25,12 @@ const user = computed(() => page.props.auth.user);
                 </Link>
                 <span class=" font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
                 <Form :action="route('logout')" method='POST'>
-                    <button class='btn' type='submit'>Logout</button>
+                    <button class='rounded-2xl bg-blue-500 px-4 py-2 m-4 font-bold' type='submit'>Logout</button>
                 </Form>
             </div>
             <div v-else class="flex p-2 items-center gap-2 justify-center">
-                <Link class='btn' :href="route('show.login')">Login</Link>
-                <Link class='btn' :href="route('show.register')">Register</Link>
+                <Link class='rounded-2xl bg-blue-500 px-4 py-2 m-4 font-bold' :href="route('show.login')">Login</Link>
+                <Link class='rounded-2xl border-green-500 border-1 px-4 py-2 m-4 font-bold' :href="route('show.register')">Register</Link>
             </div>
         </div>    
     </header>

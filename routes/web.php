@@ -53,6 +53,7 @@ Route::get('/public/images/website/{filename}', function ($filename) {
 Route::middleware('auth')->controller(UserController::class)->group(function () {
     Route::get('/users/edit', 'edit')->name('users.edit');
     Route::get('/users/savedRecipes', 'savedRecipes')->name('users.savedRecipes');
+    Route::get('/users/settings', 'settings')->name('users.settings');
     Route::post('/users/follow', 'follow')->name('users.follow');
     Route::delete('/users/unfollow', 'unfollow')->name('users.unfollow');
     Route::post('/users/update', 'update')->name('users.update');

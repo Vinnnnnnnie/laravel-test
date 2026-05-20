@@ -27,6 +27,7 @@ async function addUser(user) {
         page.props.auth.user.following.push({
             'user_id' : user.id,
             'image_path' : user.image_path,
+            'username' : user.username,
             'first_name' : user.first_name,
             'last_name' : user.last_name,
             'reputation' : user.reputation 

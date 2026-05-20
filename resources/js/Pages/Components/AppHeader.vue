@@ -23,7 +23,7 @@ const user = computed(() => page.props.auth.user);
                 <Link class="hidden xl:block" :href="route('users.show', user)">
                     <ProfilePicture :image="user.image_path" :size="10"/>
                 </Link>
-                <span class=" font-bold text-lg mr-2 content-center">Hello, {{ user.first_name }} </span>
+                <span class=" font-bold text-lg mr-2 content-center">Hello, {{ user.username ?? 'Username' }} </span>
                 <Form :action="route('logout')" method='POST'>
                     <button class='rounded-2xl bg-blue-500 px-4 py-2 m-4 font-bold' type='submit'>Logout</button>
                 </Form>

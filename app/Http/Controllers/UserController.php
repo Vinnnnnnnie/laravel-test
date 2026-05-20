@@ -106,8 +106,9 @@ class UserController extends Controller
             $request->merge(['image_path' => $image_path]);
         }
         $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|max:32|unique:users',
+            'first_name' => 'required|string|max:32',
+            'last_name' => 'required|string|max:32',
             'email' => 'required|email',
             'bio' => 'nullable|string|max:255',
             'image_path' => 'string'

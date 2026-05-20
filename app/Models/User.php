@@ -73,10 +73,6 @@ class User extends Authenticatable
         // Add number of comments
     }
 
-    public function name() {
-        return $this->first_name . ' ' . $this->last_name;
-    }
-
     public function recipes() {
         return $this->hasMany(Recipe::class);
     }

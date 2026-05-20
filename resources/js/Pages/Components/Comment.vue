@@ -50,7 +50,7 @@ async function removeComment(comment) {
                 :image='comment.user.image_path'
             />
             <div class="w-full flex flex-col items-start h-full">
-                <h5 class='text-l font-semibold'><Link :href="route('users.show', comment.user)">{{ comment.user.first_name }} {{  comment.user.last_name }}</Link></h5>
+                <h5 class='text-l font-semibold'><Link :href="route('users.show', comment.user)">{{ comment.user.username ?? 'Username' }}</Link></h5>
                 {{ comment.comment}}
             </div>
         </div>

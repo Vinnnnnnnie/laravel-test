@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
         User::factory()->create()->count(10);
         User::create([
+            'username' => 'Vinnie',
             'first_name' => 'Vincent',
             'last_name' => 'Owens',
             'email' => 'vincent@gmail.com',
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'reputation' => 1000
         ]);
         User::create([
+            'username' => 'Rise',
             'first_name' => 'Tom',
             'last_name' => 'Bozier',
             'email' => 'tom@gmail.com',
@@ -36,6 +38,7 @@ class UserSeeder extends Seeder
             'reputation' => 1000
         ]);
         User::create([
+            'username' => 'FinalNightOfSin',
             'first_name' => 'Ellen',
             'last_name' => 'Maxwell',
             'email' => 'ellen@gmail.com',
@@ -46,6 +49,7 @@ class UserSeeder extends Seeder
         ]);
         User::create(
         [
+            'username' => 'Midnight',
             'first_name' => 'Vera',
             'last_name' => 'Stepanyan',
             'email' => 'vera@gmail.com',
@@ -56,6 +60,7 @@ class UserSeeder extends Seeder
         );
         User::create(
         [
+            'username' => 'Spikey',
             'first_name' => 'Spike',
             'last_name' => 'Owens',
             'email' => 'spike@gmail.com',

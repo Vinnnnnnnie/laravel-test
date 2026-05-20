@@ -20,7 +20,7 @@ const props = defineProps({
                             <div class='p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold hidden xl:flex'>
                                 <img :src="route('image.users', user.image_path)" class='w-20 max-w-20'>
                                 <div>
-                                    <h2 class='text-xl font-bold'><Link :href="route('users.show', user.id)">{{ user.first_name }} {{ user.last_name }}</Link></h2>
+                                    <h2 class='text-xl font-bold'><Link :href="route('users.show', user.id)">{{ user.user.username ?? 'Username' }}</Link></h2>
                                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                                         <span v-if="user.reputation < 5">Arsonist</span>
                                         <span v-else-if="user.reputation < 10">Barbecuer</span>

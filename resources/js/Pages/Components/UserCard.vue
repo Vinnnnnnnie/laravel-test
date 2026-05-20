@@ -15,7 +15,7 @@ const user = computed(() => page.props.auth.user);
         </div>
         <div>
             <h2 v-if="user.id !== 0" class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'>
-                <Link  :href="route('users.show', user.id)">{{ user.first_name }} {{ user.last_name }}</Link> 
+                <Link  :href="route('users.show', user.id)">{{ user.user.username ?? 'Username' }}</Link> 
             </h2>
             <h2 else class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'> Guest</h2>
 

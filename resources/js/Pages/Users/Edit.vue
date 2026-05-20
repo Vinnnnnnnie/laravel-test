@@ -32,6 +32,10 @@ const previewImage = (event) => {
                     <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image">
                 </div>
                 <div class='flex flex-col'>
+                    <label class='form-label' for="username">Username</label>
+                    <input class='form-control' type="text" id="username" name="username" value='' required>
+                </div>
+                <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="first-name">First Name</label>
                     <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="first-name" name="first_name" :value='user.first_name' required>
                 </div>

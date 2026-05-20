@@ -18,6 +18,7 @@ if (!page.props.auth.user.id)
         "email":"Guest",
         "first_name":"Guest",
         "last_name":"User",
+        "username":"GuestUser",
         "image_path":"Pan.jpg",
         "recipes":[],
         "saved_recipes":[],
@@ -65,7 +66,7 @@ if (!page.props.auth.user.id)
                                     :size="10"
                                 />
                                 <div>
-                                    <div><Link :href="route('users.show', followed.user_id)">{{ followed.first_name}} {{ followed.last_name }}</Link></div>
+                                    <div><Link :href="route('users.show', followed.user_id)">{{ followed.username ?? 'Username' }}</Link></div>
                                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                                         <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                                             <span v-if="followed.reputation < 5">Arsonist</span>

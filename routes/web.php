@@ -27,7 +27,7 @@ Route::get('/public/images/users/{filename}', function ($filename) {
     $path = public_path('storage/users/' . $filename);
 
     if (!file_exists($path) || is_dir($filename)) {
-        $path = public_path('storage/users/Aubergine.jpg');
+        $path = public_path('storage/users/defaults/Aubergine.jpg');
     }
     return response()->file($path);
 })->name('image.users');
@@ -35,7 +35,7 @@ Route::get('/public/images/users/{filename}', function ($filename) {
 Route::get('/public/images/recipes/{filename}', function ($filename) {
     $path = public_path('storage/recipes/' . $filename);
     if (!file_exists($path) || is_dir($filename)) {
-        $path = public_path('storage/recipes/Plate.jpg');
+        $path = public_path('storage/recipes/defaults/Plate.jpg');
     }
     return response()->file($path);
 })->name('image.recipes');

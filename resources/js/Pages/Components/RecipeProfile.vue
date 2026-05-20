@@ -51,7 +51,6 @@ const fontClass = props.size > 20 ? 'text-3xl font-semibold' : 'text-xl'
                         {{ user.reputation }}
                     </div>
                 </div>
-                <Link class="flex flex-row gap-2 items-center" :href="route('users.settings')"><Cog6ToothIcon class="size-4"/> Settings</Link>
             </div>
             
         </div>

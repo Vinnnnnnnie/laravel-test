@@ -8,6 +8,7 @@ import { usePage } from "@inertiajs/vue3";
 import RecipeProfile from './RecipeProfile.vue';
 import ProfilePicture from './ProfilePicture.vue';
 import Toast from './Toast.vue';
+import { Cog6ToothIcon, HeartIcon, PlusIcon } from '@heroicons/vue/16/solid';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -36,6 +37,9 @@ if (!page.props.auth.user.id)
                 <div v-if="user !== 'Guest'" class="hidden xl:flex bg-gray-100 dark:bg-gray-900 p-4 rounded-md">
                     <RecipeProfile :size="30" :user :column="true" :rounded="true"/>
                 </div>
+                <div class="hidden xl:flex bg-gray-100 dark:bg-gray-900 p-4 rounded-md" v-if="user.id !== 0">
+                    <Link class="flex flex-row gap-2 items-center" :href="route('users.settings')"><Cog6ToothIcon class="size-4"/> Settings</Link>
+                </div>
                 <div class='w-full mb-2'>
                     <h2>Find Recipes</h2>
                     <Form :action="route('recipes.search')" method='get' class='flex gap-2 dark:bg-gray-900 bg-gray-100 p-4 rounded-md '>
@@ -44,14 +48,14 @@ if (!page.props.auth.user.id)
                     </Form>
                 </div>
                 <div v-if="user.id !== 0" class='flex flex-row xl:flex-col justify-center items-center gap-4 mb-4'>
-                    <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.create')"> Create a New Recipe</Link>
-                    <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('users.savedRecipes')"> Saved Recipes</Link>
-                    <Link class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold" > Settings</Link>
+                    <Link class='p-2 flex gap-2 items-center rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.create')"><PlusIcon class="size-4"/> Create a New Recipe</Link>
+                    <Link class='p-2 flex gap-2 items-center rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('users.savedRecipes')"><HeartIcon class="size-4"/> Saved Recipes</Link>
                 </div>
             </div>
             <div class='flex-4 justify-between gap-8 '>
-                <div class='flex-2 gap-4 dark:bg-gray-800'>
+                <div class='flex-2 flex flex-col gap-2 dark:bg-gray-800 justify-center '>
                     <Toast />
+                    <Link class="p-3 w-100 flex mb-2 gap-2 align-baseline self-center justify-center items-center cursor-pointer rounded-sm bg-blue-500 hover:bg-blue-500 font-semibold" :href="route('recipes.index')">See Latest Recipes</Link>
                     <slot />
                 </div>
             </div>

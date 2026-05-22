@@ -140,7 +140,7 @@ class RecipeController extends Controller
     }
 
     public function edit($id) {
-        $recipe = Recipe::findOrFail($id)->load(['ingredients', 'steps']);
+        $recipe = Recipe::findOrFail($id)->load(['ingredients', 'steps', 'tags']);
         $tags = Tag::orderBy('name', 'asc')->get();
         return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
     }

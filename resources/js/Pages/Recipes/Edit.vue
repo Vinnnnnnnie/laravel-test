@@ -1,13 +1,14 @@
 <script setup>
-import { Form } from '@inertiajs/vue3';
+import { Form, usePage } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 const props = defineProps({
     recipe: Object,
     tags: Object
 })
-
+const page = usePage();
 const imageUrl = ref('');
+const recipeTagIds = computed(() => page.props.recipe.tags.map((t) => t.id));
 const previewImage = (event) => {
     const file = event.target.files[0]
     if (!file) return
@@ -18,6 +19,7 @@ const previewImage = (event) => {
     }
     reader.readAsDataURL(file)
 }
+// const tags = ref(props.recipe.tags);
 const ingredients = ref(props.recipe.ingredients);
 const steps = ref(props.recipe.steps);
 
@@ -91,7 +93,7 @@ function removeFromArray(index, fieldType)
                 </div>
                 <ul class=" select-none  flex flex-row gap-2 flex-wrap">
                     <li v-for="(tag, index) in tags" :key="`tag-${index}`">
-                        <input type="checkbox" :id="tag.id" name='tags[]' :value="tag.id" class="hidden peer" />
+                        <input type="checkbox" :id="tag.id" name='tags[]' :checked="recipeTagIds.includes(tag.id)" :value="tag.id" class="hidden peer" />
                         <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
                                 py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500  ">
                                 <span>{{ tag.name }}</span>

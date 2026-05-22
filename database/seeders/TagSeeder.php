@@ -14,14 +14,19 @@ class TagSeeder extends Seeder
      */
     public function run(): void
     {
-        $tagArray = [
-            'Asian', 'Chinese', 'Indian', 'Korean', 'Thai', 'Japanese', 'Mexican', 
-            'Spanish', 'Mediteranean', 'Italian', 'Greek', 'French', 'British', 'Middle Eastern', 'One-pot', 
-            'Main', 'Side', 'Dessert', 'Sauce', 'Drink', 'Roasted', 'Fried', 'Baked', 'Fusion', 'Curry', 
-            'Soup', 'Stew', 'Sandwich', 'Dairy-free', 'Light', 'Fresh', 'Salad', 'Hearty', 'Warming', 'Welsh', 
-            'Breakfast', 'Lunch', 'Dinner', 'Snack', 'Scottish', 'Irish', 'Spicy', 'BBQ', 'Cajun', 
-            'Meaty', 'Vegatarian', 'Vegan'
-        ];
+        // $tagArray = [
+        //     'Asian', 'Chinese', 'Indian', 'Korean', 'Thai', 'Japanese', 'Mexican', 
+        //     'Spanish', 'Mediteranean', 'Italian', 'Greek', 'French', 'British', 'Middle Eastern', 'One-pot', 
+        //     'Main', 'Side', 'Dessert', 'Sauce', 'Drink', 'Roasted', 'Fried', 'Baked', 'Fusion', 'Curry', 
+        //     'Soup', 'Stew', 'Sandwich', 'Dairy-free', 'Light', 'Fresh', 'Salad', 'Hearty', 'Warming', 'Welsh', 
+        //     'Breakfast', 'Lunch', 'Dinner', 'Snack', 'Scottish', 'Irish', 'Spicy', 'BBQ', 'Cajun', 
+        //     'Meaty', 'Vegatarian', 'Vegan'
+        // ];
+        $tagArray = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert', 
+            'Drink', 'Vegetarian', 'Vegan', 'Gluten-Free', 'Dairy-Free', 'One-Pot', 
+            'Pescetarian', 'Mediterranean', 'East Asian', 'South Asian', 'European', 
+            'British', 'African', 'South American', 'North American', 'Fried', 'Baked',
+            'BBQ', 'Spicy', 'Middle Eastern'];
         foreach ($tagArray as $tag)
         {
             Tag::create([

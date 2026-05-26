@@ -106,7 +106,7 @@ class UserController extends Controller
             $request->merge(['image_path' => $image_path]);
         }
         $validated = $request->validate([
-            'username' => 'required|string|max:32|unique:users',
+            'username' => 'required|string|max:32',
             'first_name' => 'required|string|max:32',
             'last_name' => 'required|string|max:32',
             'email' => 'required|email',
@@ -114,7 +114,7 @@ class UserController extends Controller
             'image_path' => 'string'
         ]);
 
-        $user = User::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id)->first();
         $user->update($validated);
 
         return redirect()->route('users.show', auth()->user())->with('success', 'Profile updated successfully!');

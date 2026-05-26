@@ -8,7 +8,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
-
+use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Format;
 
 Route::inertia('/', 'Home')->name('home');
 
@@ -23,14 +25,19 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('/login',  'login')->name('login');
 });
 
-Route::get('/public/images/users/{filename}', function ($filename) {
+Route::get('/public/images/users/{filename}/{height?}/{width?}', function (string $filename, ?int $height = 300, ?int $width = 300) {
     $path = public_path('storage/users/' . $filename);
-
+    
     if (!file_exists($path) || is_dir($filename)) {
         $path = public_path('storage/users/defaults/Aubergine.jpg');
     }
-    return response()->file($path);
+    $imageData = file_get_contents($path);
+    
+
+    $image =  Image::decode($imageData)->cover(300,300);
+    return response()->image($image);
 })->name('image.users');
+
 
 Route::get('/public/images/recipes/{filename}', function ($filename) {
     $path = public_path('storage/recipes/' . $filename);

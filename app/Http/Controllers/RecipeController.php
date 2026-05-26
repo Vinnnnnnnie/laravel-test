@@ -200,7 +200,8 @@ class RecipeController extends Controller
         ]);
 
 
-        $recipe = Recipe::find($request->input('id'));
+        $recipe = Recipe::find($request->input('id'))->first();
+        $recipeModel = $recipe;
         $recipe->update($validated);
         $recipe->ingredients()->delete();
         $recipe->steps()->delete();
@@ -240,6 +241,6 @@ class RecipeController extends Controller
         $recipe = Recipe::with(['user'])
         ->where('recipes.id', '=' ,$request->input('id'))
         ->get();
-        return redirect()->route('recipes.index')->with('success', 'Recipe updated successfully!');
+        return $this->show($recipeModel);
     }
 }

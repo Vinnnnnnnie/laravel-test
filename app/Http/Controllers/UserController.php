@@ -116,8 +116,9 @@ class UserController extends Controller
 
         $user = User::find(auth()->user()->id)->first();
         $user->update($validated);
-
-        return redirect()->route('users.show', auth()->user())->with('success', 'Profile updated successfully!');
+        $user->refresh();
+        
+        return redirect()->route('users.show',$user)->with('success', 'Profile updated successfully!');
     }
 
     public function settings() {

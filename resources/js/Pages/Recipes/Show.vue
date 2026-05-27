@@ -37,7 +37,7 @@ const props = defineProps({
                                     :image='recipe.user.image_path'
                                 />
                                 <div>
-                                    <div class="text-xl font-semibold">{{ recipe.user.first_name }} {{ recipe.user.last_name }}</div>
+                                    <div class="text-xl font-semibold">{{ recipe.user.username }}</div>
                                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
                                         <span v-if="recipe.user.reputation < 5">Arsonist</span>
                                         <span v-else-if="recipe.user.reputation < 10">Barbecuer</span>

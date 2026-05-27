@@ -1,5 +1,5 @@
 <script setup>
-import { Form, usePage } from '@inertiajs/vue3';
+import { Form, useForm, usePage } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
 import { ref, computed } from 'vue';
 const props = defineProps({
@@ -31,15 +31,44 @@ function removeFromArray(index, fieldType)
 {
     fieldType.splice(index, 1);
 }
+
+const form = useForm({
+    title: '',
+    image: '',
+    ingredients: [],
+    steps: [],
+    preparation_time: 0,
+    cooking_time: 0,
+    servings: 0,
+    difficulty: '',
+    tags: []
+});
+
+const submit = () => {
+    form.image = file;
+    form.steps = steps.value;
+    form.ingredients = ingredients.value;
+    form.post(route('recipes.update', recipe.id), {
+        onError: () => {
+            Object.keys(form.errors).forEach(key => {
+                showToast('error', form.errors[key])
+            })
+        },
+        onSuccess: () => {
+            showToast('success', 'Recipe updated!');
+        }
+    })
+}
+
 </script>
 <template>
     <RecipeLayout>
         <div class="bg-gray-100 dark:bg-gray-900 p-4 flex flex-col">
             <h2>Edit Recipe</h2>
-            <Form class='flex flex-col gap-4' :action="route('recipes.update', recipe.id)" method='POST' enctype="multipart/form-data">
+            <form @submit.prevent="submit" class='flex flex-col gap-4' enctype="multipart/form-data">
                 <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
                     <img v-if="imageUrl" id='image-preview' :src="imageUrl" class='aspect-auto h-fit max-h-80 self-center'>
-                </div>            
+                </div>
                 <div hidden>
                     <label class='text-xl font-semibold' for="id">Recipe id</label>
                     <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="id" name="id" :value='recipe.id' required>

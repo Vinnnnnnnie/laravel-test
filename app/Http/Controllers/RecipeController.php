@@ -201,7 +201,6 @@ class RecipeController extends Controller
 
 
         $recipe = Recipe::find($request->input('id'))->first();
-        $recipeModel = $recipe;
         $recipe->update($validated);
         $recipe->ingredients()->delete();
         $recipe->steps()->delete();
@@ -237,10 +236,9 @@ class RecipeController extends Controller
         {
             $recipe->tags()->sync($request->tags);
         }
+        //
+        $recipe->refresh();
 
-        $recipe = Recipe::with(['user'])
-        ->where('recipes.id', '=' ,$request->input('id'))
-        ->get();
-        return $this->show($recipeModel);
+        return redirect()->route('recipes.show',$recipe);
     }
 }

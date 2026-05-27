@@ -25,8 +25,8 @@ if (!page.props.auth.user.id)
         "saved_recipes":[],
         "following":[],
         "followers":[]}
+        
 }
-
 </script>
 
 <template>
@@ -56,6 +56,14 @@ if (!page.props.auth.user.id)
                 <div class='flex-2 flex flex-col gap-2 dark:bg-gray-800 justify-center '>
                     <Toast />
                     <Link class="p-3 w-100 flex mb-2 gap-2 align-baseline self-center justify-center items-center cursor-pointer rounded-sm bg-blue-500 hover:bg-blue-500 font-semibold" :href="route('recipes.index')">See Latest Recipes</Link>
+                    <ul v-if="page.props.errors">
+                        <li v-for="error in page.props.errors" class="bg-red-500 rounded-sm text-white font-semibold">
+                            {{ error }}
+                        </li>
+                    </ul>
+                    <div v-if="page.props.success" class="bg-green-500 rounded-sm p-4 text-gray-100 font-semibold">
+                        {{ page.props.success }}
+                    </div>
                     <slot />
                 </div>
             </div>

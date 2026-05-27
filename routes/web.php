@@ -33,18 +33,20 @@ Route::get('/public/images/users/{filename}/{height?}/{width?}', function (strin
     }
     $imageData = file_get_contents($path);
     
-
     $image =  Image::decode($imageData)->cover(300,300);
     return response()->image($image);
 })->name('image.users');
 
 
-Route::get('/public/images/recipes/{filename}', function ($filename) {
+Route::get('/public/images/recipes/{filename}/{height?}/{width?}', function (string $filename, ?int $height = 500, ?int $width = 500) {
     $path = public_path('storage/recipes/' . $filename);
     if (!file_exists($path) || is_dir($filename)) {
         $path = public_path('storage/recipes/defaults/Plate.jpg');
     }
-    return response()->file($path);
+    $imageData = file_get_contents($path);
+    
+    $image =  Image::decode($imageData)->cover($height,$width);
+    return response()->image($image);
 })->name('image.recipes');
 
 Route::get('/public/images/website/{filename}', function ($filename) {

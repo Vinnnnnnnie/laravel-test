@@ -201,7 +201,7 @@ class RecipeController extends Controller
         ]);
 
 
-        $recipe = Recipe::find($request->input('id'))->first();
+        $recipe = Recipe::find($request->input('id'));
         $recipe->update($validated);
         $recipe->ingredients()->delete();
         $recipe->steps()->delete();

@@ -41,7 +41,6 @@ class UserController extends Controller
 
         $user->following()->attach($userToFollow);
         return response()->json('User Followed!');
-        return redirect()->route('users.show', ['user' => $userToFollow])->with('success', 'Followed!');
 
     }
     public function unfollow(Request $request)
@@ -52,7 +51,6 @@ class UserController extends Controller
         $user->following()->detach($userToUnfollow);
         return response()->json('User Unfollowed!');
 
-        return redirect()->route('users.show', ['user' => $userToUnfollow])->with('success', 'Unfollowed!');
     }
 
     public function edit()

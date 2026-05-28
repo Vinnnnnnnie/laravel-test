@@ -35,6 +35,12 @@ function removeFromArray(index, fieldType)
     fieldType.splice(index, 1);
 }
 
+function addTag(id) {
+    recipeTagIds.push({id});
+}
+function removeTag(id) {
+    recipeTagIds.filter((value)=> value !== id);
+}
 const form = useForm({
     id: page.props.recipe.id,
     title: page.props.recipe.title,
@@ -50,14 +56,15 @@ const form = useForm({
 
 
 const newTags = ref(page.props.recipe.tags);
-const recipeTagIds = computed(() => form.tags.map((t) => t.id));
+const recipeTagIds = computed(() => page.props.recipe.tags.map((t) => t.id));
 
+const checkedTags = ref(page.props.recipe.tags.map((t) => t.id))
 const submit = () => {
     form.image = file;
     form.steps = steps.value;
     form.ingredients = ingredients.value;
     form.difficulty = page.props.recipe.difficulty;
-    form.tags = newTags;
+    form.tags = checkedTags
     form.post(route('recipes.update', page.props.recipe.id), {
         onError: () => {
             Object.keys(form.errors).forEach(key => {
@@ -141,7 +148,7 @@ watch(form.errors, (errors)=> {
                 </div>
                 <ul class=" select-none  flex flex-row gap-2 flex-wrap">
                     <li v-for="(tag, index) in tags" :key="`tag-${index}`">
-                        <input v-model='newTags[index]' type="checkbox" :id="tag.id" name='tags[]' :checked="recipeTagIds.includes(tag.id)" :value="tag.id" class="hidden peer" />
+                        <input v-model='checkedTags' type="checkbox" :id="tag.id" name='tags[]' :checked="recipeTagIds.includes(tag.id)" :value="tag.id" class="hidden peer" />
                         <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
                             py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 peer  ">
                             <span>{{ tag.name }}</span>

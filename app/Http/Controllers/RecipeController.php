@@ -131,17 +131,19 @@ class RecipeController extends Controller
         return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe) {
-        if ($recipe->user_id === auth()->user()->id)
-        {
-            User::subtractReputation(auth()->user(), 1);
-            $recipe->delete();
-            return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
+        if ($recipe->user_id !== auth()->user()->id) {
+            return back()->withErrors('Operation not permitted.');
         }
-        return back()->withErrors('Operation not permitted.');
+        User::subtractReputation(auth()->user(), 1);
+        $recipe->delete();
+        return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
     }
 
     public function edit($id) {
         $recipe = Recipe::findOrFail($id)->load(['ingredients', 'steps', 'tags']);
+        if ($recipe->user_id !== auth()->user()->id) {
+            return back()->withErrors('You are not the owner of this recipe.');
+        }
         $tags = Tag::orderBy('name', 'asc')->get();
         return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
     }
@@ -202,6 +204,9 @@ class RecipeController extends Controller
 
 
         $recipe = Recipe::find($request->input('id'));
+        if ($recipe->user_id !== auth()->user()->id) {
+            return back()->withErrors('You can only update your own recipes');
+        }
         $recipe->update($validated);
         $recipe->ingredients()->delete();
         $recipe->steps()->delete();

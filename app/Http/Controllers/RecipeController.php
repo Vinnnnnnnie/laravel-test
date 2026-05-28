@@ -133,6 +133,7 @@ class RecipeController extends Controller
     public function destroy(Recipe $recipe) {
         if ($recipe->user_id === auth()->user()->id)
         {
+            User::subtractReputation(auth()->user(), 1);
             $recipe->delete();
             return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
         }
@@ -211,7 +212,7 @@ class RecipeController extends Controller
             {
                 Ingredient::create(
                     [
-                        'name' => $ingredient,
+                        'name' => $ingredient['name'],
                         'number' => $counter,
                         'recipe_id' => $recipe->id
                     ]);
@@ -225,7 +226,7 @@ class RecipeController extends Controller
             {
                 Step::create(
                     [
-                        'step' => $step,
+                        'step' => $step['step'],
                         'number' => $counter,
                         'recipe_id' => $recipe->id
                     ]);

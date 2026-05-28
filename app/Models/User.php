@@ -66,6 +66,18 @@ class User extends Authenticatable
         $user->update(['reputation'=>$newReputation]);
     }
 
+    public static function subtractReputation(User|int $user, int $reputation)
+    {
+        // If given ID instead of User object
+        if (is_int($user))
+        {
+            $user = User::find($user, ['id', 'reputation']);
+        }
+        
+        $newReputation = $user->reputation - $reputation;
+        $user->update(['reputation'=>$newReputation]);
+    }
+
     public function totalReputation(): int
     {
         return 10;

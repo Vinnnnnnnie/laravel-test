@@ -31,6 +31,10 @@ class CommentController extends Controller
     {
         if ($comment->user_id === auth()->user()->id)
         {
+            User::subtractReputation($comment->user_id, 1);
+            $recipeOwner = Recipe::find($comment->recipe_id, 'user_id');
+            User::subtractReputation($recipeOwner->user_id, 1);
+
             $comment->delete();
             return response()->json('Comment deleted!');
         }

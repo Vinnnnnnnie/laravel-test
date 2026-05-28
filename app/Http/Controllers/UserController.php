@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $user->savedRecipes()->detach($recipe->id);
-        User::addReputation($recipe->user, -1);
+        User::subtractReputation($recipe->user, 1);
         return response()->json('Removed from your saved recipes!', 200);
     }
     public function savedRecipes()

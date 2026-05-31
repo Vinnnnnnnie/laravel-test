@@ -33,6 +33,20 @@ class UserTest extends TestCase
         ]);
     }
 
+    public function test_users_can_follow(): void {
+        $user = User::factory()->create();
+        $userToFollow = User::factory()->create();
+        $response = $this->actingAs($user)->post(route('users.follow'), ['id'=>$userToFollow->id]);
+        $response->assertStatus(200);
+    }
+
+    public function test_users_can_unfollow(): void {
+        $user = User::factory()->create();
+        $userToFollow = User::factory()->create();
+        $response = $this->actingAs($user)->delete(route('users.unfollow'), ['id'=>$userToFollow->id]);
+        $response->assertStatus(200);
+    }
+
     public function test_show_returns_user(): void {
         $user = User::factory()->create(['bio' => 'Testing bio to be found on the user show route.']);
         $response = $this->actingAs($user)->get(route('users.show', ['user' => $user]));
@@ -44,5 +58,11 @@ class UserTest extends TestCase
         $userToSearch = User::factory()->create(['username' => 'UsernameToLookFor']);
         $response = $this->actingAs($user)->get(route('recipes.search', ['term' => $userToSearch->username]));
         $response->assertSee($userToSearch->username);
+    }
+
+    public function test_edit_page(): void {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get(route('users.edit'));
+        $response->assertStatus(200);
     }
 }

@@ -38,6 +38,8 @@ class UserTest extends TestCase
         $userToFollow = User::factory()->create();
         $response = $this->actingAs($user)->post(route('users.follow'), ['id'=>$userToFollow->id]);
         $response->assertStatus(200);
+        $response->assertContent('"User Followed!"');
+
     }
 
     public function test_users_can_unfollow(): void {
@@ -45,6 +47,7 @@ class UserTest extends TestCase
         $userToFollow = User::factory()->create();
         $response = $this->actingAs($user)->delete(route('users.unfollow'), ['id'=>$userToFollow->id]);
         $response->assertStatus(200);
+        $response->assertContent('"User Unfollowed!"');
     }
 
     public function test_show_returns_user(): void {

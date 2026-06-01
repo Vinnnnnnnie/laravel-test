@@ -53,6 +53,25 @@ class RecipeTest extends TestCase
         ]);
 
     }
+
+    public function test_recipes_can_be_saved(): void {
+        $user = User::factory()->create();
+        $owner = User::factory()->create();
+        $recipeToSave = Recipe::factory()->create(['user_id' => $owner->id]);
+        $response = $this->actingAs($user)->post(route('users.addSavedRecipe', ['recipe'=>$recipeToSave]));
+        $response->assertStatus(200);
+        $response->assertContent('"Added to your saved recipes!"');
+    }
+
+    public function test_recipes_can_be_unsaved(): void {
+        $user = User::factory()->create();
+        $owner = User::factory()->create();
+        $recipeToSave = Recipe::factory()->create(['user_id' => $owner->id]);
+        $response = $this->actingAs($user)->delete(route('users.removeSavedRecipe', ['recipe'=>$recipeToSave]));
+        $response->assertStatus(200);
+        $response->assertContent('"Removed from your saved recipes!"');
+    }
+
     public function test_show_returns_recipe(): void
     {
         $user = User::factory()->createOne();
@@ -61,6 +80,13 @@ class RecipeTest extends TestCase
         $response = $this->actingAs($user)->get(route('recipes.show', ['recipe' => $recipe]));
 
         $response->assertSee($recipe->title);
+    }
+
+    public function test_edit_recipe(): void {
+        $user = User::factory()->create();
+        $recipe = Recipe::factory()->create(['user_id' => $user->id]);
+        $response = $this->actingAs($user)->get(route('recipes.edit', ['recipe' => $recipe]));
+        $response->assertStatus(200);
     }
     public function test_search_returns_recipe(): void
     {

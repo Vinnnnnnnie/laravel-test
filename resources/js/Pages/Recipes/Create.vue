@@ -4,6 +4,7 @@ import { Form, Head, useForm, usePage } from '@inertiajs/vue3';
 import { reactive, ref } from 'vue';
 import { watch } from 'vue';
 import { showToast } from '../../Composables/useToast';
+import { Sortable } from "sortablejs-vue3";
 
 const props = defineProps({
     tags: Object
@@ -99,13 +100,25 @@ watch(form.errors, (errors)=> {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="instructions" class='form-label'>Method</label> <span v-if="form.errors.method" class="text-red-500">{{form.errors.method}}</span>
-                        <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in steps" :key="`step-${index}`">
-                            <label for="steps" class='form-label'>{{ index+1 }}.</label>
-                            <textarea v-model="input.value" name="steps[]" class='form-control w-full' required/>
-                            <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, steps)">Add</button>
-                            <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, steps)">Remove</button>
+                        <!-- <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in steps" :key="`step-${index}`"> -->
+                                <Sortable
+                                :list="steps"
+                                item-key="id"
+                                tag="div"
+                                :options="options"
+                                >
+                                <template #item="{element, index}">
+                                    <div class="draggable" :key="element.id">
+                                        <label for="steps" class='form-label'>{{ index+1 }}.</label>
+                                        <textarea v-model="element.value" name="steps[]" class='form-control w-full' required/>
+                                        <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(element, steps)">Add</button>
+                                        <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(element, steps)">Remove</button>
+                                    </div>
+                                </template>
+                                </Sortable>
+                            <!-- </Sortable> -->
                         </div>
-                    </div>
+                    <!-- </div> -->
                     <div>
                         <label for="preparation_time" class='form-label'>Preparation Time (minutes)</label> <span v-if="form.errors.preparation_time" class="text-red-500">{{form.errors.preparation_time}}</span>
                         <input v-model="form.preparation_time" type="number" id="preparation_time" class='form-control w-full' name="preparation_time" value='' required>

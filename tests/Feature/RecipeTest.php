@@ -92,7 +92,7 @@ class RecipeTest extends TestCase
     {
         $user = User::factory()->createOne();
         $title = 'Search term you cant guess';
-        $recipe = Recipe::factory()->create([
+        Recipe::factory()->create([
             'title' => $title
         ]);
         $response = $this->actingAs($user)->get(route('recipes.search', ['term' => $title]));

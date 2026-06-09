@@ -3,6 +3,7 @@ import { Form, Head, useForm, usePage } from '@inertiajs/vue3';
 import RecipeLayout from '../Components/RecipeLayout.vue';
 import { ref, computed, watch } from 'vue';
 import { showToast } from '../../Composables/useToast';
+import { ArrowUpIcon, ArrowDownIcon, XCircleIcon, XMarkIcon, PlusCircleIcon, PlusIcon } from '@heroicons/vue/16/solid';
 
 const props = defineProps({
     recipe: Object,
@@ -33,6 +34,17 @@ function addToArray(value, fieldType)
 function removeFromArray(index, fieldType)
 {
     fieldType.splice(index, 1);
+}
+
+function shiftUp(index, array) {
+    const movedItem = steps.value.splice(index, 1)[0];
+    steps.value.splice(index-1, 0, movedItem)
+
+}
+
+function shiftDown(index, array) {
+    const movedItem = steps.value.splice(index, 1)[0];
+    steps.value.splice(index+1, 0, movedItem)
 }
 
 const form = useForm({
@@ -103,19 +115,25 @@ watch(form.errors, (errors)=> {
                     <label for="ingredients" class='form-label'>Ingredients</label>
                     <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
                         <input  v-model="input.name" name="ingredients[]" class='form-control w-full' required/>
-                        <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, ingredients)">Add</button>
-                        <button v-show="ingredients.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, ingredients)">Remove</button>
+                        <button v-show="ingredients.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, ingredients)"><XMarkIcon class="size-4"/></button>
                     </div>
+                    <button type="button" class="cursor-pointer flex flex-row gap-2 justify-center items-center rounded-full border-2 border-green-500 p-2" @click="addToArray(input, ingredients)"><PlusIcon class="size-4"/> Add Ingredient</button>
 
                 </div>
-                <div>
+                <div class="flex flex-col gap-2">
                     <label for="instructions" class='form-label'>Method</label>
                     <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in steps" :key="`step-${index}`">
                         <label for="steps" class='form-label'>{{ index+1 }}.</label>
-                        <input  v-model="input.step" name="steps[]" class='form-control w-full' required/>
-                        <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, steps)">Add</button>
-                        <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, steps)">Remove</button>
+                        <textarea v-model="input.step" name="steps[]" class='form-control w-full' required/>
+                        <div>
+                            <button v-show="steps.length > 1 && index > 0" type="button" @click="shiftUp(index, steps)"><ArrowUpIcon class="size-4"/></button>
+                            <button v-show="steps.length > 1 && index+1 !== steps.length" type="button" @click="shiftDown(index, steps)"><ArrowDownIcon class="size-4"/></button>
+                        </div>
+                        <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, steps)"><XMarkIcon class="size-4"/></button>
+
                     </div>
+                    <button type="button" class="cursor-pointer flex flex-row gap-2 justify-center items-center rounded-full border-2 border-green-500 p-2" @click="addToArray(input, steps)"><PlusIcon class="size-4"/> Add Step</button>
+
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="preparation_time">Preparation Time (minutes)</label>

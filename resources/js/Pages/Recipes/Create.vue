@@ -4,8 +4,6 @@ import { Form, Head, useForm, usePage } from '@inertiajs/vue3';
 import { reactive, ref } from 'vue';
 import { watch } from 'vue';
 import { showToast } from '../../Composables/useToast';
-import { Sortable } from "sortablejs-vue3";
-import { ArrowsUpDownIcon } from '@heroicons/vue/16/solid';
 
 const props = defineProps({
     tags: Object
@@ -69,21 +67,6 @@ watch(form.errors, (errors)=> {
     }
 })
 
-function reorderMethod(event) {
-    console.log('event:', event);
-    let oldIndex = event.oldIndex;
-    let newIndex = event.newIndex;
-    let original = steps[oldIndex];
-    let swappedMethod = steps[newIndex];
-    steps[oldIndex] = swappedMethod;
-    steps[newIndex] = original;
-}
-
-function onEnd(event) {
-    const movedItem = steps.value.splice(event.oldIndex, 1)[0] // Remove the item
-    steps.value.splice(event.newIndex, 0, movedItem) // Insert at the new index
-}
-
 </script>
 <template>
     <Head>
@@ -116,25 +99,13 @@ function onEnd(event) {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="instructions" class='form-label'>Method</label> <span v-if="form.errors.method" class="text-red-500">{{form.errors.method}}</span>
-                            <Sortable
-                            :list="steps"
-                            item-key="id"
-                            tag="div"
-                            class="flex flex-col gap-2"
-                            :options="options"
-                            @end="(event) => onEnd(event)"
-                            >
-                                <template #item="{element, index}">
-                                    <div class="draggable border-1 rounded-sm p-2 border-gray-100 flex flex-row gap-2 items-center" :key="element.id" >
-                                        <ArrowsUpDownIcon class="size-6"/>
-                                        <label for="steps" class='form-label'>{{ index+1 }}.</label>
-                                        <textarea :data-value="element.value" name="steps[]" class='form-control w-full' required/>
-                                        <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(element, steps)">Add</button>
-                                        <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(element, steps)">Remove</button>
-                                    </div>
-                                </template>
-                            </Sortable>
+                        <div class="flex flex-row items-baseline gap-2" v-for="(input, index) in steps" :key="`step-${index}`">
+                            <label for="steps" class='form-label'>{{ index+1 }}.</label>
+                            <textarea v-model="input.value" name="steps[]" class='form-control w-full' required/>
+                            <button type="button" class="cursor-pointer rounded-full border-2 border-green-500 p-2" @click="addToArray(input, steps)">Add</button>
+                            <button v-show="steps.length > 1" type="button" class="cursor-pointer rounded-full border-2 border-red-500 p-2" @click="removeFromArray(index, steps)">Remove</button>
                         </div>
+                    </div>
                     <div>
                         <label for="preparation_time" class='form-label'>Preparation Time (minutes)</label> <span v-if="form.errors.preparation_time" class="text-red-500">{{form.errors.preparation_time}}</span>
                         <input v-model="form.preparation_time" type="number" id="preparation_time" class='form-control w-full' name="preparation_time" value='' required>
@@ -172,6 +143,9 @@ function onEnd(event) {
                         </li>
                     </ul>
                     <button type="submit" :disabled="form.processing" class='btn'>Create Recipe</button>
+                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                        {{ form.progress.percentage }}%
+                    </progress>
                 </form>
             </div>
         </div>

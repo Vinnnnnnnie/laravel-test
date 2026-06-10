@@ -14,9 +14,8 @@ const page = usePage();
 const imageUrl = ref('');
 let file
 const previewImage = (event) => {
-    const file = event.target.files[0]
+    file = event.target.files[0]
     if (!file) return
-    console.log(event)
     const reader = new FileReader()
     reader.onload = (e) => {
         imageUrl.value = e.target.result
@@ -103,9 +102,9 @@ watch(form.errors, (errors)=> {
                     <label class='text-xl font-semibold' for="id">Recipe id</label>
                     <input v-model="form.id" class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="id" name="id" required>
                 </div>
-                <div class='flex flex-col'>
-                    <label class='text-xl font-semibold form-label' for="image">Image</label>
-                    <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image">
+                <div>
+                    <label for="image" class='form-label'>Image</label>
+                    <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image" accept="image/*">
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="title">Recipe Title</label>

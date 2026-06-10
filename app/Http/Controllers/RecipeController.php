@@ -177,15 +177,21 @@ class RecipeController extends Controller
     }
 
     public function update(Request $request) {
-        if ($request->image)
+        if (isset($request->image))
         {
-            $request->validate([
-                'image' => 'image|mimes:jpeg,png,jpg,gif'
-            ]);
             $image_path = $request->image->store("recipes", 'public');
             $image_path = str_replace('recipes/', '', $image_path); 
             $request->merge(['image_path' => $image_path]);
         }
+
+        // if(isset($request->image))
+        // {
+            
+        //     $image_path = $request->image->store("recipes", 'public');
+            
+        //     $image_path = str_replace('recipes/', '', $image_path); 
+        //     $request->merge(['image_path' => $image_path]);
+        // }
         
         $validated = $request->validate([
             'id' => 'required|integer|exists:recipes',

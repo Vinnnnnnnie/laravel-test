@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,18 +19,16 @@ class StepSeeder extends Seeder
     {
         $recipes = Recipe::all();
         $counter = 0;
-        foreach ($recipes as $recipe)
-        {
-            for ($counter = 0; $counter < rand(1,8) ;$counter++)
-            {
+        foreach ($recipes as $recipe) {
+            for ($counter = 0; $counter < random_int(1, 8) ;$counter++) {
                 Step::factory()->count(1)->create(
                     [
                         'recipe_id' => $recipe->id,
-                        'number' => $counter
+                        'number' => $counter,
                     ]
                 );
             }
-            
+
         }
     }
 }

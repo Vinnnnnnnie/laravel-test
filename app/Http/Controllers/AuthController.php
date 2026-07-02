@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -30,12 +32,11 @@ class AuthController extends Controller
         if (!$request->image) {
             $image_path = $files[array_rand($files)];
             $request->merge(['image_path' => $image_path]);
-        }
-        else {
+        } else {
             $image_path = $request->image->store("users", 'public');
-            $image_path = str_replace('users/', '', $image_path); 
+            $image_path = str_replace('users/', '', $image_path);
         }
-                
+
         $request->merge(['image_path' => $image_path]);
         $validated = $request->validate([
             'username' => 'required|string|unique:users|max:32',
@@ -55,16 +56,16 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|string'
+            'password' => 'required|string',
         ]);
 
-        if(FacadesAuth::attempt($validated)) {
+        if (FacadesAuth::attempt($validated)) {
             $request->session()->regenerate();
             Inertia::share('user', auth()->user());
 
             return redirect()->route(route: 'recipes.index');
         }
-    
+
         throw ValidationException::withMessages([
             'credentials' => 'Sorry, those credentials did not match our records.',
         ]);
@@ -74,7 +75,7 @@ class AuthController extends Controller
         FacadesAuth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
+
         return redirect()->route('show.login');
     }
 

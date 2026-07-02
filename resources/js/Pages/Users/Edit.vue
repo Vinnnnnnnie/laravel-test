@@ -6,7 +6,7 @@ import { ref } from 'vue';
 const page = usePage()
 const user = page.props.auth.user;
 
-const imageUrl = ref('');
+const imageUrl = ref(user.imageUrl);
 const previewImage = (event) => {
     const file = event.target.files[0]
     if (!file) return
@@ -33,7 +33,11 @@ const previewImage = (event) => {
                 </div>
                 <div class='flex flex-col'>
                     <label class='form-label' for="username">Username</label>
-                    <input class='form-control' type="text" id="username" name="username" value='' required>
+                    <p class='' type="text" id="username" name="username">{{ user.username }}</p>
+                </div>
+                <div class='flex flex-col'>
+                    <label class='text-xl font-semibold' for="email">Email</label>
+                    <p class='' type="text" id="email" name="email">{{ user.email }}</p>
                 </div>
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="first-name">First Name</label>
@@ -43,10 +47,7 @@ const previewImage = (event) => {
                     <label class='text-xl font-semibold' for="last_name">Last Name</label>
                     <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="last_name" name="last_name" :value='user.last_name' required>
                 </div>
-                <div class='flex flex-col'>
-                    <label class='text-xl font-semibold' for="email">Email</label>
-                    <input class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="email" name="email" :value='user.email' required>
-                </div>
+                
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="bio">Description</label>
                     <textarea class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="bio" name="bio">{{ user.bio }}</textarea>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
@@ -44,22 +46,21 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = [];
-        if (auth()->user())
-        {
+        if (auth()->user()) {
             $user = auth()->user()->load(
                 [
-                    'recipes' => function ($query) {
+                    'recipes' => function ($query): void {
                         $query->select('recipes.id', 'recipes.title', 'recipes.user_id');
                     },
-                    'savedRecipes' => function ($query) {
+                    'savedRecipes' => function ($query): void {
                         $query->select('recipe_id', 'title');
                     },
-                    'following' => function ($query) {
+                    'following' => function ($query): void {
                         $query->select('follower_id', 'user_id', 'username', 'image_path', 'reputation');
                     },
-                'followers' => function ($query) {
+                    'followers' => function ($query): void {
                         $query->select('user_id', 'follower_id', 'username', 'image_path', 'reputation');
-                    }
+                    },
                 ]
             );
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,31 +10,61 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
-    protected $fillable = ['title', 'preparation_time', 'cooking_time', 'servings', 'difficulty', 'image_path', 'user_id'];
     /** @use HasFactory<\Database\Factories\RecipeFactory> */
     use HasFactory;
+    protected $fillable = ['title', 'preparation_time', 'cooking_time', 'servings', 'difficulty', 'image_path', 'user_id'];
 
-    public function comments() {
+    public function random()
+    {
+        return Recipe::all()
+            ->inRandomOrder()
+            ->first();
+    }
+    /**
+     * @return HasMany<Comment, Recipe>
+     */
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
-
-    public function user() {
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, Recipe>
+     */
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-
-    public function tags() {
+    /**
+     * returns all tags from Pivot
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tag, Recipe, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class);
     }
 
-    public function savedUsers() {
+    /**
+     * Users who have saved recipe
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, Recipe, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function savedUsers()
+    {
         return $this->belongsToMany(User::class, 'saved_recipes');
     }
-
-    public function steps() {
+    /**
+     * Steps for the recipe
+     * @return HasMany<Step, Recipe>
+     */
+    public function steps()
+    {
         return $this->hasMany(Step::class);
     }
-
-    public function ingredients() {
+    /**
+     * Ingredients for recipe
+     * @return HasMany<Ingredient, Recipe>
+     */
+    public function ingredients()
+    {
         return $this->hasMany(Ingredient::class);
     }
 }

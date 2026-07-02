@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,7 +26,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $directory = public_path('storage/users');
-        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+        $scanned_directory = array_diff(scandir($directory), ['..', '.']);
         return [
             'username' => fake()->userName(),
             'first_name' => fake()->firstName(),
@@ -35,7 +37,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'image_path' => $scanned_directory[array_rand($scanned_directory)] ?? 'default.jpg',
-            'reputation' => random_int(0,100),
+            'reputation' => random_int(0, 100),
         ];
     }
 
@@ -44,7 +46,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

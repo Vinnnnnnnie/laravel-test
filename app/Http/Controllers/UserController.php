@@ -1,37 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Recipe;
 use Inertia\Inertia;
+
 class UserController extends Controller
 {
     public function show(User $user)
     {
-        return Inertia::render('Users/Show',
-            ['user' => $user, 
-            'recipes' => Inertia::scroll(fn () => Recipe::with(
-                    [
-                        'user',
-                        'comments' => function ($query) {
-                            $query->select('id', 'user_id', 'recipe_id');
-                        }, 
-                        'tags',
-                        'savedUsers' => function ($query) {
-                            $query->select('user_id', 'recipe_id');
-                        },
-                    ]
-                )
-                ->select('id', 'title', 'user_id', 
-                    'created_at', 'preparation_time', 
-                    'cooking_time', 'servings', 'difficulty', 
-                    'image_path')
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')->paginate()
-            )
-        ]);
+        return Inertia::render(
+            'Users/Show',
+            ['user' => $user,
+                'recipes' => Inertia::scroll(
+                    fn() => Recipe::with(
+                        [
+                            'user',
+                            'comments' => function ($query): void {
+                                $query->select('id', 'user_id', 'recipe_id');
+                            },
+                            'tags',
+                            'savedUsers' => function ($query): void {
+                                $query->select('user_id', 'recipe_id');
+                            },
+                        ]
+                    )
+                    ->select(
+                        'id',
+                        'title',
+                        'user_id',
+                        'created_at',
+                        'preparation_time',
+                        'cooking_time',
+                        'servings',
+                        'difficulty',
+                        'image_path'
+                    )
+                    ->where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')->paginate()
+                ),
+            ]
+        );
     }
 
     public function follow(Request $request)
@@ -60,7 +73,7 @@ class UserController extends Controller
     public function addSavedRecipe(Recipe $recipe)
     {
         $user = auth()->user();
-        
+
         $user->savedRecipes()->attach($recipe->id);
         User::addReputation($recipe->user, 1);
         return response()->json('Added to your saved recipes!', 200);
@@ -74,52 +87,53 @@ class UserController extends Controller
     }
     public function savedRecipes()
     {
-        return Inertia::render('Users/SavedRecipes', 
-            ['recipes' => Inertia::scroll(fn () =>  
-                auth()
+        return Inertia::render(
+            'Users/SavedRecipes',
+            ['recipes' => Inertia::scroll(
+                fn()
+                => auth()
                     ->user()
                     ->savedRecipes()
                     ->with(
-                    [
-                        'user',
-                        'comments' => function ($query) {
-                            $query->select('id', 'user_id', 'recipe_id');
-                        }, 
-                        'savedUsers' => function ($query) {
-                            $query->select('user_id', 'recipe_id');
-                        },
-                        'tags'
-                    ])
+                        [
+                            'user',
+                            'comments' => function ($query): void {
+                                $query->select('id', 'user_id', 'recipe_id');
+                            },
+                            'savedUsers' => function ($query): void {
+                                $query->select('user_id', 'recipe_id');
+                            },
+                            'tags',
+                        ]
+                    )
                     ->orderBy('created_at', 'desc')
                     ->paginate()
-                )]);
+            )]
+        );
     }
 
     public function update(Request $request)
     {
-        if ($request->image)
-        {
+        if ($request->image) {
             $image_path = $request->image->store("users", 'public');
-            $image_path = str_replace('users/', '', $image_path); 
+            $image_path = str_replace('users/', '', $image_path);
             $request->merge(['image_path' => $image_path]);
         }
         $validated = $request->validate([
-            'username' => 'required|string|max:32',
             'first_name' => 'required|string|max:32',
             'last_name' => 'required|string|max:32',
-            'email' => 'required|email',
             'bio' => 'nullable|string|max:255',
-            'image_path' => 'string'
+            'image_path' => 'string',
         ]);
-
-        $user = User::find(auth()->user()->id)->first();
+        $user = User::find(auth()->user()->id);
+       
         $user->update($validated);
         $user->refresh();
-        
-        return redirect()->route('users.show',$user)->with('success', 'Profile updated successfully!');
+        return redirect()->route('users.show', $user)->with('success', 'Profile updated successfully!');
     }
 
-    public function settings() {
+    public function settings()
+    {
         return Inertia::render('Users/Settings');
     }
 }

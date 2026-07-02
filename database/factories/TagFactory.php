@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,15 +19,15 @@ class TagFactory extends Factory
     public function definition(): array
     {
         $tagArray = [
-            'Asian', 'Chinese', 'Indian', 'Curry', 'Hearty', 'Warming', 'Welsh', 
-            'Scottish', 'Irish', 'French', 'Spanish', 'Spicy', 'BBQ', 'Cajun', 
-            'Meaty', 'Vegatarian', 'Vegan'
+            'Asian', 'Chinese', 'Indian', 'Curry', 'Hearty', 'Warming', 'Welsh',
+            'Scottish', 'Irish', 'French', 'Spanish', 'Spicy', 'BBQ', 'Cajun',
+            'Meaty', 'Vegatarian', 'Vegan',
         ];
-        
+
         $tag = $this->faker->randomElement($tagArray);
 
         return [
-            'tag' => $tag
+            'tag' => $tag,
         ];
     }
 }

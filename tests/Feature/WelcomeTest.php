@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,8 +21,9 @@ class WelcomeTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response->assertInertia(fn (AssertableInertia $page) => 
-            $page->component('Home')
+        $response->assertInertia(
+            fn(AssertableInertia $page)
+            => $page->component('Home')
         );
 
     }
@@ -31,8 +34,9 @@ class WelcomeTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response->assertInertia(fn (AssertableInertia $page) => 
-            $page->component('Cv')
+        $response->assertInertia(
+            fn(AssertableInertia $page)
+            => $page->component('Cv')
         );
 
 

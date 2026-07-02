@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Recipe>
  */
@@ -16,13 +19,13 @@ class RecipeFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->randomElement(['Asian', 'Chinese', 'Thai', 'Spanish', 'Welsh', 'Scottish', 'English', 'African', '']) . ' ' 
+        $title = $this->faker->randomElement(['Asian', 'Chinese', 'Thai', 'Spanish', 'Welsh', 'Scottish', 'English', 'African', '']) . ' '
             . $this->faker->randomElement(['BBQ', 'Spicy', 'Hearty', '']) . ' '
             . $this->faker->randomElement(['Pork', 'Chicken Wings', 'Soup', 'Fried Chicken', 'Stew', 'Casserole']) . ' '
             . $this->faker->randomElement(['with Rice', 'with Pasta', 'with Bread', '']);
         $directory = public_path('storage/recipes');
-        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
-        
+        $scanned_directory = array_diff(scandir($directory), ['..', '.']);
+
         return [
             'title' => $title,
             'preparation_time' => $this->faker->numberBetween(10, 60),

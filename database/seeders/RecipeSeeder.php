@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,7 +16,7 @@ class RecipeSeeder extends Seeder
     public function run(): void
     {
         $directory = public_path('storage/recipes');
-        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+        $scanned_directory = array_diff(scandir($directory), ['..', '.']);
         Recipe::factory()->count(40)->create();
     }
 }

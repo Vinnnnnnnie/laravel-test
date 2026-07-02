@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,11 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    protected $fillable = ['name'];
-    /** @use HasFactory<\Database\Factories\TagsFactory> */
+    /** @use HasFactory<\Database\Factories\TagFactory> */
     use HasFactory;
+    protected $fillable = ['name'];
 
-    public function recipes() {
+    public function recipes()
+    {
         return $this->belongsToMany(Recipe::class);
     }
 }

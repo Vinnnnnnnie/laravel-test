@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -16,7 +18,7 @@ class IngredientFactory extends Factory
      */
     public function definition(): array
     {
-        $amount = rand(1,4);
+        $amount = random_int(1, 4);
         $measurement = ['tsp', 'tbsp', 'whole'];
         $name = $amount . ' ' . $this->faker->randomElement($measurement) . ' ' . fake()->text(random_int(5, 10));
         return [

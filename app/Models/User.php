@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -7,12 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-    /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
-
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +28,7 @@ class User extends Authenticatable
         'bio',
         'password',
         'image_path',
-        'reputation'
+        'reputation',
     ];
     protected $guarded = [];
 
@@ -40,7 +41,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    
+
     /**
      * Get the attributes that should be cast.
      *
@@ -54,28 +55,26 @@ class User extends Authenticatable
         ];
     }
 
-    public static function addReputation(User|int $user, int $reputation)
+    public static function addReputation(User|int $user, int $reputation): void
     {
         // If given ID instead of User object
-        if (is_int($user))
-        {
+        if (is_int($user)) {
             $user = User::find($user, ['id', 'reputation']);
         }
-        
+
         $newReputation = $user->reputation + $reputation;
-        $user->update(['reputation'=>$newReputation]);
+        $user->update(['reputation' => $newReputation]);
     }
 
-    public static function subtractReputation(User|int $user, int $reputation)
+    public static function subtractReputation(User|int $user, int $reputation): void
     {
         // If given ID instead of User object
-        if (is_int($user))
-        {
+        if (is_int($user)) {
             $user = User::find($user, ['id', 'reputation']);
         }
-        
+
         $newReputation = $user->reputation - $reputation;
-        $user->update(['reputation'=>$newReputation]);
+        $user->update(['reputation' => $newReputation]);
     }
 
     public function totalReputation(): int
@@ -85,23 +84,28 @@ class User extends Authenticatable
         // Add number of comments
     }
 
-    public function recipes() {
+    public function recipes()
+    {
         return $this->hasMany(Recipe::class);
     }
 
-    public function followers() {
+    public function followers()
+    {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')->withTimestamps();
     }
 
-    public function following() {
+    public function following()
+    {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id')->withTimestamps();
     }
 
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function savedRecipes() {
+    public function savedRecipes()
+    {
         return $this->belongsToMany(Recipe::class, 'saved_recipes');
     }
 }

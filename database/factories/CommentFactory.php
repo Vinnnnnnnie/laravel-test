@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Recipe;
@@ -22,7 +24,7 @@ class CommentFactory extends Factory
             //
             'comment' => $this->faker->realText(),
             'recipe_id' => Recipe::inRandomOrder()->first()->id ?? null,
-            'user_id' => User::inRandomOrder()->first()->id ?? null
+            'user_id' => User::inRandomOrder()->first()->id ?? null,
         ];
     }
 }

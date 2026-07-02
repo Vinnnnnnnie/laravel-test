@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,10 +33,10 @@ class RecipeTest extends TestCase
     {
         // $user = User::factory()->createOne();
 
-        // $recipe = Recipe::factory()->create(['user_id' => $user->id]);  
+        // $recipe = Recipe::factory()->create(['user_id' => $user->id]);
         $recipe = Recipe::factory()->create();
 
-        $this->assertModelExists($recipe);      
+        $this->assertModelExists($recipe);
 
     }
 
@@ -42,10 +44,10 @@ class RecipeTest extends TestCase
     {
         // $user = User::factory()->createOne();
 
-        $recipe = Recipe::factory()->create();          
+        $recipe = Recipe::factory()->create();
         $recipe->update(
             [
-                'title' => 'Recipe that has been updated'
+                'title' => 'Recipe that has been updated',
             ]
         );
         $this->assertDatabaseHas('recipes', [
@@ -54,20 +56,22 @@ class RecipeTest extends TestCase
 
     }
 
-    public function test_recipes_can_be_saved(): void {
+    public function test_recipes_can_be_saved(): void
+    {
         $user = User::factory()->create();
         $owner = User::factory()->create();
         $recipeToSave = Recipe::factory()->create(['user_id' => $owner->id]);
-        $response = $this->actingAs($user)->post(route('users.addSavedRecipe', ['recipe'=>$recipeToSave]));
+        $response = $this->actingAs($user)->post(route('users.addSavedRecipe', ['recipe' => $recipeToSave]));
         $response->assertStatus(200);
         $response->assertContent('"Added to your saved recipes!"');
     }
 
-    public function test_recipes_can_be_unsaved(): void {
+    public function test_recipes_can_be_unsaved(): void
+    {
         $user = User::factory()->create();
         $owner = User::factory()->create();
         $recipeToSave = Recipe::factory()->create(['user_id' => $owner->id]);
-        $response = $this->actingAs($user)->delete(route('users.removeSavedRecipe', ['recipe'=>$recipeToSave]));
+        $response = $this->actingAs($user)->delete(route('users.removeSavedRecipe', ['recipe' => $recipeToSave]));
         $response->assertStatus(200);
         $response->assertContent('"Removed from your saved recipes!"');
     }
@@ -82,7 +86,8 @@ class RecipeTest extends TestCase
         $response->assertSee($recipe->title);
     }
 
-    public function test_edit_recipe(): void {
+    public function test_edit_recipe(): void
+    {
         $user = User::factory()->create();
         $recipe = Recipe::factory()->create(['user_id' => $user->id]);
         $response = $this->actingAs($user)->get(route('recipes.edit', ['recipe' => $recipe]));
@@ -93,11 +98,11 @@ class RecipeTest extends TestCase
         $user = User::factory()->createOne();
         $title = 'Search term you cant guess';
         Recipe::factory()->create([
-            'title' => $title
+            'title' => $title,
         ]);
         $response = $this->actingAs($user)->get(route('recipes.search', ['term' => $title]));
         $response->assertStatus(200);
         $response->assertSee($title);
     }
-    
+
 }

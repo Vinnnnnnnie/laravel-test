@@ -129,12 +129,14 @@ watch(form.errors, (errors)=> {
                 <!-- Title Input -->
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="title">Recipe Title</label>
+                    <p v-if="form.errors.title" class="text-red-500">{{form.errors.title}}</p>
                     <input class='bg-gray-200 dark:bg-gray-800 p-2' v-model="form.title" type="text" id="title" name="title" required>
                 </div>
 
                 <!-- Ingredients -->
                 <div class="flex flex-col gap-2">
                     <!-- <p><strong><small>Pressing Enter on your any ingredient will add a new ingredient and focus that</small></strong></p> -->
+                    <p v-if="form.errors.ingredients" class="text-red-500">{{form.errors.ingredients}}</p>
                     <label for="ingredients" class='form-label'>Ingredients</label>
                     <div class="flex flex-row items-center gap-2 my-2" v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
                         <input  v-model="input.name" name="ingredients[]" class='bg-gray-200 dark:bg-gray-800 p-2  w-full' required/>

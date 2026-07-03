@@ -125,7 +125,7 @@ watch(form.errors, (errors)=> {
                     <!-- <p><strong><small>Pressing Enter on your any ingredient will add a new ingredient and focus that</small></strong></p> --> 
                     <p v-if="form.errors.ingredients" class="text-red-500">{{form.errors.ingredients}}</p>
                     <div class="flex flex-row gap-2 items-baseline" v-for="(input, index) in ingredients" :key="`ingredient-${index}`">
-                        <input v-model="input.value" name="ingredients[]" class='form-control w-full' required/>
+                        <input v-model="input.value" name="ingredients[]" class='bg-gray-200 dark:bg-gray-800 p-2  w-full' required/>
                         <!-- Remove Ingredient -->
                         <button 
                             v-show="ingredients.length > 1" 

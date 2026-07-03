@@ -96,7 +96,7 @@ class RecipeController extends Controller
         $request->merge(['user_id' => auth()->user()->id]);
 
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:32',
             'preparation_time' => 'required|integer|min:1',
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',
@@ -214,7 +214,7 @@ class RecipeController extends Controller
 
         $validated = $request->validate([
             'id' => 'required|integer|exists:recipes',
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:32',
             'preparation_time' => 'required|integer|min:1',
             'cooking_time' => 'required|integer|min:1',
             'servings' => 'required|integer|min:1',

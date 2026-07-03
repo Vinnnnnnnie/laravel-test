@@ -6,7 +6,7 @@ import { ref } from 'vue';
 const page = usePage()
 const user = page.props.auth.user;
 
-const imageUrl = ref(user.imageUrl);
+const imageUrl = ref(route('image.users', user.image_path));
 const previewImage = (event) => {
     const file = event.target.files[0]
     if (!file) return

@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import RecipeList from '../Components/RecipeList.vue';
 import FollowUserButtons from '../Components/FollowUserButtons.vue';
+import { PencilIcon } from '@heroicons/vue/16/solid';
 const page = usePage();
 const authUser = computed(() => page.props.auth.user);
 const props = defineProps({
@@ -37,22 +38,13 @@ const props = defineProps({
                 </div>
             </div>
             <div class="flex flex-row py-4 gap-4">
-                <!-- <Form v-if="authUser.following.some(u => u.user_id === user.id)" :action="route('users.unfollow', user)" method='DELETE'>
-                    <input hidden id='friend_user_id' name='friend_user_id' :value='user.id'>
-                    <input type='submit' class="p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold" value='Unfollow'>
-                </Form >
-                <Link v-else-if="authUser.id === user.id" :href="route('users.edit')" :data-auth="authUser.id" :data-user="user.id" className='p-3 cursor-pointer rounded-full border-green-500 dark:border-green-500 border-1 hover:bg-green-500 font-semibold'>Edit Profile</Link>
-                <Form v-else :action="route('users.follow', user)" method='post'>
-                    <input hidden readonly id='friend_user_id' name='friend_user_id' :value='user.id'>
-                    <input type='submit' class='p-3 cursor-pointer rounded-full border-orange-500 dark:border-orange-500 border-1 hover:bg-orange-500 font-semibold' value='Follow'>
-                </Form> -->
                 <FollowUserButtons v-if="user.id !== authUser.id" :user></FollowUserButtons>
                 <Link v-else-if="authUser.id === user.id" 
                     :href="route('users.edit')" 
                     :data-auth="authUser.id" 
                     :data-user="user.id" 
-                    className='p-3 cursor-pointer rounded-full border-green-500 dark:border-green-500 border-1 hover:bg-green-500 font-semibold'>
-                    Edit Profile
+                    className='p-3 flex items-center gap-2 cursor-pointer rounded-full border-green-500 dark:border-green-500 border-1 hover:bg-green-500 font-semibold'>
+                    <PencilIcon class="size-4"/> Edit
                 </Link>
             </div>
         </div>

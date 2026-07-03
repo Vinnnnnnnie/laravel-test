@@ -16,19 +16,47 @@ class Recipe extends Model
 
     public function random()
     {
-        return Recipe::all()
-            ->inRandomOrder()
-            ->first();
+        return Recipe::inRandomOrder()->first();
+    }
+
+    public function getRecipeById(int $id): Recipe {
+        return Recipe::find($id, 'recipe_id');
+    }
+
+    public function getLatestRecipesPaginated() {
+        return Recipe::with(
+                [
+                    'user',
+                    'comments' => function ($query): void {
+                        $query->select('id', 'user_id', 'recipe_id');
+                    },
+                    'savedUsers' => function ($query): void {
+                        $query->select('user_id', 'recipe_id');
+                    },
+                    'tags',
+                ])
+                ->select(
+                    'id',
+                    'title',
+                    'user_id',
+                    'created_at',
+                    'preparation_time',
+                    'cooking_time',
+                    'servings',
+                    'difficulty',
+                    'image_path')
+                ->orderBy('created_at', 'desc')
+                ->paginate();
     }
     /**
-     * @return HasMany<Comment, Recipe>
+     * @return HasMany<Comment, $this>
      */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, Recipe>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user()
     {
@@ -36,7 +64,7 @@ class Recipe extends Model
     }
     /**
      * returns all tags from Pivot
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tag, Recipe, \Illuminate\Database\Eloquent\Relations\Pivot>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tag, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
      */
     public function tags()
     {
@@ -45,7 +73,7 @@ class Recipe extends Model
 
     /**
      * Users who have saved recipe
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, Recipe, \Illuminate\Database\Eloquent\Relations\Pivot>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
      */
     public function savedUsers()
     {
@@ -53,7 +81,7 @@ class Recipe extends Model
     }
     /**
      * Steps for the recipe
-     * @return HasMany<Step, Recipe>
+     * @return HasMany<Step, $this>
      */
     public function steps()
     {
@@ -61,7 +89,7 @@ class Recipe extends Model
     }
     /**
      * Ingredients for recipe
-     * @return HasMany<Ingredient, Recipe>
+     * @return HasMany<Ingredient, $this>
      */
     public function ingredients()
     {

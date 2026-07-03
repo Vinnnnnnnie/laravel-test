@@ -7,7 +7,8 @@ import Comment from '../Components/Comment.vue';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import SaveRecipeButtons from '../Components/SaveRecipeButtons.vue';
-
+import ShareRecipeButtons from '../Components/ShareRecipeButtons.vue';
+import CopyRecipeButtons from '../Components/CopyRecipeButtons.vue';
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
@@ -52,6 +53,8 @@ const props = defineProps({
                             </div>
                             <!--EndProfileComponent-->
                             <SaveRecipeButtons  :recipe></SaveRecipeButtons>
+                            <ShareRecipeButtons :recipe></ShareRecipeButtons>
+                            <CopyRecipeButtons :recipe></CopyRecipeButtons>
                             <div class="grid grid-cols-2 grid-rows-2 gap-2">
                                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Prep: {{ recipe.preparation_time }} mins</p>
                                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Cook: {{ recipe.cooking_time }} mins</p>

@@ -11,7 +11,8 @@ const props = defineProps({
 })
 
 const page = usePage();
-const imageUrl = ref('');
+const imageUrl = ref(route('image.recipes', page.props.recipe.image_path));
+
 let file
 const previewImage = (event) => {
     file = event.target.files[0]

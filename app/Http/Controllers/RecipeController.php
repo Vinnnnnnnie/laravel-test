@@ -121,7 +121,7 @@ class RecipeController extends Controller
             foreach ($request->ingredients as $ingredient) {
                 Ingredient::create(
                     [
-                        'name' => $ingredient['value'],
+                        'name' => $ingredient['name'],
                         'number' => $counter,
                         'recipe_id' => $recipe->id,
                     ]
@@ -134,7 +134,7 @@ class RecipeController extends Controller
             foreach ($request->steps as $step) {
                 Step::create(
                     [
-                        'step' => $step['value'],
+                        'step' => $step['step'],
                         'number' => $counter,
                         'recipe_id' => $recipe->id,
                     ]

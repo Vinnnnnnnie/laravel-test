@@ -1,0 +1,279 @@
+
+<script setup>
+import { Head, useForm, usePage } from '@inertiajs/vue3';
+import RecipeLayout from '../Components/RecipeLayout.vue';
+import { ref, computed, watch } from 'vue';
+import { showToast } from '../../Composables/useToast';
+import { ArrowUpIcon, ArrowDownIcon, XCircleIcon, XMarkIcon, PlusCircleIcon, PlusIcon } from '@heroicons/vue/16/solid';
+
+const props = defineProps({
+    recipe: Object,
+    tags: Object
+})
+
+let submit;
+let form = useForm();
+let checkedTags;
+let recipeTagIds;
+const page = usePage();
+
+let imageUrl = ref();
+
+if (page.props.recipe) {
+
+    imageUrl = route('image.recipes', page.props.recipe.image_path);
+
+    // Update Submit and Form
+    form = useForm({
+        id: page.props.recipe.id,
+        title: page.props.recipe.title,
+        image: page.props.recipe.image,
+        ingredients: page.props.recipe.ingredients,
+        steps: page.props.recipe.steps,
+        preparation_time: page.props.recipe.preparation_time,
+        cooking_time: page.props.recipe.cooking_time,
+        servings: page.props.recipe.servings,
+        difficulty: page.props.recipe.difficulty,
+        tags: page.props.recipe.tags
+    });
+
+    recipeTagIds = computed(() => page.props.recipe.tags.map((t) => t.id));
+
+    checkedTags = ref(page.props.recipe.tags.map((t) => t.id))
+    submit = () => {
+        form.image = file;
+        form.steps = steps.value;
+        form.ingredients = ingredients.value;
+        form.difficulty = page.props.recipe.difficulty;
+        form.tags = checkedTags
+        form.post(route('recipes.update', page.props.recipe.id), {
+            onError: () => {
+                Object.keys(form.errors).forEach(key => {
+                    showToast('error', form.errors[key])
+                })
+            },
+            onSuccess: () => {
+                showToast('success', 'Recipe updated!');
+            }
+        })
+    }
+} else {
+    page.props.recipe = {
+        title: '',
+        image_path: 'defaults/Bowl.jpg',
+        ingredients: [],
+        steps: [],
+        preparation_time: 0,
+        cooking_time: 0,
+        servings: 0,
+        difficulty: '',
+        tags: [],
+    };
+    // Create submit form
+
+    form = useForm({
+        title: '',
+        image: '',
+        ingredients: [],
+        steps: [],
+        preparation_time: 0,
+        cooking_time: 0,
+        servings: 0,
+        difficulty: '',
+        tags: []
+    })
+    submit = () => {
+        form.image = file;
+        form.steps = steps.value;
+        form.ingredients = ingredients.value;
+        form.post(route('recipes.store'), {
+            onError: () => {
+                Object.keys(form.errors).forEach(key => {
+                    showToast('error', form.errors[key])
+                })
+            },
+            onSuccess: () => {
+                showToast('success', 'Recipe created successfully!')
+            }
+        });
+    }
+}
+
+
+let file
+const previewImage = (event) => {
+    file = event.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        imageUrl.value = e.target.result
+    }
+    reader.readAsDataURL(file)
+}
+
+const ingredients = ref(page.props.recipe.ingredients);
+const steps = ref(page.props.recipe.steps);
+
+function addToArray(value, fieldType)
+{
+    fieldType.push({});
+}
+function removeFromArray(index, fieldType)
+{
+    fieldType.splice(index, 1);
+}
+
+function shiftUp(index, array) {
+    const movedItem = steps.value.splice(index, 1)[0];
+    steps.value.splice(index-1, 0, movedItem)
+
+}
+
+function shiftDown(index, array) {
+    const movedItem = steps.value.splice(index, 1)[0];
+    steps.value.splice(index+1, 0, movedItem)
+}
+
+
+
+
+
+
+const shortcutChecker = (event) => {
+    if (event.key === 'Enter') {
+        console.log('Enter pressed, if last step we will add new step and focus new step');
+        // if event div step === step[-1]
+        // otherwise do nothing?
+
+    } else {
+        console.log('Key pressed: ', event.key);
+    }
+}
+
+</script>
+<template>
+    <!-- Image Preview -->
+    <div class='dark:bg-gray-950 bg-gray-50 w-full flex justify-center align-items-center'>
+        <img v-if="imageUrl" id='image-preview' :src="imageUrl" class='aspect-auto h-fit max-h-80 self-center'>
+    </div>
+
+    <!-- Edit Recipe Form -->
+    <form @submit.prevent="submit" class='flex flex-col p-4 gap-4' enctype="multipart/form-data">
+
+        <!-- Recipe ID -->
+        <div hidden>
+            <label class='text-xl font-semibold' for="id">Recipe id</label>
+            <input v-model="form.id" class='bg-gray-200 dark:bg-gray-800 p-2' type="text" id="id" name="id" required>
+        </div>
+
+        <!-- Image file picker -->
+        <div>
+            <label for="image" class='form-label'>Image</label>
+            <input @change="previewImage" type="file" id="image" class='form-control w-full' name="image" accept="image/*">
+        </div>
+
+        <!-- Title Input -->
+        <div class='flex flex-col'>
+            <label class='form-label' for="title">Recipe Title</label>
+            <p v-if="form.errors.title" class="text-red-500">{{form.errors.title}}</p>
+            <input class='bg-gray-200 dark:bg-gray-800 p-2' v-model="form.title" type="text" id="title" name="title" required>
+        </div>
+
+        <!-- Ingredients -->
+        <p v-if="form.errors.ingredients" class="text-red-500">{{form.errors.ingredients}}</p>
+        <IngredientEditor :ingredients></IngredientEditor>
+
+        <!-- Steps -->
+        <StepEditor :steps></StepEditor>
+        <div class="flex flex-col gap-2">
+            <label for="instructions" class='form-label'>Method</label>
+            <!-- <p><strong><small>Pressing Enter on your last step will add a new step and focus that</small></strong></p> -->
+            <div class="flex flex-row items-center rounded-sm p-1 gap-2" v-for="(input, index) in steps" :key="`step-${index}`">
+                <label for="steps" class='form-label'>{{ index+1 }}.</label>
+                <textarea 
+                    v-model="input.step" 
+                    name="steps[]" 
+                    class='bg-gray-200 dark:bg-gray-800 p-2 w-full field-sizing-content' 
+                    required 
+                    @keydown="addStepOnEnter">
+                </textarea>
+
+                <!-- Move Step -->
+                <div class="flex flex-col">
+                    <button 
+                        v-show="steps.length > 1 && index > 0" 
+                        type="button" 
+                        @click="shiftUp(index, steps)">
+                        <ArrowUpIcon class="size-4"/>
+                    </button>
+                    <button 
+                        v-show="steps.length > 1 && index+1 !== steps.length" 
+                        type="button" 
+                        @click="shiftDown(index, steps)">
+                        <ArrowDownIcon class="size-4"/>
+                    </button>
+                </div>
+
+                <!-- Remove Step -->
+                <button 
+                    v-show="steps.length > 1" 
+                    type="button" 
+                    class="cursor-pointer rounded-full border-2 border-red-500 p-2" 
+                    @click="removeFromArray(index, steps)">
+                    <XMarkIcon class="size-4"/>
+                </button>
+
+            </div>
+            <!-- Add Step -->
+            <button 
+                type="button" 
+                class="cursor-pointer self-center flex flex-row gap-2 justify-center items-center rounded-full border-2 border-green-500 p-2 w-fit" 
+                @click="addToArray(input, steps)">
+                <PlusIcon class="size-4"/> Add Step <PlusIcon class="invisible size-4"/>
+            </button>
+        </div>
+        
+        <!-- Preparation Time -->
+        <div class='flex flex-col'>
+            <label class='text-xl font-semibold' for="preparation_time">Preparation Time (minutes)</label>
+            <input v-model="form.preparation_time" class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="preparation_time" name="preparation_time"  required>
+        </div>
+        
+        <!-- Cooking Time -->
+        <div class='flex flex-col'>
+            <label class='text-xl font-semibold' for="cooking_time">Cooking Time (minutes)</label>
+            <input v-model="form.cooking_time" class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="cooking_time" name="cooking_time"  required>
+        </div>
+        
+        <!-- Servings -->
+        <div class='flex flex-col'>
+            <label class='text-xl font-semibold' for="servings">Servings</label>
+            <input v-model="form.servings" class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="servings" name="servings"  required>
+        </div>
+
+        <!-- Difficulty -->
+        <div class='flex flex-col'>
+            <label class='text-xl font-semibold' for="difficulty">Difficulty</label>
+            <select v-model="form.difficulty" class='bg-gray-200 dark:bg-gray-800 p-2' id="difficulty" name="difficulty" required>
+                <option value="" hidden>Select Difficulty</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+        </div>
+
+        <!-- Tags -->
+        <ul class="select-none  flex flex-row gap-2 flex-wrap">
+            <li v-for="(tag, index) in tags" :key="`tag-${index}`">
+                <input v-model='checkedTags' type="checkbox" :id="tag.id" name='tags[]' :value="tag.id" class="hidden peer" />
+                <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
+                    py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 peer  ">
+                    <span>{{ tag.name }}</span>
+                </label>
+            </li>
+        </ul>
+
+        <!-- Save Recipe -->
+        <button class='bg-gray-200 dark:bg-gray-800 p-2' type='submit' :disabled="form.processing">Save Recipe</button>
+    </form>
+</template>

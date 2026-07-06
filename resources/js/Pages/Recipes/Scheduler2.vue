@@ -1,5 +1,5 @@
 <script setup>
-import { DayPilot, DayPilotScheduler } from "@daypilot/daypilot-lite-vue";
+// import { DayPilot, DayPilotScheduler } from "@daypilot/daypilot-lite-vue";
 import { computed, onMounted, ref } from "vue";
 import RecipeLayout from "../Components/RecipeLayout.vue";
 // const startDate = ref(Date.now())

@@ -269,4 +269,7 @@ class RecipeController extends Controller
 
         return redirect()->route('recipes.show',$recipe);
     }
+    public function scheduler() {
+        return Inertia::render('Recipes/Scheduler');
+    }
 }

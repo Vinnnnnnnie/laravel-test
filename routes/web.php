@@ -78,6 +78,7 @@ Route::controller(UserController::class)->group(function (): void {
 Route::middleware('auth')->controller(RecipeController::class)->group(function (): void {
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::get('/recipes/create', 'create')->name('recipes.create');
+    Route::get('/recipes/scheduler', 'scheduler')->name('recipes.scheduler');
     Route::get('/recipes/edit/{recipe}', 'edit')->name('recipes.edit');
     Route::post('/recipes/update/{id}', 'update')->name('recipes.update');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');

@@ -35,7 +35,7 @@ Route::get('/public/images/users/{filename}/{height?}/{width?}', function (strin
     }
     $imageData = file_get_contents($path);
 
-    $image =  Image::decode($imageData)->cover(300, 300);
+    $image =  Image::decode($imageData)->cover($height, $width);
     return response()->image($image);
 })->name('image.users');
 
@@ -79,6 +79,7 @@ Route::middleware('auth')->controller(RecipeController::class)->group(function (
     Route::post('/recipes', 'store')->name('recipes.store');
     Route::get('/recipes/create', 'create')->name('recipes.create');
     Route::get('/recipes/scheduler', 'scheduler')->name('recipes.scheduler');
+    Route::get('/recipes/searchByTerm/{term}', 'searchByTerm')->name('recipes.searchByTerm');
     Route::get('/recipes/edit/{recipe}', 'edit')->name('recipes.edit');
     Route::post('/recipes/update/{id}', 'update')->name('recipes.update');
     Route::delete('/recipes/{recipe}', 'destroy')->name('recipes.destroy');

@@ -2,7 +2,7 @@
     import { computed, ref } from 'vue';
     import RecipeLayout from '../Components/RecipeLayout.vue';
     import SchedulerTable from '../Components/SchedulerTable.vue';
-
+    import RecipeSearch from '../Components/RecipeSearch.vue';
     const startHour = ref('07:00')
     const endHour = ref('13:00')
     const hoursInDay = [
@@ -52,14 +52,18 @@
 </script>
 <template>
     <RecipeLayout>
-        <label for="start-time">Start Hour</label>
-        <select  name="start-time" id="start-time" v-model="startHour">
-            <option v-for="hour in hoursInDay" :value="hour">{{ hour }}</option>
-        </select>
-        <label for="end-time">End Hour</label>
-        <select  name="end-time" id="end-time"  v-model="endHour">
-            <option v-for="hour in hoursInDay" :value="hour">{{ hour }}</option>
-        </select>
-        <SchedulerTable :hours/>
+        <div class="flex flex-col flex-4 vw-50 gap-4">
+            <label for="start-time">Start Hour</label>
+            <select  name="start-time" class id="start-time" v-model="startHour">
+                <option v-for="hour in hoursInDay" :value="hour">{{ hour }}</option>
+            </select>
+            <label for="end-time">End Hour</label>
+            <select  name="end-time" id="end-time"  v-model="endHour">
+                <option v-for="hour in hoursInDay" :value="hour">{{ hour }}</option>
+            </select>
+            <RecipeSearch/>
+            <SchedulerTable :hours/>
+        </div>
     </RecipeLayout>
+    
 </template>

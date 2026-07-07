@@ -9,6 +9,7 @@ import RecipeProfile from './RecipeProfile.vue';
 import ProfilePicture from './ProfilePicture.vue';
 import Toast from './Toast.vue';
 import { Cog6ToothIcon, HeartIcon, PlusIcon } from '@heroicons/vue/16/solid';
+import UserReputation from './UserReputation.vue';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -80,16 +81,7 @@ if (!page.props.auth.user.id)
                                 <div>
                                     <div><Link :href="route('users.show', followed.user_id)">{{ followed.username ?? 'Username' }}</Link></div>
                                     <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                                        <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                                            <span v-if="followed.reputation < 5">Arsonist</span>
-                                            <span v-else-if="followed.reputation < 10">Barbecuer</span>
-                                            <span v-else-if="followed.reputation < 20">Cook</span>
-                                            <span v-else-if="followed.reputation < 30">Chef</span>
-                                            <span v-else-if="followed.reputation < 50">Gourmand</span>
-                                            <span v-else-if="followed.reputation < 100">Michellin</span>
-                                            <span v-else-if="followed.reputation > 99">Master Chef</span>
-                                            {{ followed.reputation }}
-                                        </div>
+                                        <UserReputation :reputation="followed.reputation"/>
                                     </div>
                                 </div>
                             </div>

@@ -15,6 +15,7 @@ import SaveRecipeButtons from './SaveRecipeButtons.vue';
 import { usePage } from "@inertiajs/vue3";
 import { ChatBubbleBottomCenterIcon, ClockIcon, UsersIcon, ClipboardIcon, ChartBarIcon } from '@heroicons/vue/16/solid';
 import { HeartIcon } from '@heroicons/vue/16/solid';
+import RecipeTags from './RecipeTags.vue';
 
 const page = usePage();
 
@@ -49,9 +50,7 @@ const created = computed (() => new Date(props.recipe.created_at).toLocaleString
                             'border-red-500':recipe.difficulty === 'Hard'}"><ChartBarIcon class="size-4"/>{{ recipe.difficulty }}</p>
                         <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold"><UsersIcon class="size-4"/>Serves {{ recipe.servings }}</p>
                     </div>
-                    <ul v-if="recipe.tags" class='flex flex-row flex-wrap gap-2'>
-                        <span v-for="tag in recipe.tags" class='bg-blue-500 text-white p-2 rounded-md'>{{ tag.name }}</span>
-                    </ul>
+                    <RecipeTags :recipe-tags="recipe.tags"/>
                     <div class='flex flex-row justify-between py-2'>
                         <div class='flex flex-row gap-2 items-center'>
                             {{ recipe.comments.length }} <ChatBubbleBottomCenterIcon class="size-6"/>

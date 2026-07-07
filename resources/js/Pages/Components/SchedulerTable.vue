@@ -93,18 +93,19 @@ recipesExample.forEach((recipe) => {
 })
 </script>
 <template>
-    <div class="overflow overflow-x-scroll col-span-2 w-200">
-        <table class="text-left table-auto scroll-auto overflow-auto">
+    <div class="overflow-x-auto w-4xl">
+        <table class="text-left table-auto p-4">
             <thead>
                 <tr>
                     <th v-for="hour in hours"
-                        class="bg-gray-750 text-xl text-center  text-gray-100  border border-gray-700 p-2 first:rounded-tl-sm"
+                        class="bg-gray-750 text-lg text-center  text-gray-100  border border-gray-700 p-2 first:rounded-tl-sm"
                         colspan="12">{{ hour }}
                     </th>
                 </tr>
                 <tr>
                     <th v-for="time in times"
-                        class="bg-gray-750 text-sm text-center round text-gray-200  border border-gray-700 p-2 first:rounded-tl-sm last:rounded-tr-sm"
+                        colspan="1"
+                        class="bg-gray-750 text-xs text-center round text-gray-200  border border-gray-700 p-2 first:rounded-tl-sm last:rounded-tr-sm"
                         :class="{ 'bg-green-700': currentTime < time }">
                         {{ time }}
                     </th>

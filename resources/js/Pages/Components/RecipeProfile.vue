@@ -4,6 +4,7 @@ import ProfilePicture from './ProfilePicture.vue';
 import { Link } from '@inertiajs/vue3';
 import { usePage } from "@inertiajs/vue3";
 import FollowUserButtons from './FollowUserButtons.vue';
+import UserReputation from './UserReputation.vue';
 import { Cog6ToothIcon } from '@heroicons/vue/16/solid';
 const props = defineProps({ 
     user: Object,
@@ -39,18 +40,7 @@ const fontClass = props.size > 20 ? 'text-3xl font-semibold' : 'text-xl'
                     <Link  :href="route('users.show', user)">{{ user.username ?? 'Username' }}</Link> 
                 </h3>
                 <h2 v-else class='text-xl font-bold mb-0 flex flex-row items-center justify-between w-full'> Guest</h2>
-                <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                    <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                        <span v-if="user.reputation < 5">Arsonist</span>
-                        <span v-else-if="user.reputation < 10">Barbecuer</span>
-                        <span v-else-if="user.reputation < 20">Cook</span>
-                        <span v-else-if="user.reputation < 30">Chef</span>
-                        <span v-else-if="user.reputation < 50">Gourmand</span>
-                        <span v-else-if="user.reputation < 100">Michellin</span>
-                        <span v-else-if="user.reputation > 99">Master Chef</span>
-                        {{ user.reputation }}
-                    </div>
-                </div>
+                <UserReputation :reputation="user.reputation"/>
             </div>
             
         </div>

@@ -9,6 +9,8 @@ import { usePage } from "@inertiajs/vue3";
 import SaveRecipeButtons from '../Components/SaveRecipeButtons.vue';
 import ShareRecipeButtons from '../Components/ShareRecipeButtons.vue';
 import CopyRecipeButtons from '../Components/CopyRecipeButtons.vue';
+import UserReputation from '../Components/UserReputation.vue';
+import RecipeTags from '../Components/RecipeTags.vue';
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
@@ -39,16 +41,7 @@ const props = defineProps({
                                 />
                                 <div>
                                     <div class="text-xl font-semibold">{{ recipe.user.username }}</div>
-                                    <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                                        <span v-if="recipe.user.reputation < 5">Arsonist</span>
-                                        <span v-else-if="recipe.user.reputation < 10">Barbecuer</span>
-                                        <span v-else-if="recipe.user.reputation < 20">Cook</span>
-                                        <span v-else-if="recipe.user.reputation < 30">Chef</span>
-                                        <span v-else-if="recipe.user.reputation < 50">Gourmand</span>
-                                        <span v-else-if="recipe.user.reputation < 100">Michellin</span>
-                                        <span v-else-if="recipe.user.reputation > 99">Master Chef</span>
-                                        {{ recipe.user.reputation }}
-                                    </div>
+                                    <UserReputation :reputation="recipe.user.reputation"/>
                                 </div>
                             </div>
                             <!--EndProfileComponent-->
@@ -61,15 +54,7 @@ const props = defineProps({
                                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">{{ recipe.difficulty }}</p>
                                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold">Serves {{ recipe.servings }}</p>
                             </div>
-                            <!--Recipe Tags -->
-                            <div v-if='recipe.tags.length > 0'>
-                                <h4 class='text-xl font-semibold'>Tags</h4>
-                                <ul class="flex flex-row flex-wrap gap-2 py-2">
-                                    <li v-for='tag in tags' class='flex flex-row gap-2'>
-                                        <span class='bg-blue-500 text-white p-2 rounded-md'>{{ tag.name }}</span>
-                                    </li>
-                                </ul>
-                            </div>
+                            <RecipeTags :recipe-tags="recipe.tags"/>
                         </div>
                         
                         <!-- Image and Container -->

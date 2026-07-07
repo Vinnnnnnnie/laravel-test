@@ -6,12 +6,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
-use App\Models\Comment;
 use App\Models\User;
 use App\Models\Tag;
-use Illuminate\Validation\Rules\File;
-use App\Http\Controllers\RecipeImageController;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Models\Ingredient;
 use App\Models\Step;
@@ -271,5 +267,22 @@ class RecipeController extends Controller
     }
     public function scheduler() {
         return Inertia::render('Recipes/Scheduler');
+    }
+    public function searchByTerm(string $term) {
+        $recipes = Recipe::select('*')
+            ->where('title', 'LIKE', '%' . $term . '%')
+            ->with(
+                [
+                    'user',
+                    'savedUsers' => function ($query): void {
+                        $query->select('user_id', 'recipe_id');
+                    },
+                    'tags'
+                ]
+            )
+
+            ->get();
+
+        return response()->json(['recipes' => $recipes]);
     }
 }

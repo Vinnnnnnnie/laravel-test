@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\User;
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Models\Ingredient;
 use App\Models\Step;
-
-use function Laravel\Prompts\error;
 
 class RecipeController extends Controller
 {
@@ -79,6 +78,9 @@ class RecipeController extends Controller
         return Inertia::render('Recipes/Create', ['tags' => $tags]);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function store(Request $request)
     {
 
@@ -101,44 +103,16 @@ class RecipeController extends Controller
             'image_path' => 'string',
             'tags' => 'array',
         ]);
-
-        // $validatedOthers = $request->validate([
-        //     'ingredients' => 'required|array',
-        //     'steps' => 'required|array',
-        // ]);
-
-        $recipe = Recipe::create($validated);
-        if ($request->tags !== null) {
-            $recipe->tags()->sync($request->tags);
-        }
-
-        if ($request->ingredients !== null) {
-            $counter = 0;
-            foreach ($request->ingredients as $ingredient) {
-                Ingredient::create(
-                    [
-                        'name' => $ingredient['name'],
-                        'number' => $counter,
-                        'recipe_id' => $recipe->id,
-                    ]
-                );
-                $counter++;
+        DB::transaction(function () use ($request, $validated): void {
+            $recipe = Recipe::create($validated);
+            Ingredient::addIngredientsToRecipe($recipe, $request);
+            Step::addStepsToRecipe($recipe, $request);
+            if ($request->tags !== null) {
+                $recipe->tags()->sync($request->tags);
             }
-        }
-        if ($request->steps !== null) {
-            $counter = 0;
-            foreach ($request->steps as $step) {
-                Step::create(
-                    [
-                        'step' => $step['step'],
-                        'number' => $counter,
-                        'recipe_id' => $recipe->id,
-                    ]
-                );
-                $counter++;
-            }
-        }
-        User::addReputation(auth()->user(), 1);
+            User::addReputation(auth()->user(), 1);
+        });
+
         return redirect()->route('recipes.index')->with('success', 'Recipe added successfully!');
     }
     public function destroy(Recipe $recipe)
@@ -155,7 +129,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::findOrFail($id)->load(['ingredients', 'steps', 'tags']);
         if ($recipe->user_id !== auth()->user()->id) {
-            return back()->withErrors('You are not the owner of this recipe.');
+            return redirect()->route('recipes.index')->withErrors('You are not the owner of this recipe.');
         }
         $tags = Tag::orderBy('name', 'asc')->get();
         return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
@@ -168,8 +142,8 @@ class RecipeController extends Controller
         $recipes = Inertia::scroll(fn() => Recipe::query()
             ->select('users.image_path', 'recipes.image_path', 'recipes.*', 'users.username')
             ->join('users', 'users.id', '=', 'recipes.user_id')
-            ->where('recipes.title', 'LIKE', '%' . $term . '%')
-            ->orWhere('users.username', 'LIKE', $term . '%')
+            ->where('recipes.title', 'LIKE', '%' . $validated['term'] . '%')
+            ->orWhere('users.username', 'LIKE', $validated['term'] . '%')
             ->with(
                 [
                     'user',
@@ -199,15 +173,6 @@ class RecipeController extends Controller
             $request->merge(['image_path' => $image_path]);
         }
 
-        // if(isset($request->image))
-        // {
-
-        //     $image_path = $request->image->store("recipes", 'public');
-
-        //     $image_path = str_replace('recipes/', '', $image_path);
-        //     $request->merge(['image_path' => $image_path]);
-        // }
-
         $validated = $request->validate([
             'id' => 'required|integer|exists:recipes',
             'title' => 'required|string|max:32',
@@ -218,57 +183,33 @@ class RecipeController extends Controller
             'image_path' => 'string',
         ]);
 
-        $validatedOthers = $request->validate([
-            'ingredients' => 'required|array',
-            'steps' => 'required|array',
-        ]);
-
-
-        $recipe = Recipe::find($request->input('id'));
+        $recipe = Recipe::find($validated['id']);
         if ($recipe->user_id !== auth()->user()->id) {
-            return back()->withErrors('You can only update your own recipes');
+            return redirect(route('recipes.index'))->withErrors('You can only update your own recipes');
         }
-        $recipe->update($validated);
-        $recipe->ingredients()->delete();
-        $recipe->steps()->delete();
-        if ($request->ingredients !== null) {
-            $counter = 0;
-            foreach ($request->ingredients as $ingredient) {
-                Ingredient::create(
-                    [
-                        'name' => $ingredient['name'],
-                        'number' => $counter,
-                        'recipe_id' => $recipe->id,
-                    ]
-                );
-                $counter++;
+
+        DB::transaction(function () use ($request, $validated, $recipe): void {
+            $recipe->update($validated);
+            $recipe->ingredients()->delete();
+            $recipe->steps()->delete();
+            Ingredient::addIngredientsToRecipe($recipe, $request);
+            Step::addStepsToRecipe($recipe, $request);
+            if ($request->tags !== null) {
+                $recipe->tags()->sync($request->tags);
             }
-        }
-        if ($request->steps !== null) {
-            $counter = 0;
-            foreach ($request->steps as $step) {
-                Step::create(
-                    [
-                        'step' => $step['step'],
-                        'number' => $counter,
-                        'recipe_id' => $recipe->id,
-                    ]
-                );
-                $counter++;
-            }
-        }
-        if ($request->tags !== null) {
-            $recipe->tags()->sync($request->tags);
-        }
-        //
+            User::addReputation(auth()->user(), 1);
+        });
+        // Updated the recipe information
         $recipe->refresh();
 
-        return redirect()->route('recipes.show',$recipe);
+        return redirect()->route('recipes.show', $recipe);
     }
-    public function scheduler() {
+    public function scheduler()
+    {
         return Inertia::render('Recipes/Scheduler');
     }
-    public function searchByTerm(string $term) {
+    public function searchByTerm(string $term)
+    {
         $recipes = Recipe::select('*')
             ->where('title', 'LIKE', '%' . $term . '%')
             ->with(
@@ -277,10 +218,9 @@ class RecipeController extends Controller
                     'savedUsers' => function ($query): void {
                         $query->select('user_id', 'recipe_id');
                     },
-                    'tags'
+                    'tags',
                 ]
             )
-
             ->get();
 
         return response()->json(['recipes' => $recipes]);

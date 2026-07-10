@@ -1,11 +1,13 @@
 <script setup>
 import { Sortable } from "sortablejs-vue3";
-import { computed, onMounted, onBeforeUnmount, ref} from "vue";
+import { computed, onMounted, onBeforeUnmount, ref, watch} from "vue";
 
 const props = defineProps({
     hours: Array,
     recipes: Array
 })
+
+console.log('Props', props)
 
 const hours = computed(() => { return props.hours});
 const currentTime = ref('')
@@ -26,7 +28,6 @@ function updateTime() {
 let times = computed(() => {
     let timesArray = [];
     for (let hour of hours.value) {
-        console.log('Hour:', hour.substring(3, -1))
         let minute
         for (let x = 0; x < 12; x++) {
             minute = x * 5;
@@ -36,22 +37,7 @@ let times = computed(() => {
     return timesArray
 })
     
-console.log('TIMES::', times)
 const numberOfCells = ref(times.value.length);
-const recipesExample = [
-    {
-        id: 1,
-        name: 'Chicken Liver Pate',
-        preparation_time: 45,
-        cooking_time: 20,
-    },
-    {
-        id: 2,
-        name: 'Pizza',
-        preparation_time: 60,
-        cooking_time: 10,
-    },
-]
 
 let tableArray = [];
 
@@ -62,10 +48,17 @@ function addNewScheduleRow() {
     }
 }
 
-console.log('tableArray', tableArray)
 let index = 0;
-recipesExample.forEach((recipe) => {
-    // Make a preparation time cell
+
+const newRecipe = [{
+        id: 3,
+        name: 'Strognaoff',
+        preparation_time: 20,
+        cooking_time: 90,
+    }]
+
+    console.log('Recipes: ', props.recipes)
+function addRecipe(recipe) {
     let preparationCell = {
         id: 1,
         name: recipe.name + ': Preparation',
@@ -90,6 +83,14 @@ recipesExample.forEach((recipe) => {
     tableArray[index].splice(tableArray[index].length - cellsToPop)
     console.log('Popped off ' + cellsToPop)
     index++
+}
+watch(props.recipes, (addedRecipe) => {
+    console.log('Recipes In Table', addedRecipe);
+    addRecipe(addedRecipe)
+})
+newRecipe.forEach((recipe) => {
+    // Make a preparation time cell
+    addRecipe(recipe)
 })
 </script>
 <template>
@@ -133,5 +134,5 @@ recipesExample.forEach((recipe) => {
             </Sortable>
         </table>
     </div>
-    <p>{{ currentTime }}</p>
+    <button @click="addRecipe(newRecipe)">Add Recipe</button>
 </template>

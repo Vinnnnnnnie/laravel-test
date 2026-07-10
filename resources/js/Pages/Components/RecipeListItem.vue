@@ -1,15 +1,19 @@
 <script setup>
 import { ClipboardIcon, ClockIcon, ChartBarIcon, UsersIcon} from '@heroicons/vue/16/solid';
 import RecipeProfile from './RecipeProfile.vue';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import UserReputation from './UserReputation.vue';
 import RecipeTags from './RecipeTags.vue';
+import { defineEmits } from 'vue';
+const emits = defineEmits([
+    'recipeSelected'
+]);
 const props = defineProps({
     recipe: Object
 })
 
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
-
+const triggerAction = inject('RecipeListButtonAction')
 </script>
 <template>
     <li v-if="loading">AHHHHHHHHHH</li>
@@ -57,5 +61,6 @@ const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v)
                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold"><UsersIcon class="size-4"/>Serves {{ recipe.servings }}</p>
             </div>
         </div>
+        <button @click="triggerAction(recipe)" type="button">Click Me</button>
     </li>
 </template>

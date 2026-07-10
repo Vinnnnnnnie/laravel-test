@@ -36,6 +36,7 @@ async function searchRecipes(recipeTerm) {
         console.log(`Error: ${error}`)
     }
 }
+
 </script>
 <template>
     <label for="recipe-term">Search Recipes</label>
@@ -43,5 +44,5 @@ async function searchRecipes(recipeTerm) {
         name="recipe-term" @keyup="searchRecipes(recipeTerm)" 
         class="bg-gray-100 text-gray-100 p-2 dark:bg-gray-900 rounded-sm " 
         v-model="recipeTerm" value="" type="text"/>
-    <RecipeResults :recipes/>
+    <RecipeResults @recipe-selected="addRecipe()" :recipes/>
 </template>

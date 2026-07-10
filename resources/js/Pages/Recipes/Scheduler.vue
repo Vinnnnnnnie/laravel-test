@@ -5,6 +5,7 @@
     import RecipeSearch from '../Components/RecipeSearch.vue';
     const startHour = ref('07:00')
     const endHour = ref('13:00')
+    const recipes = ref([])
     const hoursInDay = [
         '00:00',
         '01:00',
@@ -49,6 +50,12 @@
         })
         return hoursArray
     })
+    import { provide } from 'vue';
+
+provide('RecipeListButtonAction', (recipe) => {
+    recipes.value.push(recipe)
+    console.log('Scheudler Recipes: ', recipes.value)
+});
 </script>
 <template>
     <RecipeLayout>
@@ -61,8 +68,8 @@
             <select  name="end-time" id="end-time"  v-model="endHour">
                 <option v-for="hour in hoursInDay" :value="hour">{{ hour }}</option>
             </select>
-            <RecipeSearch/>
-            <SchedulerTable :hours/>
+            <RecipeSearch :recipes/>
+            <SchedulerTable :recipes :hours/>
         </div>
     </RecipeLayout>
     

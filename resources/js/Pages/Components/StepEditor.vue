@@ -35,12 +35,15 @@ function shiftDown(index, array) {
         <textarea 
             v-model="input.step" 
             name="steps[]" 
-            class='bg-gray-200 dark:bg-gray-800 p-2 w-full field-sizing-content' 
-            required>
+            class='bg-gray-200 dark:bg-gray-800 p-2 w-full field-sizing-content 
+                invalid:border-1 invalid:border-red-500 invalid:bg-red-500/20' 
+            required
+            maxlength="511"
+            minlength="3">
         </textarea>
 
         <!-- Move Step -->
-        <div>
+        <div class="flex flex-col">
             <button 
                 v-show="steps.length > 1 && index > 0" 
                 type="button" 

@@ -4,14 +4,25 @@ import { computed, onMounted, onBeforeUnmount, ref, watch} from "vue";
 
 const props = defineProps({
     hours: Array,
-    recipes: Array
+    recipes: Object
 })
-
-console.log('Props', props)
 
 const hours = computed(() => { return props.hours});
 const currentTime = ref('')
 let timer
+let times = computed(() => {
+    let timesArray = [];
+    for (let hour of hours.value) {
+        let minute
+        for (let x = 0; x < 12; x++) {
+            minute = x * 5;
+            timesArray.push(minute.toString().padStart(2, '0'))
+        }
+    }
+    return timesArray
+})
+const numberOfCells = ref(times.value.length);
+
 onMounted(() => {
     updateTime();
     timer = setInterval(updateTime, 30000);
@@ -25,72 +36,50 @@ function updateTime() {
     currentTime.value = new Date().toLocaleTimeString();
 }
 
-let times = computed(() => {
-    let timesArray = [];
-    for (let hour of hours.value) {
-        let minute
-        for (let x = 0; x < 12; x++) {
-            minute = x * 5;
-            timesArray.push(minute.toString().padStart(2, '0'))
-        }
-    }
-    return timesArray
-})
-    
-const numberOfCells = ref(times.value.length);
+let tableArray = ref([]);
 
-let tableArray = [];
-
-function addNewScheduleRow() {
-    tableArray.push([]);
+async function addNewScheduleRow() {
+    tableArray.value.push([]);
     for (let index = 0; index < numberOfCells.value; index++) {
-        tableArray[tableArray.length - 1].push({ id: index, time: 5, name: '', empty: true });
+        tableArray.value[tableArray.value.length - 1].push({ id: index, time: 5, name: '', empty: true });
     }
 }
 
 let index = 0;
-
-const newRecipe = [{
-        id: 3,
-        name: 'Strognaoff',
-        preparation_time: 20,
-        cooking_time: 90,
-    }]
-
-    console.log('Recipes: ', props.recipes)
 function addRecipe(recipe) {
+    console.log('Recipe to Add', recipe)
     let preparationCell = {
         id: 1,
-        name: recipe.name + ': Preparation',
+        name: recipe.title + ': Preparation',
         time: recipe.preparation_time,
         type: 'preparation',
     }
     // Make a cook time cell
     let cookingCell = {
         id: 2,
-        name: recipe.name + ': Cooking',
+        name: recipe.title + ': Cooking',
         time: recipe.cooking_time,
         type: 'cooking',
 
     }
+    console.log('Adding new empty row')
     // Make Empty Row
     addNewScheduleRow();
 
     // Make space for each cell
-    tableArray[index].splice(0, 0, preparationCell)
-    tableArray[index].splice(1, 0, cookingCell)
+    console.log('Adding the prep cell and cooking cell in')
+    tableArray.value[index].splice(0, 0, preparationCell)
+    tableArray.value[index].splice(1, 0, cookingCell)
     let cellsToPop = (recipe.cooking_time + recipe.preparation_time) / 5
-    tableArray[index].splice(tableArray[index].length - cellsToPop)
+    tableArray.value[index].splice(tableArray.value[index].length - cellsToPop)
     console.log('Popped off ' + cellsToPop)
     index++
 }
 watch(props.recipes, (addedRecipe) => {
-    console.log('Recipes In Table', addedRecipe);
-    addRecipe(addedRecipe)
-})
-newRecipe.forEach((recipe) => {
-    // Make a preparation time cell
-    addRecipe(recipe)
+    const latestRecipe = addedRecipe[addedRecipe.length - 1];
+    console.log('Latest Recipe: ', latestRecipe);
+
+    addRecipe(latestRecipe)
 })
 </script>
 <template>
@@ -108,21 +97,20 @@ newRecipe.forEach((recipe) => {
                         colspan="1"
                         class="bg-gray-750 text-xs text-center round text-gray-200  border border-gray-700 p-2 first:rounded-tl-sm last:rounded-tr-sm"
                         :class="{ 'bg-green-700': currentTime < time }">
-                        {{ time }}
                     </th>
                 </tr>
             </thead>
-            <Sortable 
-                :list="row" 
-                item-key="id" 
-                tag="tr" 
+            <Sortable
+                :list="row"
+                item-key="id"
+                tag="tr"
                 v-for="row in tableArray"
                 class="border-1 border-gray-600 py-2">
                 <template #item="{ element, index }">
-                    <td 
-                        class="draggable border py-4 px-2" 
-                        :key="element.id" 
-                        :colspan="element.time / 5 ?? 1" 
+                    <td
+                        class="draggable border py-4 px-2"
+                        :key="element.id"
+                        :colspan="element.time / 5 ?? 1"
                         :class="{
                             'border-0': element.empty,
                             'border-0 bg-red-700 rounded-lg shadow': element.type === 'cooking',
@@ -134,5 +122,6 @@ newRecipe.forEach((recipe) => {
             </Sortable>
         </table>
     </div>
-    <button @click="addRecipe(newRecipe)">Add Recipe</button>
+    <button @click="addRecipe(newRecipe[0])">Add Recipe</button>
+    <button @click="addNewScheduleRow()" class="btn btn-primary">Add New Schedule Row</button>/
 </template>

@@ -122,6 +122,4 @@ watch(props.recipes, (addedRecipe) => {
             </Sortable>
         </table>
     </div>
-    <button @click="addRecipe(newRecipe[0])">Add Recipe</button>
-    <button @click="addNewScheduleRow()" class="btn btn-primary">Add New Schedule Row</button>/
 </template>

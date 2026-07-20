@@ -1,9 +1,8 @@
 <script setup>
 import RecipeLayout from '../Components/RecipeLayout.vue'
-import { InfiniteScroll, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
 import RecipeList from '../Components/RecipeList.vue';
 import { Link }  from '@inertiajs/vue3';
+import UserReputation from "../Components/UserReputation.vue";
 
 const props = defineProps({
     recipes: Object,
@@ -20,17 +19,8 @@ const props = defineProps({
                             <div class='p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold hidden xl:flex'>
                                 <img :src="route('image.users', user.image_path)" class='w-20 max-w-20'>
                                 <div>
-                                    <h2 class='text-xl font-bold'><Link :href="route('users.show', user.id)">{{ user.user.username ?? 'Username' }}</Link></h2>
-                                    <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
-                                        <span v-if="user.reputation < 5">Arsonist</span>
-                                        <span v-else-if="user.reputation < 10">Barbecuer</span>
-                                        <span v-else-if="user.reputation < 20">Cook</span>
-                                        <span v-else-if="user.reputation < 30">Chef</span>
-                                        <span v-else-if="user.reputation < 50">Gourmand</span>
-                                        <span v-else-if="user.reputation < 100">Michellin</span>
-                                        <span v-else-if="user.reputation > 99">Master Chef</span>
-                                        {{ user.reputation }}
-                                    </div>
+                                    <h2 class='text-xl font-bold'><Link :href="route('users.show', user)">{{ user.user.username ?? 'Username' }}</Link></h2>
+                                    <UserReputation :reputation="user.reputation"/>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +34,7 @@ const props = defineProps({
                     </li>
                 </ul>
             <h2 class="py-4">Recipes</h2>
-            <RecipeList 
+            <RecipeList
                 :recipes='recipes'
             />
         </div>

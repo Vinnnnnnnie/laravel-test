@@ -40,9 +40,9 @@ async function searchRecipes(recipeTerm) {
 </script>
 <template>
     <label for="recipe-term">Search Recipes</label>
-    <input id="recipe-term" 
-        name="recipe-term" @keyup="searchRecipes(recipeTerm)" 
-        class="bg-gray-100 text-gray-100 p-2 dark:bg-gray-900 rounded-sm " 
+    <input id="recipe-term"
+        name="recipe-term" @keyup="searchRecipes(recipeTerm)"
+        class="bg-gray-100 text-gray-100 p-2 dark:bg-gray-900 rounded-sm "
         v-model="recipeTerm" value="" type="text"/>
-    <RecipeResults @recipe-selected="addRecipe()" :recipes/>
+    <RecipeResults :recipes/>
 </template>

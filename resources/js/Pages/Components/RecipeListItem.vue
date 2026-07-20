@@ -1,8 +1,11 @@
 <script setup>
 import { ClipboardIcon, ClockIcon, ChartBarIcon, UsersIcon} from '@heroicons/vue/16/solid';
-import { computed, inject } from 'vue';
-import UserReputation from './UserReputation.vue';
+import { computed } from 'vue';
 import RecipeTags from './RecipeTags.vue';
+import RecipeListItemButton from './RecipeListItemButton.vue';
+import RecipeTime from './RecipeTime.vue';
+
+import UserDetails from './UserDetails.vue';
 import {usePage} from "@inertiajs/vue3";
 const props = defineProps({
     recipe: Object
@@ -10,11 +13,10 @@ const props = defineProps({
 const page = usePage()
 
 const savedRecipeIds = computed(() => page.props.auth.user.saved_recipes.map((v) => v.recipe_id));
-const triggerAction = inject('RecipeListButtonAction')
+
 </script>
 <template>
-    <li v-if="loading">AHHHHHHHHHH</li>
-    <li v-else class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 flex justify-between gap-2 font-semibold"
+    <li  class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 flex justify-between gap-2 font-semibold"
         :class="{'saved': savedRecipeIds.includes(recipe.id)}">
         <div v-if="recipe.image_path" class='w-min flex justify-center align-items-center'>
             <img :src="route('image.recipes',{
@@ -25,21 +27,9 @@ const triggerAction = inject('RecipeListButtonAction')
         </div>
         <div class="w-100">
             <div class='flex gap-2 justify-between items-start'>
-                <div v-if="recipe.user.image_path" class='w-min flex justify-center align-items-center'>
-                    <img :src="route('image.users',{
-                        'filename':recipe.user.image_path,
-                        'height':50,
-                        'width':50
-                    })" class='aspect-auto rounded-xl h-fit max-h-80 self-center max-w-100' :alt="'Image of '+recipe.user.username">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p>
-                        {{ recipe.user.username }}
-                    </p>
-                    <UserReputation :reputation="recipe.user.reputation"/>
-                </div>
+                <UserDetails :user="recipe.user"/>
 
-                <p>{{ recipe.created_at }}</p>
+                <RecipeTime :time="recipe.created_at"/>
             </div>
             <h2 class='fs-6'>{{ recipe.title }}</h2>
             <RecipeTags :recipe-tags="recipe.tags"/>
@@ -59,6 +49,6 @@ const triggerAction = inject('RecipeListButtonAction')
                 <p class="p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold"><UsersIcon class="size-4"/>Serves {{ recipe.servings }}</p>
             </div>
         </div>
-        <button @click="triggerAction(recipe)" type="button">Click Me</button>
+        <RecipeListItemButton :recipe text="Schedule"/>
     </li>
 </template>

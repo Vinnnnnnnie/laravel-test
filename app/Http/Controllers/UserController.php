@@ -20,13 +20,9 @@ class UserController extends Controller
                     fn() => Recipe::with(
                         [
                             'user',
-                            'comments' => function ($query): void {
-                                $query->select('id', 'user_id', 'recipe_id');
-                            },
+                            'comments:id,user_id,recipe_id',
                             'tags',
-                            'savedUsers' => function ($query): void {
-                                $query->select('user_id', 'recipe_id');
-                            },
+                            'savedUsers:user_id,recipe_id',
                         ]
                     )
                     ->select(
@@ -126,7 +122,7 @@ class UserController extends Controller
             'image_path' => 'string',
         ]);
         $user = User::find(auth()->user()->id);
-       
+
         $user->update($validated);
         $user->refresh();
         return redirect()->route('users.show', $user)->with('success', 'Profile updated successfully!');

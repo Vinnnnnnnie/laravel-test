@@ -4,7 +4,7 @@
     import SchedulerTable from '../Components/SchedulerTable.vue';
     import RecipeSearch from '../Components/RecipeSearch.vue';
     const startHour = ref('07:00')
-    const endHour = ref('13:00')
+    const endHour = ref('10:00')
     const recipes = ref([])
     const hoursInDay = [
         '00:00',
@@ -26,7 +26,7 @@
         '16:00',
         '17:00',
         '18:00',
-        '19:00',    
+        '19:00',
         '20:00',
         '21:00',
         '22:00',
@@ -36,7 +36,7 @@
         let hoursArray = []
         let loopHour;
         let isInRange = false;
-        
+
         hoursInDay.forEach((hour) => {
             if (hour === startHour.value) {
                 isInRange = true
@@ -72,5 +72,5 @@ provide('RecipeListButtonAction', (recipe) => {
             <SchedulerTable :recipes :hours/>
         </div>
     </RecipeLayout>
-    
+
 </template>

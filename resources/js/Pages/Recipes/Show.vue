@@ -20,7 +20,8 @@ const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('c
 const props = defineProps({
     recipe: Object,
     comments: Object,
-    tags: Object
+    tags: Object,
+    ingredients: Object,
 });
 
 </script>
@@ -56,7 +57,7 @@ const props = defineProps({
                             </div>
                             <RecipeTags :recipe-tags="recipe.tags"/>
                         </div>
-                        
+
                         <!-- Image and Container -->
                         <div class='dark:bg-gray-950 bg-gray-50 w-full flex flex-1 justify-center align-items-center rounded-xl'>
                             <img :src="route('image.recipes',recipe.image_path)" class='aspect-auto h-fit max-h-100 self-center'>
@@ -83,18 +84,18 @@ const props = defineProps({
                     <button class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' type="submit">Delete Recipe</button>
                 </Form>
                 <!-- @if($recipe->savedUsers()->get()->contains(auth()->user()->id)) -->
-                
+
                 <Link class='p-2 rounded-md border-gray-900 dark:border-gray-100 border-1 font-semibold' :href="route('recipes.index')">Back to all Recipes</Link>
             </div>
             <div v-if='comments' class="flex flex-col py-2 gap-2">
-                <Comment v-for='comment in comments' 
+                <Comment v-for='comment in comments'
                     :owner='recipe.user_id === comment.user.id'
                     :user='comment.user_id === user.id'
                     :comment
                     />
             </div>
 
-                
+
             <div v-if="user.id !== 0" class='flex gap-2 flex-row p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold'>
                 <div class="flex w-full justify-between gap-2">
                     <ProfilePicture
@@ -115,6 +116,6 @@ const props = defineProps({
                 Login to join the conversation
             </Link>
         </div>
-        
+
     </RecipeLayout>
 </template>

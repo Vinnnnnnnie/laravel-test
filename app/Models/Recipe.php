@@ -103,10 +103,10 @@ class Recipe extends Model
     }
     /**
      * Ingredients for recipe
-     * @return HasMany<Ingredient, $this>
+     * @return BelongsToMany<Ingredient, $this>
      */
-    public function ingredients(): HasMany
+    public function ingredients(): BelongsToMany
     {
-        return $this->hasMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredient', 'recipe_id', 'ingredient_id')->withPivot('quantity', 'measurement', 'order');
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IngredientResource;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\User;
@@ -58,23 +59,24 @@ class RecipeController extends Controller
     }
     public function show(Recipe $recipe)
     {
-        $recipe->load('user', 'comments', 'tags', 'ingredients', 'steps');
+        $recipe->load('user', 'comments.user', 'tags', 'ingredients', 'steps');
         $comments = $recipe->comments;
         $tags = $recipe->tags;
-        $comments->load('user');
+        $ingredients = $recipe->ingredients;
         return Inertia::render(
             'Recipes/Show',
             [
                 'recipe' => $recipe,
                 'comments' => $comments,
                 'tags' => $tags,
+                'ingredients' => IngredientResource::collection($ingredients),
             ]
         );
         // return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create()
     {
-        $tags = Tag::orderBy('name', 'asc')->get();
+        $tags = Tag::orderBy('name')->get();
         return Inertia::render('Recipes/Create', ['tags' => $tags]);
     }
 

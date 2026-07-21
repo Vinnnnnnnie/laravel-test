@@ -22,7 +22,9 @@ class UserController extends Controller
                             'user',
                             'comments:id,user_id,recipe_id',
                             'tags',
-                            'savedUsers:user_id,recipe_id',
+                            'savedUsers' => function ($query): void {
+                                $query->select('user_id', 'recipe_id');
+                            },
                         ]
                     )
                     ->select(

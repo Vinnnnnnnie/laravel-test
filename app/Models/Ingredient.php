@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Measurement;
 use Database\Factories\IngredientFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class Ingredient extends Model
@@ -15,7 +18,20 @@ class Ingredient extends Model
     /** @use HasFactory<IngredientFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'recipe_id', 'number'];
+    protected $fillable = ['name', 'recipe_id', 'number', 'measurement', 'quantity'];
+
+    public function recipes(): BelongsToMany
+    {
+        return $this->belongsToMany(Recipe::class, 'recipe_ingredient', 'ingredient_id', 'recipe_id');
+    }
+
+
+    protected function casts(): array
+    {
+        return [
+            'measurement' => Measurement::class,
+        ];
+    }
 
     public static function addIngredientsToRecipe(Recipe $recipe, Request $request): \Illuminate\Http\JsonResponse
     {
@@ -23,6 +39,8 @@ class Ingredient extends Model
             [
                 'ingredients' => 'required|array|min:1',
                 'ingredients.*.name' => 'required|string|max:64',
+                'ingredients.*.quantity' => 'required|float|min:0',
+                'ingredients.*.measurement' => [Rule::enum(Measurement::class)],
             ],
             [
                 'ingredients.required|min:1' => 'You must have 1 ingredient.',
@@ -30,7 +48,8 @@ class Ingredient extends Model
             ]
         );
         $counter = 0;
-        foreach ($validated['ingredients'] as $ingredient) {
+        foreach ($validated['ingredients'] as $ingredient)
+        {
             Ingredient::create(
                 [
                     'name' => $ingredient['name'],

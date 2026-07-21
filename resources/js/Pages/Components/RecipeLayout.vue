@@ -6,9 +6,10 @@ import { Form } from '@inertiajs/vue3';
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import RecipeProfile from './RecipeProfile.vue';
+import ProfilePicture from './ProfilePicture.vue';
 import Toast from './Toast.vue';
 import { Cog6ToothIcon, HeartIcon, PlusIcon } from '@heroicons/vue/16/solid';
-import UserDetails from "@/Pages/Components/UserDetails.vue";
+import UserReputation from './UserReputation.vue';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -72,7 +73,18 @@ if (!page.props.auth.user.id)
                     <li><h2>Followed</h2></li>
                     <div v-if="user.following.length > 0">
                         <li class="p-2" v-for="followed in user.following">
-                            <UserDetails :user="followed"/>
+                            <div class='flex flex-row gap-2'>
+                                <ProfilePicture
+                                    :image='followed.image_path'
+                                    :size="10"
+                                />
+                                <div>
+                                    <div><Link :href="route('users.show', followed.user_id)">{{ followed.username ?? 'Username' }}</Link></div>
+                                    <div class='text-green-500 flex flex-row gap-2 font-bold items-center'>
+                                        <UserReputation :reputation="followed.reputation"/>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </div>
                     <li v-else-if="user.id === 0">

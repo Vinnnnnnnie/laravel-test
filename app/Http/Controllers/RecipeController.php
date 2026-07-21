@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Resources\IngredientResource;
+use App\Http\Resources\RecipeResource;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\User;
@@ -63,16 +64,16 @@ class RecipeController extends Controller
         $comments = $recipe->comments;
         $tags = $recipe->tags;
         $ingredients = $recipe->ingredients;
+        $recipe->ingredients = IngredientResource::collection($ingredients);
         return Inertia::render(
             'Recipes/Show',
             [
                 'recipe' => $recipe,
                 'comments' => $comments,
                 'tags' => $tags,
-                'ingredients' => IngredientResource::collection($ingredients),
+                'ingredients' => IngredientResource::collection($ingredients)
             ]
         );
-        // return view('recipes.show', ['recipe' => $recipe]);
     }
     public function create()
     {
@@ -129,12 +130,18 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
-        $recipe = Recipe::findOrFail($id)->load(['ingredients', 'steps', 'tags']);
+        $recipe = Recipe::where('id', $id)->first()->load('user', 'comments.user', 'tags', 'ingredients', 'steps');
+
+        $recipe = new RecipeResource($recipe);
+        dd($recipe->toArray(request()));
+
+        $ingredients = $recipe->ingredients;
+        $ingredients = IngredientResource::collection($ingredients);
         if ($recipe->user_id !== auth()->user()->id) {
             return redirect()->route('recipes.index')->withErrors('You are not the owner of this recipe.');
         }
         $tags = Tag::orderBy('name', 'asc')->get();
-        return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
+        return Inertia::render('Recipes/Edit', ['recipe' => $recipe,'ingredients' => IngredientResource::collection($ingredients), 'tags' => $tags]);
     }
 
     public function search(Request $request)

@@ -8,7 +8,8 @@ import IngredientEditor from '../Components/IngredientEditor.vue';
 import StepEditor from '../Components/StepEditor.vue';
 const props = defineProps({
     recipe: Object,
-    tags: Object
+    tags: Array,
+    ingredients: Array
 })
 
 const page = usePage();
@@ -25,14 +26,13 @@ const previewImage = (event) => {
     reader.readAsDataURL(file)
 }
 
-const ingredients = ref(props.recipe.ingredients);
 const steps = ref(props.recipe.steps);
 
 const form = useForm({
     id: page.props.recipe.id,
     title: page.props.recipe.title,
     image: page.props.recipe.image,
-    ingredients: page.props.recipe.ingredients,
+    ingredients: page.props.ingredients,
     steps: page.props.recipe.steps,
     preparation_time: page.props.recipe.preparation_time,
     cooking_time: page.props.recipe.cooking_time,
@@ -107,29 +107,29 @@ watch(form.errors, (errors)=> {
                 <div class="flex flex-col gap-2">
                     <label for="ingredients" class='form-label'>Ingredients</label>
                     <p v-if="form.errors.ingredients" class="text-red-500">{{form.errors.ingredients}}</p>
-                    <IngredientEditor :ingredients></IngredientEditor>
+                    <IngredientEditor :ingredients="ingredients"></IngredientEditor>
                 </div>
 
                 <!-- Steps -->
                  <div class="flex flex-col gap-2">
-                    <label for="instructions" class='form-label'>Method</label> 
+                    <label for="instructions" class='form-label'>Method</label>
                     <p v-if="form.errors.method" class="text-red-500">{{form.errors.method}}</p>
                     <!-- <p><strong><small>Pressing Enter on your last step will add a new step and focus that</small></strong></p> -->
                     <StepEditor :steps></StepEditor>
                 </div>
-                
+
                 <!-- Preparation Time -->
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="preparation_time">Preparation Time (minutes)</label>
                     <input v-model="form.preparation_time" class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="preparation_time" name="preparation_time"  required>
                 </div>
-                
+
                 <!-- Cooking Time -->
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="cooking_time">Cooking Time (minutes)</label>
                     <input v-model="form.cooking_time" class='bg-gray-200 dark:bg-gray-800 p-2' type="number" id="cooking_time" name="cooking_time"  required>
                 </div>
-                
+
                 <!-- Servings -->
                 <div class='flex flex-col'>
                     <label class='text-xl font-semibold' for="servings">Servings</label>
@@ -151,7 +151,7 @@ watch(form.errors, (errors)=> {
                 <ul class="select-none  flex flex-row gap-2 flex-wrap">
                     <li v-for="(tag, index) in tags" :key="`tag-${index}`">
                         <input v-model='checkedTags' type="checkbox" :id="tag.id" name='tags[]' :value="tag.id" class="hidden peer" />
-                        <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg  
+                        <label :for="tag.id" class="select-none bg-gray-500 cursor-pointer flex items-center justify-center rounded-lg
                             py-3 px-6 font-bold transition-colors duration-200 ease-in-out peer-checked:bg-blue-500 peer  ">
                             <span>{{ tag.name }}</span>
                         </label>

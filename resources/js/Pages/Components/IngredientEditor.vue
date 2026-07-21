@@ -20,7 +20,7 @@ function removeFromArray(index, fieldType)
             v-model="input.quantity"
             name="ingredients[]"
             type="number"
-            class='bg-gray-200 dark:bg-gray-800 p-2  w-full invalid:border-1 invalid:border-red-500'
+            class='bg-gray-200 dark:bg-gray-800 p-2  w-min invalid:border-1 invalid:border-red-500'
             min="0"
             step="0.25"
             required/>
@@ -28,7 +28,7 @@ function removeFromArray(index, fieldType)
         <select
             v-model="input.measurement"
             name="ingredients[]"
-            class='bg-gray-200 dark:bg-gray-800 p-2  w-full invalid:border-1 invalid:border-red-500'
+            class='bg-gray-200 dark:bg-gray-800 p-2  w-min invalid:border-1 invalid:border-red-500'
             required
         >
             <option>g</option>
@@ -38,7 +38,7 @@ function removeFromArray(index, fieldType)
             <option>tsp</option>
             <option>tbsp</option>
             <option>cup</option>
-            <option>None</option>
+            <option value="">None</option>
         </select>
         <input
             v-model="input.name"

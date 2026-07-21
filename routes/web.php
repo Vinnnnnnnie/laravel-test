@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Models\Bike;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BikeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;

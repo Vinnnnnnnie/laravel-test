@@ -35,11 +35,13 @@ class Ingredient extends Model
 
     public static function addIngredientsToRecipe(Recipe $recipe, Request $request): \Illuminate\Http\JsonResponse
     {
+
+        // Validation
         $validated = $request->validate(
             [
                 'ingredients' => 'required|array|min:1',
                 'ingredients.*.name' => 'required|string|max:64',
-                'ingredients.*.quantity' => 'required|float|min:0',
+                'ingredients.*.quantity' => 'required|numeric|min:0',
                 'ingredients.*.measurement' => [Rule::enum(Measurement::class)],
             ],
             [
@@ -47,16 +49,30 @@ class Ingredient extends Model
                 'ingredients.*.name' => 'Ingredients cannot be greater than 64 characters.',
             ]
         );
+
+
         $counter = 0;
         foreach ($validated['ingredients'] as $ingredient)
         {
-            Ingredient::create(
-                [
-                    'name' => $ingredient['name'],
-                    'number' => $counter,
-                    'recipe_id' => $recipe->id,
-                ]
-            );
+            // Does ingredient already exist?
+            if (Ingredient::where($ingredient['name'],'name')->doesntExist()) {
+                // If it doesn't, make it
+                $ingredientModel = Ingredient::create(
+                    [
+                        'name' => $ingredient['name'],
+                    ]
+                );
+            }
+            // Find the ingredient
+            $ingredientModel = Ingredient::where('name','=',$ingredient['name'])->get()->first();
+
+            // Attach the recipe to the pivot table and add the additional info
+            $ingredientModel->recipes()->attach($recipe->id, [
+                    'quantity' => $ingredient['quantity'],
+                    'measurement' => $ingredient['measurement'],
+                    'order' => $counter
+                ]);
+
             $counter++;
         }
         return response()->json(['status' => 'ok', 'msg' => 'Ingredients added successfully.']);

@@ -9,7 +9,6 @@ import StepEditor from '../Components/StepEditor.vue';
 const props = defineProps({
     recipe: Object,
     tags: Array,
-    ingredients: Array
 })
 
 const page = usePage();
@@ -32,7 +31,7 @@ const form = useForm({
     id: page.props.recipe.id,
     title: page.props.recipe.title,
     image: page.props.recipe.image,
-    ingredients: page.props.ingredients,
+    ingredients: page.props.recipe.ingredients,
     steps: page.props.recipe.steps,
     preparation_time: page.props.recipe.preparation_time,
     cooking_time: page.props.recipe.cooking_time,
@@ -47,7 +46,7 @@ const checkedTags = ref(page.props.recipe.tags.map((t) => t.id))
 const submit = () => {
     form.image = file;
     form.steps = steps.value;
-    form.ingredients = ingredients.value;
+    form.ingredients = page.props.recipe.ingredients;
     form.difficulty = page.props.recipe.difficulty;
     form.tags = checkedTags
     form.post(route('recipes.update', page.props.recipe.id), {
@@ -107,7 +106,7 @@ watch(form.errors, (errors)=> {
                 <div class="flex flex-col gap-2">
                     <label for="ingredients" class='form-label'>Ingredients</label>
                     <p v-if="form.errors.ingredients" class="text-red-500">{{form.errors.ingredients}}</p>
-                    <IngredientEditor :ingredients="ingredients"></IngredientEditor>
+                    <IngredientEditor :ingredients="recipe.ingredients"></IngredientEditor>
                 </div>
 
                 <!-- Steps -->

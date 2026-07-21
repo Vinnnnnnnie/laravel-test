@@ -11,4 +11,5 @@ enum Measurement: string
     case Teaspoon = 'tsp';
     case Tablespoon = 'tbsp';
     case Cup = 'cup';
+    case None = '';
 }

@@ -86,11 +86,9 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-
+        // Image upload
         if (isset($request->image)) {
-
             $image_path = $request->image->store("recipes", 'public');
-
             $image_path = str_replace('recipes/', '', $image_path);
             $request->merge(['image_path' => $image_path]);
         }
@@ -133,15 +131,11 @@ class RecipeController extends Controller
         $recipe = Recipe::where('id', $id)->first()->load('user', 'comments.user', 'tags', 'ingredients', 'steps');
 
         $recipe = new RecipeResource($recipe);
-        dd($recipe->toArray(request()));
-
-        $ingredients = $recipe->ingredients;
-        $ingredients = IngredientResource::collection($ingredients);
         if ($recipe->user_id !== auth()->user()->id) {
             return redirect()->route('recipes.index')->withErrors('You are not the owner of this recipe.');
         }
         $tags = Tag::orderBy('name', 'asc')->get();
-        return Inertia::render('Recipes/Edit', ['recipe' => $recipe,'ingredients' => IngredientResource::collection($ingredients), 'tags' => $tags]);
+        return Inertia::render('Recipes/Edit', ['recipe' => $recipe, 'tags' => $tags]);
     }
 
     public function search(Request $request)

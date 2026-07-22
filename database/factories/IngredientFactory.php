@@ -19,9 +19,7 @@ class IngredientFactory extends Factory
      */
     public function definition(): array
     {
-        $amount = random_int(1, 4);
-        $measurement = ['tsp', 'tbsp', 'whole'];
-        $name = $amount . ' ' . $this->faker->randomElement($measurement) . ' ' . fake()->text(random_int(5, 10));
+        $name = fake()->text(random_int(5, 15));
         return [
             'name' => $name,
         ];

@@ -63,15 +63,13 @@ class RecipeController extends Controller
         $recipe->load('user', 'comments.user', 'tags', 'ingredients', 'steps');
         $comments = $recipe->comments;
         $tags = $recipe->tags;
-        $ingredients = $recipe->ingredients;
-        $recipe->ingredients = IngredientResource::collection($ingredients);
+        $recipe = new RecipeResource($recipe);
         return Inertia::render(
             'Recipes/Show',
             [
                 'recipe' => $recipe,
                 'comments' => $comments,
                 'tags' => $tags,
-                'ingredients' => IngredientResource::collection($ingredients)
             ]
         );
     }

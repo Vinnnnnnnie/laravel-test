@@ -16,18 +16,10 @@ class IngredientSeeder extends Seeder
      */
     public function run(): void
     {
-        $recipes = Recipe::all();
-        $counter = 0;
-        foreach ($recipes as $recipe) {
-            for ($counter = 0; $counter < random_int(1, 8) ;$counter++) {
-                Ingredient::factory()->count(1)->create(
-                    [
-                        'recipe_id' => $recipe->id,
-                        'number' => $counter,
-                    ]
-                );
-            }
+//        $recipes = Recipe::all();
 
-        }
+        // Ingredient is seeded in Recipe Seeder can maybe one day bring it back
+        Ingredient::factory()->count(10)->create();
+//        Ingredient::factory()->count(count($recipes)*4)->create();
     }
 }

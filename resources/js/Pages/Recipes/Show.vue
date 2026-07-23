@@ -21,7 +21,6 @@ const props = defineProps({
     recipe: Object,
     comments: Object,
     tags: Object,
-    ingredients: Object,
 });
 
 </script>
@@ -68,7 +67,7 @@ const props = defineProps({
             <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">
                 <h4 class='text-xl font-bold pb-4'>Ingredients</h4>
                 <ul class="flex flex-col divide-gray-500 divide-y-2">
-                    <li class="py-2" v-for="ingredient in ingredients">{{ingredient.quantity}}{{ingredient.measurement}} {{ingredient.name}}</li>
+                    <li class="py-2" v-for="ingredient in recipe.ingredients">{{ingredient.quantity}}{{ingredient.measurement}} {{ingredient.name}}</li>
                 </ul>
             </div>
             <div class="p-4 rounded-md dark:bg-gray-900 bg-gray-100 font-semibold">

@@ -28,7 +28,7 @@ Difficulty: ${recipe.difficulty}
 
 Ingredients:\n`;
     recipe.ingredients.forEach(ingredient => {
-        recipeText += `${ingredient.name}\n`;
+        recipeText += `${ingredient.quantity} ${ingredient.measurement}  ${ingredient.name}\n`;
     })
     recipeText += `\nMethod:\n`;
     let index = 1;
@@ -41,10 +41,10 @@ Ingredients:\n`;
 }
 </script>
 <template>
-    <button 
-        @click="copyToClipboard(recipeToText())" 
-        type='button' 
-        class="p-3 flex items-center gap-2 cursor-pointer rounded-sm bg-blue-500 dark:border-blue-500 border-1 font-bold hover:bg-none"> 
+    <button
+        @click="copyToClipboard(recipeToText())"
+        type='button'
+        class="p-3 flex items-center gap-2 cursor-pointer rounded-sm bg-blue-500 dark:border-blue-500 border-1 font-bold hover:bg-none">
         <LinkIcon class="size-4"/> Copy Recipe to Text
     </button>
 </template>

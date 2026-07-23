@@ -25,6 +25,7 @@ class RecipeResource extends JsonResource
             'difficulty' => $this->difficulty,
             'image_path' => $this->image_path,
             'user_id' => $this->user_id,
+            'user' => $this->user,
             'ingredients' => IngredientResource::collection($this->ingredients),
             'steps' => $this->steps,
             'tags' => $this->tags,

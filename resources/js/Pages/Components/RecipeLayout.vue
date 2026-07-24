@@ -10,6 +10,7 @@ import ProfilePicture from './ProfilePicture.vue';
 import Toast from './Toast.vue';
 import { Cog6ToothIcon, HeartIcon, PlusIcon } from '@heroicons/vue/16/solid';
 import UserReputation from './UserReputation.vue';
+import UpdateModal from './UpdateModal.vue';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -99,5 +100,6 @@ if (!page.props.auth.user.id)
     </main>
     <AppFooter/>
     <Toast/>
+    <UpdateModal/>
 
 </template>
